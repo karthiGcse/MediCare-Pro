@@ -978,16 +978,18 @@
         }
 
         function getClientDoctorsFallback(q) {
-            const query = (q || '').toLowerCase();
+            const query = (q || '').toLowerCase().trim();
             const list = [
+                // Chennai
                 {
                     displayName: { text: "Dr. A. Sundaram (Senior Consultant Physician)" },
-                    formattedAddress: "Apollo Hospitals, Greams Lane, Thousand Lights, Chennai, Tamil Nadu 600006",
+                    formattedAddress: "Apollo Hospitals, 21 Greams Lane, Thousand Lights, Chennai, Tamil Nadu 600006",
                     rating: 4.8,
                     userRatingCount: 520,
                     nationalPhoneNumber: "044 2829 0200",
                     googleMapsUri: "https://maps.google.com/?q=Apollo+Hospital+Greams+Road+Chennai",
-                    city: "chennai"
+                    city: "chennai",
+                    specialty: "general physician internal medicine doctor"
                 },
                 {
                     displayName: { text: "Dr. R. Meenakshi (Consultant Pediatrician)" },
@@ -996,8 +998,50 @@
                     userRatingCount: 410,
                     nationalPhoneNumber: "044 4012 3456",
                     googleMapsUri: "https://maps.google.com/?q=Rainbow+Childrens+Hospital+Chennai",
-                    city: "chennai"
+                    city: "chennai",
+                    specialty: "pediatrician child child specialist doctor"
                 },
+                {
+                    displayName: { text: "Dr. S. Thanikachalam (Senior Cardiologist)" },
+                    formattedAddress: "Sri Ramachandra Medical Centre, Mount Poonamallee Rd, Porur, Chennai, Tamil Nadu 600116",
+                    rating: 4.9,
+                    userRatingCount: 780,
+                    nationalPhoneNumber: "044 4592 8500",
+                    googleMapsUri: "https://maps.google.com/?q=Sri+Ramachandra+Medical+Centre+Porur",
+                    city: "chennai",
+                    specialty: "cardiologist heart cardiac doctor"
+                },
+                {
+                    displayName: { text: "Dr. P. Balaji (Consultant Dental & Maxillofacial Surgeon)" },
+                    formattedAddress: "Balaji Dental Hospital, 30 KB Dasan Rd, Teynampet, Chennai, Tamil Nadu 600018",
+                    rating: 4.8,
+                    userRatingCount: 430,
+                    nationalPhoneNumber: "044 2432 0707",
+                    googleMapsUri: "https://maps.google.com/?q=Balaji+Dental+Hospital+Chennai",
+                    city: "chennai",
+                    specialty: "dentist dental teeth doctor"
+                },
+                {
+                    displayName: { text: "Dr. K. S. Santhanakrishnan (Chief Dermatologist)" },
+                    formattedAddress: "Apollo Specialty Hospital, Anna Nagar, Chennai, Tamil Nadu 600040",
+                    rating: 4.7,
+                    userRatingCount: 390,
+                    nationalPhoneNumber: "044 2626 5000",
+                    googleMapsUri: "https://maps.google.com/?q=Apollo+Hospital+Anna+Nagar",
+                    city: "chennai",
+                    specialty: "dermatologist skin hair doctor"
+                },
+                {
+                    displayName: { text: "Dr. Mohan Kameswaran (Senior ENT Surgeon)" },
+                    formattedAddress: "Madras ENT Research Foundation (MERF), 1 1st Cross St, Off TTK Rd, Chennai 600028",
+                    rating: 4.9,
+                    userRatingCount: 860,
+                    nationalPhoneNumber: "044 2431 1411",
+                    googleMapsUri: "https://maps.google.com/?q=Madras+ENT+Research+Foundation",
+                    city: "chennai",
+                    specialty: "ent ear nose throat doctor"
+                },
+                // Coimbatore
                 {
                     displayName: { text: "Dr. K. Senthil Nathan (Chief Cardiologist)" },
                     formattedAddress: "Kovai Medical Center and Hospital (KMCH), Avinashi Rd, Coimbatore, Tamil Nadu 641014",
@@ -1005,17 +1049,40 @@
                     userRatingCount: 680,
                     nationalPhoneNumber: "0422 432 3800",
                     googleMapsUri: "https://maps.google.com/?q=KMCH+Coimbatore",
-                    city: "coimbatore"
+                    city: "coimbatore",
+                    specialty: "cardiologist heart cardiac doctor"
                 },
                 {
-                    displayName: { text: "Dr. S. Rajasekaran (Orthopedic Spine Surgeon)" },
-                    formattedAddress: "Ganga Medical Centre & Hospitals, Mettupalayam Rd, Coimbatore, Tamil Nadu 641043",
+                    displayName: { text: "Dr. S. Rajasekaran (Chief Orthopedic & Spine Surgeon)" },
+                    formattedAddress: "Ganga Medical Centre & Hospitals, 313 Mettupalayam Rd, Coimbatore, Tamil Nadu 641043",
                     rating: 4.9,
                     userRatingCount: 920,
                     nationalPhoneNumber: "0422 248 5000",
                     googleMapsUri: "https://maps.google.com/?q=Ganga+Hospital+Coimbatore",
-                    city: "coimbatore"
+                    city: "coimbatore",
+                    specialty: "orthopedic bone spine joint doctor"
                 },
+                {
+                    displayName: { text: "Dr. M. S. Ravi (Dental Specialist & Orthodontist)" },
+                    formattedAddress: "Smile Dental Hospital, D.B. Road, RS Puram, Coimbatore, Tamil Nadu 641002",
+                    rating: 4.8,
+                    userRatingCount: 310,
+                    nationalPhoneNumber: "0422 254 3322",
+                    googleMapsUri: "https://maps.google.com/?q=Smile+Dental+Hospital+Coimbatore",
+                    city: "coimbatore",
+                    specialty: "dentist dental teeth doctor"
+                },
+                {
+                    displayName: { text: "Dr. Priya Ramachandran (Pediatric Care Specialist)" },
+                    formattedAddress: "Sri Ramakrishna Hospital, Avarampalayam Rd, Coimbatore, Tamil Nadu 641044",
+                    rating: 4.8,
+                    userRatingCount: 470,
+                    nationalPhoneNumber: "0422 450 0000",
+                    googleMapsUri: "https://maps.google.com/?q=Sri+Ramakrishna+Hospital+Coimbatore",
+                    city: "coimbatore",
+                    specialty: "pediatrician child baby doctor"
+                },
+                // Erode
                 {
                     displayName: { text: "Dr. M. Deepa (Senior Dermatologist)" },
                     formattedAddress: "Lotus Speciality Clinic, Poondurai Rd, Erode, Tamil Nadu 638002",
@@ -1023,19 +1090,114 @@
                     userRatingCount: 290,
                     nationalPhoneNumber: "0424 228 2828",
                     googleMapsUri: "https://maps.google.com/?q=Lotus+Hospital+Erode",
-                    city: "erode"
+                    city: "erode",
+                    specialty: "dermatologist skin hair doctor"
                 },
                 {
                     displayName: { text: "Dr. V. Karthikeyan (General Medicine & Diabetologist)" },
-                    formattedAddress: "Care 24 Medical Centre, Brough Rd, Erode, Tamil Nadu 638001",
+                    formattedAddress: "Care 24 Medical Centre, Brough Rd, Erode Fort, Erode, Tamil Nadu 638001",
                     rating: 4.8,
                     userRatingCount: 340,
                     nationalPhoneNumber: "0424 225 8352",
                     googleMapsUri: "https://maps.google.com/?q=Erode+GH",
-                    city: "erode"
+                    city: "erode",
+                    specialty: "general physician doctor diabetes medicine"
+                },
+                // Tirupur
+                {
+                    displayName: { text: "Dr. C. S. Murugan (Consultant Physician & Cardiologist)" },
+                    formattedAddress: "Revathi Medical Center, Valipalayam, Tirupur, Tamil Nadu 641601",
+                    rating: 4.7,
+                    userRatingCount: 310,
+                    nationalPhoneNumber: "0421 222 2222",
+                    googleMapsUri: "https://maps.google.com/?q=Revathi+Medical+Center+Tirupur",
+                    city: "tirupur",
+                    specialty: "cardiologist general physician heart doctor"
+                },
+                {
+                    displayName: { text: "Dr. S. Murugesan (Senior Orthopedic Surgeon)" },
+                    formattedAddress: "Tirupur Government Headquarters Hospital, College Rd, Tirupur 641602",
+                    rating: 4.5,
+                    userRatingCount: 240,
+                    nationalPhoneNumber: "0421 224 2000",
+                    googleMapsUri: "https://maps.google.com/?q=Tirupur+Government+Hospital",
+                    city: "tirupur",
+                    specialty: "orthopedic bone joint doctor"
+                },
+                // Madurai
+                {
+                    displayName: { text: "Dr. N. Sethuraman (Senior Urologist & Transplant Surgeon)" },
+                    formattedAddress: "Meenakshi Mission Hospital, Melur Rd, Madurai, Tamil Nadu 625107",
+                    rating: 4.8,
+                    userRatingCount: 560,
+                    nationalPhoneNumber: "0452 258 8741",
+                    googleMapsUri: "https://maps.google.com/?q=Meenakshi+Mission+Hospital+Madurai",
+                    city: "madurai",
+                    specialty: "urologist kidney surgeon doctor"
+                },
+                {
+                    displayName: { text: "Dr. R. Sivakumar (Chief Neurologist)" },
+                    formattedAddress: "Apollo Speciality Hospitals, Lake View Rd, KK Nagar, Madurai, Tamil Nadu 625020",
+                    rating: 4.8,
+                    userRatingCount: 420,
+                    nationalPhoneNumber: "0452 258 0880",
+                    googleMapsUri: "https://maps.google.com/?q=Apollo+Speciality+Hospital+Madurai",
+                    city: "madurai",
+                    specialty: "neurologist brain nerve doctor"
+                },
+                // Salem
+                {
+                    displayName: { text: "Dr. G. Mohan (Chief Consultant Physician)" },
+                    formattedAddress: "Manipal Hospital Salem, Bangalore Highway, Dalmia Board, Salem 636012",
+                    rating: 4.6,
+                    userRatingCount: 380,
+                    nationalPhoneNumber: "0427 234 6666",
+                    googleMapsUri: "https://maps.google.com/?q=Manipal+Hospital+Salem",
+                    city: "salem",
+                    specialty: "general physician internal medicine doctor"
+                },
+                {
+                    displayName: { text: "Dr. K. Saravanan (Senior Cardiologist)" },
+                    formattedAddress: "SKS Hospital, SKS Hospital Rd, Fairlands, Salem, Tamil Nadu 636016",
+                    rating: 4.7,
+                    userRatingCount: 310,
+                    nationalPhoneNumber: "0427 244 4444",
+                    googleMapsUri: "https://maps.google.com/?q=SKS+Hospital+Salem",
+                    city: "salem",
+                    specialty: "cardiologist heart doctor"
+                },
+                // Bangalore
+                {
+                    displayName: { text: "Dr. Devi Prasad Shetty (Chief Cardiac Surgeon)" },
+                    formattedAddress: "Narayana Institute of Cardiac Sciences, 258/A Bommasandra, Bengaluru, Karnataka 560099",
+                    rating: 4.9,
+                    userRatingCount: 1420,
+                    nationalPhoneNumber: "080 7122 2222",
+                    googleMapsUri: "https://maps.google.com/?q=Narayana+Health+City+Bangalore",
+                    city: "bangalore",
+                    specialty: "cardiologist heart cardiac surgeon doctor"
+                },
+                {
+                    displayName: { text: "Dr. Pratima Murthy (Director & Senior Neuropsychiatrist)" },
+                    formattedAddress: "NIMHANS, Hosur Rd, Lakkasandra, Bengaluru, Karnataka 560029",
+                    rating: 4.9,
+                    userRatingCount: 1100,
+                    nationalPhoneNumber: "080 2699 5000",
+                    googleMapsUri: "https://maps.google.com/?q=NIMHANS+Bangalore",
+                    city: "bangalore",
+                    specialty: "neurologist psychiatrist mental health doctor"
                 }
             ];
-            const matched = list.filter(d => query.includes(d.city) || d.displayName.text.toLowerCase().includes(query));
+
+            if (!query) return list;
+
+            // Intelligent multi-token matching (matches city, specialty, doctor name, hospital)
+            const words = query.split(/\s+/).filter(w => w.length > 1);
+            const matched = list.filter(d => {
+                const combined = `${d.city} ${d.specialty} ${d.displayName.text} ${d.formattedAddress}`.toLowerCase();
+                return words.some(w => combined.includes(w));
+            });
+
             return matched.length ? matched : list;
         }
 

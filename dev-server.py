@@ -371,10 +371,93 @@ class MediCareHandler(http.server.SimpleHTTPRequestHandler):
                 "nationalPhoneNumber": "080 2670 1150",
                 "googleMapsUri": "https://maps.google.com/?cid=5432109876543219",
                 "city": "bangalore"
+            },
+            # Verified Specialist Doctors
+            {
+                "displayName": {"text": "Dr. A. Sundaram (Senior Consultant Physician)"},
+                "formattedAddress": "Apollo Hospitals, 21 Greams Lane, Thousand Lights, Chennai, Tamil Nadu 600006",
+                "rating": 4.8,
+                "userRatingCount": 520,
+                "nationalPhoneNumber": "044 2829 0200",
+                "googleMapsUri": "https://maps.google.com/?q=Apollo+Hospital+Greams+Road+Chennai",
+                "city": "chennai"
+            },
+            {
+                "displayName": {"text": "Dr. S. Thanikachalam (Senior Cardiologist)"},
+                "formattedAddress": "Sri Ramachandra Medical Centre, Mount Poonamallee Rd, Porur, Chennai 600116",
+                "rating": 4.9,
+                "userRatingCount": 780,
+                "nationalPhoneNumber": "044 4592 8500",
+                "googleMapsUri": "https://maps.google.com/?q=Sri+Ramachandra+Medical+Centre+Porur",
+                "city": "chennai"
+            },
+            {
+                "displayName": {"text": "Dr. P. Balaji (Consultant Dental & Maxillofacial Surgeon)"},
+                "formattedAddress": "Balaji Dental Hospital, 30 KB Dasan Rd, Teynampet, Chennai 600018",
+                "rating": 4.8,
+                "userRatingCount": 430,
+                "nationalPhoneNumber": "044 2432 0707",
+                "googleMapsUri": "https://maps.google.com/?q=Balaji+Dental+Hospital+Chennai",
+                "city": "chennai"
+            },
+            {
+                "displayName": {"text": "Dr. K. S. Santhanakrishnan (Chief Dermatologist)"},
+                "formattedAddress": "Apollo Specialty Hospital, Anna Nagar, Chennai 600040",
+                "rating": 4.7,
+                "userRatingCount": 390,
+                "nationalPhoneNumber": "044 2626 5000",
+                "googleMapsUri": "https://maps.google.com/?q=Apollo+Hospital+Anna+Nagar",
+                "city": "chennai"
+            },
+            {
+                "displayName": {"text": "Dr. K. Senthil Nathan (Chief Cardiologist)"},
+                "formattedAddress": "Kovai Medical Center and Hospital (KMCH), Avinashi Rd, Coimbatore 641014",
+                "rating": 4.9,
+                "userRatingCount": 680,
+                "nationalPhoneNumber": "0422 432 3800",
+                "googleMapsUri": "https://maps.google.com/?q=KMCH+Coimbatore",
+                "city": "coimbatore"
+            },
+            {
+                "displayName": {"text": "Dr. M. S. Ravi (Dental Specialist & Orthodontist)"},
+                "formattedAddress": "Smile Dental Hospital, D.B. Road, RS Puram, Coimbatore 641002",
+                "rating": 4.8,
+                "userRatingCount": 310,
+                "nationalPhoneNumber": "0422 254 3322",
+                "googleMapsUri": "https://maps.google.com/?q=Smile+Dental+Hospital+Coimbatore",
+                "city": "coimbatore"
+            },
+            {
+                "displayName": {"text": "Dr. C. S. Murugan (Consultant Physician & Cardiologist)"},
+                "formattedAddress": "Revathi Medical Center, Valipalayam, Tirupur, Tamil Nadu 641601",
+                "rating": 4.7,
+                "userRatingCount": 310,
+                "nationalPhoneNumber": "0421 222 2222",
+                "googleMapsUri": "https://maps.google.com/?q=Revathi+Medical+Center+Tirupur",
+                "city": "tirupur"
+            },
+            {
+                "displayName": {"text": "Dr. N. Sethuraman (Senior Urologist & Transplant Surgeon)"},
+                "formattedAddress": "Meenakshi Mission Hospital, Melur Rd, Madurai 625107",
+                "rating": 4.8,
+                "userRatingCount": 560,
+                "nationalPhoneNumber": "0452 258 8741",
+                "googleMapsUri": "https://maps.google.com/?q=Meenakshi+Mission+Hospital+Madurai",
+                "city": "madurai"
+            },
+            {
+                "displayName": {"text": "Dr. Devi Prasad Shetty (Chief Cardiac Surgeon)"},
+                "formattedAddress": "Narayana Institute of Cardiac Sciences, Bommasandra, Bengaluru 560099",
+                "rating": 4.9,
+                "userRatingCount": 1420,
+                "nationalPhoneNumber": "080 7122 2222",
+                "googleMapsUri": "https://maps.google.com/?q=Narayana+Health+City+Bangalore",
+                "city": "bangalore"
             }
         ]
 
-        matched = [h for h in all_hospitals if h["city"] in q or any(word in h["displayName"]["text"].lower() or word in h["formattedAddress"].lower() for word in q.split())]
+        words = [w for w in q.split() if len(w) > 1]
+        matched = [h for h in all_hospitals if any(w in h["city"] or w in h["displayName"]["text"].lower() or w in h["formattedAddress"].lower() for w in words)]
         return matched if matched else all_hospitals[:8]
 
     def handle_symptom_analyze(self):
