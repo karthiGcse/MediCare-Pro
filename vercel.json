@@ -4,6 +4,7 @@
   "rewrites": [
     { "source": "/", "destination": "/frontend/index.html" },
     { "source": "/dashboard", "destination": "/frontend/dashboard/dashboard.html" },
+    { "source": "/dashboard/(.*)", "destination": "/frontend/dashboard/$1" },
     { "source": "/appointments", "destination": "/frontend/appointments.html" },
     { "source": "/lab-tests", "destination": "/frontend/lab-tests.html" },
     { "source": "/medicines", "destination": "/frontend/medicines.html" },
@@ -15,6 +16,15 @@
     { "source": "/wearables", "destination": "/frontend/wearables.html" },
     { "source": "/health-records", "destination": "/frontend/health-records.html" },
     { "source": "/insurance", "destination": "/frontend/insurance.html" },
-    { "source": "/check-symptoms", "destination": "/frontend/check-symptoms.html" }
+    { "source": "/blood", "destination": "/frontend/blood.html" },
+    { "source": "/nutrition", "destination": "/frontend/nutrition.html" },
+    { "source": "/nearby-services", "destination": "/frontend/nearby-services.html" },
+    { "source": "/prescription-scanner", "destination": "/frontend/prescription-scanner.html" },
+    { "source": "/image-diagnosis", "destination": "/frontend/image-diagnosis.html" },
+    { "source": "/check-symptoms", "destination": "/frontend/check-symptoms.html" },
+    { "source": "/features", "destination": "/frontend/features.html" },
+    { "source": "/feature-center", "destination": "/frontend/feature-center.html" },
+    { "source": "/workspace", "destination": "/frontend/workspace.html" },
+    { "source": "/((?!frontend/).*)", "destination": "/frontend/$1" }
   ]
 }
