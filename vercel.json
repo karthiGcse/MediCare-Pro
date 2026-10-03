@@ -1,0 +1,20 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/frontend/index.html" },
+    { "source": "/dashboard", "destination": "/frontend/dashboard/dashboard.html" },
+    { "source": "/appointments", "destination": "/frontend/appointments.html" },
+    { "source": "/lab-tests", "destination": "/frontend/lab-tests.html" },
+    { "source": "/medicines", "destination": "/frontend/medicines.html" },
+    { "source": "/mental-health", "destination": "/frontend/mental-health.html" },
+    { "source": "/telemedicine", "destination": "/frontend/telemedicine.html" },
+    { "source": "/global-telemedicine", "destination": "/frontend/global-telemedicine.html" },
+    { "source": "/hospital-queue", "destination": "/frontend/hospital-queue.html" },
+    { "source": "/family-health", "destination": "/frontend/family-health.html" },
+    { "source": "/wearables", "destination": "/frontend/wearables.html" },
+    { "source": "/health-records", "destination": "/frontend/health-records.html" },
+    { "source": "/insurance", "destination": "/frontend/insurance.html" },
+    { "source": "/check-symptoms", "destination": "/frontend/check-symptoms.html" }
+  ]
+}
