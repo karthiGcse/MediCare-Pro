@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Home lab test kit">
+  <defs>
+    <linearGradient id="bg5" x1="0" x2="1">
+      <stop offset="0%" stop-color="#edf6ff"/>
+      <stop offset="100%" stop-color="#dfeaf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg5)"/>
+  <rect x="54" y="68" width="270" height="150" rx="16" fill="#f9fcff" stroke="#9abed5" stroke-width="2"/>
+  <rect x="74" y="92" width="144" height="106" rx="12" fill="#eaf5ff" stroke="#8dc0e8" stroke-width="2"/>
+  <rect x="92" y="106" width="88" height="14" rx="7" fill="#8ec5e3"/>
+  <rect x="92" y="130" width="108" height="8" rx="4" fill="#bad9ee"/>
+  <rect x="92" y="146" width="88" height="8" rx="4" fill="#bad9ee"/>
+  <rect x="220" y="92" width="66" height="100" rx="16" fill="#dff1ff" stroke="#8dbfe0" stroke-width="2"/>
+  <path d="M238 110h28v62h-28z" fill="#bfe2f7"/>
+  <rect x="245" y="120" width="14" height="40" rx="4" fill="#7cb6dd"/>
+  <rect x="72" y="214" width="250" height="18" rx="9" fill="#7bb0d7" opacity="0.9"/>
+  <g transform="translate(150 180)">
+    <rect x="0" y="0" width="18" height="52" rx="8" fill="#71b3d8"/>
+    <rect x="24" y="0" width="18" height="52" rx="8" fill="#58a6d9"/>
+    <rect x="48" y="0" width="18" height="52" rx="8" fill="#8cd3d0"/>
+  </g>
+  <g transform="translate(242 200)">
+    <path d="M10 0h36v18H10z" fill="#8fcfe7"/>
+    <path d="M18 18h20v50H18z" fill="#8fcfe7"/>
+  </g>
+</svg>

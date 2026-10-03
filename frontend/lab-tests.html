@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Lab Tests & Doorstep Diagnostics | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #2563eb; 
+            --primary-light: #eff6ff; 
+            --primary-dark: #1d4ed8;
+            --primary-border: #bfdbfe;
+            --emerald: #059669; 
+            --emerald-light: #ecfdf5; 
+            --emerald-border: #a7f3d0;
+            --amber: #d97706; 
+            --amber-light: #fffbeb;
+            --amber-border: #fde68a;
+            --purple: #7c3aed;
+            --purple-light: #f5f3ff;
+            --purple-border: #ddd6fe;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; 
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--emerald), #047857); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(5,150,105,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--emerald); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--emerald-light); 
+            color: var(--emerald); 
+            border-color: var(--emerald-border); 
+        }
+
+        /* MAIN CONTAINER */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--emerald-light); 
+            border: 1px solid var(--emerald-border); 
+            color: var(--emerald); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--emerald); }
+        .hero p { color: var(--gray-500); max-width: 700px; margin: 0 auto; font-size: 15px; }
+
+        /* TAB BAR */
+        .tab-bar {
+            display: flex;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--emerald-light);
+            color: var(--emerald);
+            font-weight: 700;
+            box-shadow: var(--shadow-xs);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn .25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PACKAGES GRID */
+        .pkg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .pkg-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .25s ease;
+            position: relative;
+        }
+        .pkg-card:hover {
+            border-color: var(--emerald-border);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .pkg-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .pkg-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .pkg-badge.popular { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .pkg-badge.fasting { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+        .pkg-badge.routine { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+        .pkg-title { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .pkg-meta { font-size: 12px; color: var(--gray-500); display: flex; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+        .pkg-meta span { display: inline-flex; align-items: center; gap: 4px; }
+        
+        .param-list {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            color: var(--gray-700);
+        }
+        .param-list strong { color: var(--gray-900); display: block; margin-bottom: 4px; }
+        .param-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .param-chip {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--gray-600);
+        }
+
+        .pkg-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--gray-200);
+        }
+        .price-now { font-size: 24px; font-weight: 800; color: var(--emerald); }
+        .price-old { font-size: 14px; color: var(--gray-400); text-decoration: line-through; }
+        .price-discount { font-size: 12px; font-weight: 700; color: var(--rose); background: var(--rose-light); padding: 2px 6px; border-radius: 4px; }
+
+        .btn-book-home {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--emerald);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(5,150,105,.25);
+        }
+        .btn-book-home:hover {
+            background: #047857;
+            transform: translateY(-1px);
+        }
+
+        /* SEARCH & FILTER BAR */
+        .filter-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .search-input-wrap {
+            position: relative;
+            flex: 1;
+        }
+        .search-input-wrap svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1px solid var(--gray-300);
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color .2s;
+            background: var(--gray-50);
+        }
+        .search-input:focus {
+            border-color: var(--emerald);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(5,150,105,.12);
+        }
+        .btn-search {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            background: var(--emerald);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+        .btn-search:hover { background: #047857; }
+
+        .chips-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .chips-label { font-size: 12px; font-weight: 700; color: var(--gray-500); margin-right: 4px; }
+        .chip {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            color: var(--gray-700);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .chip:hover { background: var(--gray-200); }
+        .chip.active {
+            background: var(--emerald);
+            color: #fff;
+            border-color: var(--emerald);
+        }
+
+        /* LABS GRID (GOOGLE PLACES) */
+        .labs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        .lab-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .2s;
+        }
+        .lab-card:hover {
+            border-color: var(--emerald-border);
+            box-shadow: var(--shadow-md);
+        }
+        .lab-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .lab-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
+        .lab-type { font-size: 11px; font-weight: 600; color: var(--emerald); background: var(--emerald-light); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+        .lab-rating {
+            background: #fffbeb;
+            color: #b45309;
+            border: 1px solid #fde68a;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .lab-addr {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin: 10px 0 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .lab-actions {
+            display: flex;
+            gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid var(--gray-100);
+        }
+        .btn-lab-book {
+            flex: 2;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--emerald);
+            background: var(--emerald-light);
+            color: var(--emerald);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all .2s;
+        }
+        .btn-lab-book:hover {
+            background: var(--emerald);
+            color: #fff;
+        }
+        .btn-lab-tel, .btn-lab-dir {
+            flex: 1;
+            padding: 9px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            color: var(--gray-700);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all .2s;
+        }
+        .btn-lab-tel:hover { background: var(--emerald-light); color: var(--emerald); border-color: var(--emerald-border); }
+        .btn-lab-dir:hover { background: var(--gray-100); color: var(--gray-900); }
+
+        /* OFFICIAL CHAINS GRID */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .portal-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .portal-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+        .portal-title { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .portal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 14px; }
+        .portal-features { font-size: 12px; color: var(--gray-600); margin-bottom: 20px; line-height: 1.8; }
+        .portal-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s;
+        }
+
+        /* MY BOOKED TESTS */
+        .sec-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .sec-hdr h2 { font-size: 20px; font-weight: 800; color: var(--gray-900); }
+        .test-record {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-xs);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .record-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+        .record-meta { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .status-scheduled { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .btn-cancel {
+            background: #fee2e2;
+            border: 1px solid #fecdd3;
+            color: #b91c1c;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .btn-cancel:hover { background: #fecdd3; }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn .2s ease-out; }
+        .modal {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            max-width: 520px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .m-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .m-title { font-size: 18px; font-weight: 800; color: var(--gray-900); }
+        .m-close { background: none; border: none; font-size: 24px; color: var(--gray-400); cursor: pointer; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--gray-900);
+            outline: none;
+            transition: border-color .2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px rgba(5,150,105,.12);
+        }
+
+        .state-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--emerald);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .search-row { flex-direction: column; }
+            .pkg-grid, .labs-grid, .portal-grid { grid-template-columns: 1fr; }
+            .tab-btn { min-width: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP NAVIGATION -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a href="dashboard/dashboard.html" class="brand">
+                <div class="brand-icon">🧪</div>
+                <div class="brand-name">MediCare <span>Labs</span></div>
+            </a>
+            <div class="hdr-actions">
+                <a href="dashboard/dashboard.html" class="back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🏠</span> 100% Doorstep Sample Collection Across India
+            </div>
+            <h1>Certified <span>Home Lab Tests</span> & Diagnostics</h1>
+            <p>Book NABL & CAP accredited clinical pathology blood tests with certified phlebotomists visiting your home. 100% barcoded vials, temperature-controlled transit, and digital reports within 12-24 hours.</p>
+        </section>
+
+        <!-- TABS -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('packages', this)">
+                <span>🧪</span> Popular Test Packages
+            </button>
+            <button class="tab-btn" onclick="switchTab('nearby', this)">
+                <span>🏥</span> Nearby Diagnostic Centers
+            </button>
+            <button class="tab-btn" onclick="switchTab('chains', this)">
+                <span>🌐</span> Official NABL Portals
+            </button>
+            <button class="tab-btn" onclick="switchTab('mybookings', this)">
+                <span>📋</span> My Scheduled Tests (<span id="bookingCountBadge">0</span>)
+            </button>
+        </div>
+
+        <!-- TAB 1: POPULAR PACKAGES -->
+        <div class="tab-panel active" id="tab-packages">
+            <div class="pkg-grid">
+                <!-- Package 1: Full Body -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge popular">⭐ Most Popular • 73 Tests</span>
+                            <span class="pkg-badge fasting">10-12h Fasting</span>
+                        </div>
+                        <h3 class="pkg-title">Comprehensive Full Body Checkup</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood + Urine</span>
+                            <span>⏱️ 12-24h Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>Includes 73 Core Clinical Parameters:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">CBC (24)</span>
+                                <span class="param-chip">Lipid Profile (8)</span>
+                                <span class="param-chip">Liver LFT (11)</span>
+                                <span class="param-chip">Kidney KFT (9)</span>
+                                <span class="param-chip">Thyroid TSH (1)</span>
+                                <span class="param-chip">Fasting Sugar (1)</span>
+                                <span class="param-chip">Urine Routine (19)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹999</span>
+                            <span class="price-old">₹2,999</span>
+                            <span class="price-discount">66% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Comprehensive Full Body Checkup (73 Tests)', '₹999', '10-12h Fasting')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 2: Diabetes Screen -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge popular">Diabetic Care</span>
+                            <span class="pkg-badge fasting">8-10h Fasting</span>
+                        </div>
+                        <h3 class="pkg-title">Diabetes Monitoring Profile</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood Sample</span>
+                            <span>⏱️ 12h Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>Includes Key Glycemic Markers:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">HbA1c Glycated Hemoglobin</span>
+                                <span class="param-chip">Fasting Blood Glucose</span>
+                                <span class="param-chip">Estimated Avg Glucose (eAG)</span>
+                                <span class="param-chip">Urine Microalbumin</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹499</span>
+                            <span class="price-old">₹1,200</span>
+                            <span class="price-discount">58% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Diabetes Monitoring Profile (HbA1c + Fasting Sugar)', '₹499', '8-10h Fasting')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 3: Thyroid Profile -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge routine">Hormone Health</span>
+                            <span class="pkg-badge fasting">Morning Sample</span>
+                        </div>
+                        <h3 class="pkg-title">Thyroid Profile Total (T3, T4, TSH)</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood Sample</span>
+                            <span>⏱️ Same Day Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>Complete Thyroid Gland Assessment:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">Total Triiodothyronine (T3)</span>
+                                <span class="param-chip">Total Thyroxine (T4)</span>
+                                <span class="param-chip">Thyroid Stimulating Hormone (TSH)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹399</span>
+                            <span class="price-old">₹850</span>
+                            <span class="price-discount">53% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Thyroid Profile Total (T3, T4, TSH)', '₹399', 'Morning Sample Preferred')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 4: Vitamin Duo -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge popular">Vitality Duo</span>
+                            <span class="pkg-badge routine">No Fasting</span>
+                        </div>
+                        <h3 class="pkg-title">Vitamin Deficiency Profile (D3 + B12)</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood Sample</span>
+                            <span>⏱️ 24h Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>Immunity & Nerve Health:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">Vitamin D3 25-Hydroxy</span>
+                                <span class="param-chip">Vitamin B12 Cyanocobalamin</span>
+                                <span class="param-chip">Bone Health Evaluation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹899</span>
+                            <span class="price-old">₹2,200</span>
+                            <span class="price-discount">59% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Vitamin Deficiency Profile (D3 + B12)', '₹899', 'No Fasting Required')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 5: Complete Hemogram (CBC) -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge routine">Infection & Blood</span>
+                            <span class="pkg-badge routine">No Fasting</span>
+                        </div>
+                        <h3 class="pkg-title">Complete Blood Count (CBC + ESR)</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood Sample</span>
+                            <span>⏱️ 6-12h Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>24 Vital Hematology Parameters:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">Hemoglobin</span>
+                                <span class="param-chip">Platelet Count</span>
+                                <span class="param-chip">Total WBC</span>
+                                <span class="param-chip">Neutrophils & Lymphocytes</span>
+                                <span class="param-chip">ESR</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹299</span>
+                            <span class="price-old">₹600</span>
+                            <span class="price-discount">50% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Complete Blood Count (CBC + ESR)', '₹299', 'No Fasting Required')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package 6: Cardiac Lipid Profile -->
+                <div class="pkg-card">
+                    <div>
+                        <div class="pkg-header">
+                            <span class="pkg-badge fasting">Heart Health</span>
+                            <span class="pkg-badge fasting">12h Fasting</span>
+                        </div>
+                        <h3 class="pkg-title">Lipid Profile (Cholesterol & Triglycerides)</h3>
+                        <div class="pkg-meta">
+                            <span>🩸 Blood Sample</span>
+                            <span>⏱️ Same Day Report</span>
+                            <span>🏠 Free Home Visit</span>
+                        </div>
+                        <div class="param-list">
+                            <strong>8 Cardiovascular Risk Markers:</strong>
+                            <div class="param-chips">
+                                <span class="param-chip">Total Cholesterol</span>
+                                <span class="param-chip">HDL (Good)</span>
+                                <span class="param-chip">LDL (Bad)</span>
+                                <span class="param-chip">Triglycerides</span>
+                                <span class="param-chip">VLDL & Ratios</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pkg-pricing">
+                            <span class="price-now">₹449</span>
+                            <span class="price-old">₹950</span>
+                            <span class="price-discount">52% OFF</span>
+                        </div>
+                        <button class="btn-book-home" onclick="openLabBookingModal('Lipid Profile (Cholesterol & Heart Health)', '₹449', '12h Strict Fasting')">
+                            🏠 Book Home Sample Pickup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEARBY DIAGNOSTIC CENTERS (GOOGLE PLACES LIVE) -->
+        <div class="tab-panel" id="tab-nearby">
+            <div class="filter-box">
+                <div class="search-row">
+                    <div class="search-input-wrap">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <input type="text" id="labSearchInput" class="search-input" placeholder="Search diagnostic centers or pathology labs..." />
+                    </div>
+                    <button class="btn-search" id="btnLabSearch" onclick="searchDiagnosticLabs()">
+                        Search Labs
+                    </button>
+                </div>
+                <div class="chips-row">
+                    <span class="chips-label">Quick City:</span>
+                    <button class="chip active" onclick="setLabCity('Chennai', this)">Chennai</button>
+                    <button class="chip" onclick="setLabCity('Coimbatore', this)">Coimbatore</button>
+                    <button class="chip" onclick="setLabCity('Madurai', this)">Madurai</button>
+                    <button class="chip" onclick="setLabCity('Erode', this)">Erode</button>
+                    <button class="chip" onclick="setLabCity('Salem', this)">Salem</button>
+                    <button class="chip" onclick="setLabCity('Bangalore', this)">Bangalore</button>
+                    <button class="chip" onclick="useCurrentLocationForLabs(this)">📍 Use GPS</button>
+                </div>
+            </div>
+
+            <div class="labs-grid" id="diagnosticGrid">
+                <!-- Dynamically loaded via Google Places API -->
+            </div>
+        </div>
+
+        <!-- TAB 3: OFFICIAL NABL CHAINS -->
+        <div class="tab-panel" id="tab-chains">
+            <div class="portal-grid">
+                <!-- Tata 1mg -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#ecfdf5; color:#059669;">🧪</div>
+                        <h3 class="portal-title">Tata 1mg Labs</h3>
+                        <p class="portal-desc">India's trusted healthcare platform offering certified NABL partner laboratories with phlebotomists trained in painless blood extraction.</p>
+                        <div class="portal-features">
+                            <div>✓ Temperature-controlled sample transport</div>
+                            <div>✓ Free digital report doctor consultation</div>
+                            <div>✓ Home collection slot booking within 60 mins</div>
+                        </div>
+                    </div>
+                    <a href="https://www.1mg.com/labs" target="_blank" rel="noopener" class="portal-btn" style="background:#059669;">
+                        Visit 1mg Labs ↗
+                    </a>
+                </div>
+
+                <!-- Dr Lal PathLabs -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#eff6ff; color:#2563eb;">🔬</div>
+                        <h3 class="portal-title">Dr Lal PathLabs</h3>
+                        <p class="portal-desc">Pioneers in medical diagnostics in India with 250+ centralized labs and 5,000+ collection centers across urban and rural locations.</p>
+                        <div class="portal-features">
+                            <div>✓ 70+ years of clinical pathology excellence</div>
+                            <div>✓ NABL & CAP gold standard accreditation</div>
+                            <div>✓ Swasthfit preventive health packages</div>
+                        </div>
+                    </div>
+                    <a href="https://www.lalpathlabs.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#2563eb;">
+                        Visit Dr Lal PathLabs ↗
+                    </a>
+                </div>
+
+                <!-- Thyrocare -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#fffbeb; color:#d97706;">⚡</div>
+                        <h3 class="portal-title">Thyrocare Direct</h3>
+                        <p class="portal-desc">World's largest automated biochemistry laboratory specializing in preventive health screens and endocrine testing.</p>
+                        <div class="portal-features">
+                            <div>✓ Famous Aarogyam comprehensive profiles</div>
+                            <div>✓ 100% automated Siemens & Roche analyzers</div>
+                            <div>✓ Unmatched volume pricing across India</div>
+                        </div>
+                    </div>
+                    <a href="https://www.thyrocare.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#d97706;">
+                        Visit Thyrocare ↗
+                    </a>
+                </div>
+
+                <!-- Apollo Diagnostics -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#fff1f2; color:#e11d48;">🏥</div>
+                        <h3 class="portal-title">Apollo Diagnostics</h3>
+                        <p class="portal-desc">The diagnostic arm of Apollo Hospitals, delivering reliable laboratory testing backed by super-specialist pathologists.</p>
+                        <div class="portal-features">
+                            <div>✓ Strict 8-stage pre-analytical quality check</div>
+                            <div>✓ Free phlebotomy doorstep visits</div>
+                            <div>✓ Direct integration with Apollo 24|7 records</div>
+                        </div>
+                    </div>
+                    <a href="https://www.apollodiagnostics.in/" target="_blank" rel="noopener" class="portal-btn" style="background:#e11d48;">
+                        Visit Apollo Diagnostics ↗
+                    </a>
+                </div>
+
+                <!-- Metropolis Healthcare -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#f5f3ff; color:#7c3aed;">🧬</div>
+                        <h3 class="portal-title">Metropolis Healthcare</h3>
+                        <p class="portal-desc">Leading diagnostic chain offering 4,000+ routine and specialized esoteric pathology tests with CAP global standards.</p>
+                        <div class="portal-features">
+                            <div>✓ Specialized molecular biology & oncology tests</div>
+                            <div>✓ Home collection tracking via SMS</div>
+                            <div>✓ Experienced senior pathologists review</div>
+                        </div>
+                    </div>
+                    <a href="https://www.metropolisindia.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#7c3aed;">
+                        Visit Metropolis ↗
+                    </a>
+                </div>
+
+                <!-- Redcliffe Labs -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#f8fafc; color:#334155; border:1px solid #cbd5e1;">🩺</div>
+                        <h3 class="portal-title">Redcliffe Labs</h3>
+                        <p class="portal-desc">Rapid diagnostic network guaranteeing fast sample collection with smart temperature bags and live GPS tracking of the phlebotomist.</p>
+                        <div class="portal-features">
+                            <div>✓ 45-minute home sample collection guarantee</div>
+                            <div>✓ Barcoded vacutainers for 0% mixup</div>
+                            <div>✓ Free diet and report consultation</div>
+                        </div>
+                    </div>
+                    <a href="https://redcliffelabs.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#334155;">
+                        Visit Redcliffe Labs ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: MY SCHEDULED TESTS -->
+        <div class="tab-panel" id="tab-mybookings">
+            <div class="sec-hdr">
+                <div>
+                    <h2>My Scheduled Home Lab Tests</h2>
+                    <p style="font-size:13px; color:var(--gray-500); margin-top:2px;">Track your confirmed doorstep phlebotomist appointments.</p>
+                </div>
+                <button class="back-btn" onclick="loadMyLabBookings()" style="padding:6px 12px; font-size:12px;">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="myLabBookingsList">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </main>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-overlay" id="labModal">
+        <div class="modal">
+            <div class="m-hdr">
+                <h3 class="m-title">Schedule Home Sample Pickup</h3>
+                <button class="m-close" onclick="closeLabModal()">×</button>
+            </div>
+
+            <div class="form-group">
+                <label>Selected Test / Package</label>
+                <input type="text" id="mTestName" readonly style="font-weight:700; color:var(--gray-900); background:var(--gray-50);" />
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Package Price</label>
+                    <input type="text" id="mTestPrice" readonly style="font-weight:700; color:var(--emerald); background:var(--gray-50);" />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Fasting Protocol</label>
+                    <input type="text" id="mTestFasting" readonly style="font-size:12px; font-weight:600; color:var(--amber); background:var(--gray-50);" />
+                </div>
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:2;">
+                    <label>Patient Full Name</label>
+                    <input type="text" id="mPatientName" placeholder="e.g. Karthik S" required />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Age</label>
+                    <input type="number" id="mPatientAge" placeholder="Age" min="1" max="120" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Phone (For Phlebotomist SMS/Call)</label>
+                <input type="tel" id="mPatientPhone" placeholder="10-digit mobile number" required />
+            </div>
+
+            <div class="form-group">
+                <label>Doorstep Pickup Address</label>
+                <textarea id="mPatientAddress" rows="2" placeholder="House/Flat No, Street, Landmark, Pincode" required></textarea>
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Collection Date</label>
+                    <input type="date" id="mPickupDate" required />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Morning Time Slot</label>
+                    <select id="mPickupSlot">
+                        <option value="06:30 AM - 07:30 AM">06:30 AM - 07:30 AM (Recommended for Fasting)</option>
+                        <option value="07:30 AM - 08:30 AM" selected>07:30 AM - 08:30 AM</option>
+                        <option value="08:30 AM - 09:30 AM">08:30 AM - 09:30 AM</option>
+                        <option value="09:30 AM - 10:30 AM">09:30 AM - 10:30 AM</option>
+                        <option value="10:30 AM - 12:00 PM">10:30 AM - 12:00 PM (Non-Fasting only)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-book-home" id="btnConfirmPickup" style="margin-top:10px; padding:13px;" onclick="confirmLabBooking()">
+                Confirm Free Home Sample Pickup
+            </button>
+        </div>
+    </div>
+
+    <!-- FIREBASE INTEGRATION SCRIPT -->
+    <script src="js/firebase-config.js"></script>
+    <script type="module" src="js/firebase-client.js"></script>
+    <script src="js/cloud-auth.js"></script>
+
+    <script>
+        let currentUser = null;
+        let cloudDb = null;
+        let addDocFunc = null;
+        let collectionFunc = null;
+        let serverTimestampFunc = null;
+
+        let activeCity = 'Chennai';
+        let currentLabs = [];
+
+        // Tab Switching
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+
+            if (tabId === 'nearby' && (!currentLabs || currentLabs.length === 0)) {
+                searchDiagnosticLabs();
+            }
+        }
+
+        // City Chips
+        function setLabCity(city, el) {
+            activeCity = city;
+            document.querySelectorAll('.chips-row .chip').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+            document.getElementById('labSearchInput').value = `Diagnostic Centre in ${city}`;
+            searchDiagnosticLabs();
+        }
+
+        function useCurrentLocationForLabs(el) {
+            if (navigator.geolocation) {
+                if (el) {
+                    document.querySelectorAll('.chips-row .chip').forEach(c => c.classList.remove('active'));
+                    el.classList.add('active');
+                }
+                navigator.geolocation.getCurrentPosition(
+                    pos => {
+                        fetchNearbyLabs(pos.coords.latitude, pos.coords.longitude);
+                    },
+                    err => {
+                        console.warn('GPS error, falling back to city search:', err);
+                        searchDiagnosticLabs();
+                    },
+                    { timeout: 7000 }
+                );
+            } else {
+                searchDiagnosticLabs();
+            }
+        }
+
+        // Google Places Search for Diagnostic Labs
+        async function searchDiagnosticLabs() {
+            const query = (document.getElementById('labSearchInput').value || '').trim() || `Diagnostic Centre in ${activeCity}`;
+            const grid = document.getElementById('diagnosticGrid');
+            const btn = document.getElementById('btnLabSearch');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="state-spinner" style="width:14px;height:14px;border-width:2px;margin:0;display:inline-block;vertical-align:middle;"></span> Searching...`;
+
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                    <div class="state-spinner"></div>
+                    <div>Finding verified diagnostic centers in "${escapeHtml(query)}"...</div>
+                </div>
+            `;
+
+            try {
+                const resp = await fetch(`/api/places/search?q=${encodeURIComponent(query)}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                currentLabs = data.results || [];
+                renderLabs(currentLabs);
+            } catch (err) {
+                console.error('Labs search error:', err);
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                        <div style="font-size:32px; margin-bottom:8px;">⚠️</div>
+                        <div style="font-weight:700; color:var(--gray-900);">Unable to load live diagnostic centers</div>
+                        <p style="font-size:13px; margin-top:4px;">Please check if dev-server.py is running on http://127.0.0.1:3000</p>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `Search Labs`;
+            }
+        }
+
+        async function fetchNearbyLabs(lat, lng) {
+            const grid = document.getElementById('diagnosticGrid');
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                    <div class="state-spinner"></div>
+                    <div>Locating pathology labs within 10 km of your coordinates...</div>
+                </div>
+            `;
+            try {
+                const resp = await fetch(`/api/places/nearby?lat=${lat}&lng=${lng}&type=medical_lab`);
+                const data = await resp.json();
+                currentLabs = data.results || [];
+                renderLabs(currentLabs);
+            } catch (e) {
+                searchDiagnosticLabs();
+            }
+        }
+
+        function renderLabs(labs) {
+            const grid = document.getElementById('diagnosticGrid');
+            if (!labs.length) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                        <div style="font-size:28px; margin-bottom:6px;">🔍</div>
+                        <div style="font-weight:700; color:var(--gray-900);">No diagnostic centers found</div>
+                        <p style="font-size:13px;">Try selecting another city like Chennai, Coimbatore, or Madurai.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = labs.map((p, idx) => {
+                const name = p.displayName?.text || 'Diagnostic Pathology Lab';
+                const addr = p.formattedAddress || 'Address available on map';
+                const rating = p.rating ? p.rating.toFixed(1) : null;
+                const reviews = p.userRatingCount || 0;
+                const phone = p.nationalPhoneNumber || '';
+                const mapUrl = p.googleMapsUri || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + addr)}`;
+                const type = p.primaryTypeDisplayName?.text || 'Pathology & Diagnostic Centre';
+
+                return `
+                    <div class="lab-card">
+                        <div>
+                            <div class="lab-top">
+                                <div>
+                                    <h3 class="lab-title">${escapeHtml(name)}</h3>
+                                    <span class="lab-type">${escapeHtml(type)}</span>
+                                </div>
+                                ${rating ? `
+                                    <span class="lab-rating" title="${reviews} patient ratings on Google">
+                                        ⭐ ${rating}
+                                    </span>
+                                ` : ''}
+                            </div>
+                            <div class="lab-addr">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>${escapeHtml(addr)}</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-actions">
+                            <button class="btn-lab-book" onclick="openLabBookingModal('${escapeHtml(name)} Home Collection', '₹499 (Standard)', 'Fasting based on test')">
+                                🏠 Book Pickup
+                            </button>
+                            ${phone ? `
+                                <a href="tel:${escapeHtml(phone)}" class="btn-lab-tel" title="Call Lab">
+                                    📞 Call
+                                </a>
+                            ` : ''}
+                            <a href="${mapUrl}" target="_blank" rel="noopener" class="btn-lab-dir" title="View Directions">
+                                🗺️ Map
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Modal Handlers
+        function openLabBookingModal(testName, price, fasting) {
+            document.getElementById('mTestName').value = testName;
+            document.getElementById('mTestPrice').value = price;
+            document.getElementById('mTestFasting').value = fasting;
+
+            // Set default date to tomorrow
+            const tmrw = new Date();
+            tmrw.setDate(tmrw.getDate() + 1);
+            document.getElementById('mPickupDate').value = tmrw.toISOString().slice(0, 10);
+
+            document.getElementById('labModal').classList.add('active');
+        }
+
+        function closeLabModal() {
+            document.getElementById('labModal').classList.remove('active');
+        }
+
+        // Local Storage for Scheduled Tests
+        function getLocalLabBookings() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_lab_bookings') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLocalLabBookings(list) {
+            localStorage.setItem('medicare_lab_bookings', JSON.stringify(list));
+            updateBadge();
+        }
+
+        function updateBadge() {
+            const list = getLocalLabBookings();
+            const badge = document.getElementById('bookingCountBadge');
+            if (badge) badge.textContent = list.length;
+        }
+
+        async function confirmLabBooking() {
+            const testName = document.getElementById('mTestName').value;
+            const price = document.getElementById('mTestPrice').value;
+            const fasting = document.getElementById('mTestFasting').value;
+            const patientName = document.getElementById('mPatientName').value.trim();
+            const age = document.getElementById('mPatientAge').value.trim();
+            const phone = document.getElementById('mPatientPhone').value.trim();
+            const address = document.getElementById('mPatientAddress').value.trim();
+            const pickupDate = document.getElementById('mPickupDate').value;
+            const pickupSlot = document.getElementById('mPickupSlot').value;
+
+            if (!patientName || !phone || !address || !pickupDate) {
+                alert('Please fill in patient name, contact number, doorstep address, and collection date.');
+                return;
+            }
+
+            const btn = document.getElementById('btnConfirmPickup');
+            btn.disabled = true;
+            btn.textContent = 'Scheduling Pickup...';
+
+            const bookingItem = {
+                id: 'lab_' + Date.now(),
+                testName,
+                price,
+                fasting,
+                patientName,
+                age,
+                phone,
+                address,
+                pickupDate,
+                pickupSlot,
+                status: 'Sample Pickup Scheduled',
+                bookedAt: new Date().toLocaleString()
+            };
+
+            // Save to LocalStorage
+            const list = getLocalLabBookings();
+            list.unshift(bookingItem);
+            saveLocalLabBookings(list);
+
+            // Sync to Firebase if available
+            if (currentUser && cloudDb && addDocFunc) {
+                try {
+                    await addDocFunc(collectionFunc(cloudDb, 'lab_bookings'), {
+                        patientId: currentUser.uid,
+                        ...bookingItem,
+                        createdAt: serverTimestampFunc ? serverTimestampFunc() : new Date().toISOString()
+                    });
+                } catch (e) {
+                    console.warn('Firebase lab sync note:', e);
+                }
+            }
+
+            alert(`✅ Doorstep Sample Pickup Confirmed!\n\nA certified phlebotomist will visit your home on ${pickupDate} during ${pickupSlot}.\n\nInstructions: Please keep 10-12 hours fasting if you booked a fasting profile.`);
+            closeLabModal();
+            loadMyLabBookings();
+
+            btn.disabled = false;
+            btn.textContent = 'Confirm Free Home Sample Pickup';
+
+            // Switch to My Bookings tab
+            const myBookingsBtn = document.querySelector('.tab-bar .tab-btn:nth-child(4)');
+            switchTab('mybookings', myBookingsBtn);
+        }
+
+        function cancelLabBooking(id) {
+            if (!confirm('Are you sure you want to cancel this home sample collection?')) return;
+            let list = getLocalLabBookings();
+            list = list.filter(b => b.id !== id);
+            saveLocalLabBookings(list);
+            loadMyLabBookings();
+        }
+
+        function loadMyLabBookings() {
+            const container = document.getElementById('myLabBookingsList');
+            const bookings = getLocalLabBookings();
+
+            if (!bookings.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:35px 20px; color:var(--gray-500); font-size:14px; background:var(--white); border-radius:14px; border:1px dashed var(--gray-300);">
+                        <div style="font-size:32px; margin-bottom:8px;">🧪</div>
+                        <div style="font-weight:700; color:var(--gray-700); margin-bottom:4px;">No Home Lab Tests Scheduled</div>
+                        <p style="font-size:13px; color:var(--gray-500);">Select a full-body package or search a nearby lab above to schedule a doorstep sample pickup.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = bookings.map(b => `
+                <div class="test-record">
+                    <div>
+                        <div class="record-title">${escapeHtml(b.testName)}</div>
+                        <div class="record-meta">
+                            📅 <strong>Date:</strong> ${escapeHtml(b.pickupDate)} (${escapeHtml(b.pickupSlot)}) • 
+                            📍 <strong>Address:</strong> ${escapeHtml(b.address)}
+                        </div>
+                        <div style="font-size:12px; color:var(--gray-600); margin-top:4px;">
+                            👤 <strong>Patient:</strong> ${escapeHtml(b.patientName)} (${escapeHtml(b.age)} yrs) • 
+                            📞 <strong>Phone:</strong> ${escapeHtml(b.phone)} • 
+                            💰 <strong>Price:</strong> ${escapeHtml(b.price)} (${escapeHtml(b.fasting)})
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="status-badge status-scheduled">${escapeHtml(b.status).toUpperCase()}</span>
+                        <button class="btn-cancel" onclick="cancelLabBooking('${b.id}')" title="Cancel Pickup">
+                            ✕ Cancel
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Firebase Portal Readiness listener
+        document.addEventListener('medicare:portal-ready', ({ detail }) => {
+            const { user, cloud } = detail;
+            currentUser = user;
+            cloudDb = cloud.db;
+            addDocFunc = cloud.addDoc;
+            collectionFunc = cloud.collection;
+            serverTimestampFunc = cloud.serverTimestamp;
+        });
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('labSearchInput').value = 'Diagnostic Centre in Chennai';
+            updateBadge();
+            loadMyLabBookings();
+        });
+    </script>
+</body>
+</html>

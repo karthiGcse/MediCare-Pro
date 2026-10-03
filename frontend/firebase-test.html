@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MediCare Pro – Firebase Connection Test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; padding: 2rem; }
+    h1   { color: #38bdf8; }
+    .ok  { color: #4ade80; }
+    .err { color: #f87171; }
+    .warn{ color: #facc15; }
+    pre  { background: #1e293b; padding: 1rem; border-radius: 8px; overflow: auto; }
+    .badge { display: inline-block; padding: .25rem .75rem; border-radius: 9999px; font-size: .85rem; margin: .25rem; }
+    .pass { background: #166534; color: #bbf7d0; }
+    .fail { background: #7f1d1d; color: #fecaca; }
+  </style>
+</head>
+<body>
+  <h1>MediCare Pro — Firebase Connection Test</h1>
+  <div id="status">Running checks…</div>
+  <pre id="log"></pre>
+
+  <script src="js/firebase-config.js"></script>
+  <script type="module">
+    const log = document.getElementById('log');
+    const status = document.getElementById('status');
+    const lines = [];
+
+    function line(msg, cls='') {
+      lines.push(cls ? `<span class="${cls}">${msg}</span>` : msg);
+      log.innerHTML = lines.join('\n');
+    }
+
+    function badge(label, pass) {
+      return `<span class="badge ${pass ? 'pass' : 'fail'}">${pass ? '✓' : '✗'} ${label}</span>`;
+    }
+
+    // 1. Config check
+    const cfg = window.MediCareFirebaseConfig;
+    const ready = window.MediCareFirebaseReady;
+    line('── firebase-config.js ──');
+    line(`  projectId       : ${cfg.projectId}`);
+    line(`  authDomain      : ${cfg.authDomain}`);
+    line(`  appId           : ${cfg.appId}`);
+    line(`  messagingSenderId: ${cfg.messagingSenderId}`);
+    line(`  MediCareFirebaseReady = ${ready}`, ready ? 'ok' : 'err');
+
+    const badges = [];
+    badges.push(badge('Config loaded', true));
+    badges.push(badge('No placeholder values', ready));
+
+    try {
+      const { initializeApp }       = await import('https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js');
+      const { getAuth, signInAnonymously } = await import('https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js');
+      const { getFirestore, collection, getDocs } = await import('https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js');
+
+      line('\n── SDK init ──');
+      const app  = initializeApp(cfg, 'firebase-test');
+      line('  Firebase app initialized ✓', 'ok');
+      badges.push(badge('SDK init', true));
+
+      // 2. Auth ping
+      line('\n── Authentication ──');
+      const auth = getAuth(app);
+      try {
+        await signInAnonymously(auth);
+        line('  Anonymous sign-in succeeded ✓', 'ok');
+        badges.push(badge('Auth', true));
+      } catch (e) {
+        if (e.code === 'auth/operation-not-allowed') {
+          line('  Anonymous auth is disabled in console (expected for production)', 'warn');
+          line('  → Enable Email/Password + Google in Firebase Console → Authentication → Sign-in providers', 'warn');
+          badges.push(badge('Auth (needs console setup)', false));
+        } else if (e.code === 'auth/network-request-failed') {
+          line('  Network error — make sure internet is connected', 'err');
+          badges.push(badge('Auth network', false));
+        } else {
+          line(`  Auth error: ${e.code} — ${e.message}`, 'err');
+          badges.push(badge('Auth', false));
+        }
+      }
+
+      // 3. Firestore ping
+      line('\n── Cloud Firestore ──');
+      const db = getFirestore(app);
+      try {
+        await getDocs(collection(db, '__firebase_connection_test__'));
+        line('  Firestore reachable ✓', 'ok');
+        badges.push(badge('Firestore', true));
+      } catch (e) {
+        if (e.code === 'permission-denied' || e.code === 'PERMISSION_DENIED') {
+          line('  Firestore reachable — rules blocked unauthenticated read (expected) ✓', 'ok');
+          badges.push(badge('Firestore', true));
+        } else if (e.message && e.message.includes('Could not reach Cloud Firestore')) {
+          line('  Firestore not yet enabled. Enable it in Firebase Console → Firestore Database', 'warn');
+          badges.push(badge('Firestore (needs enabling)', false));
+        } else {
+          line(`  Firestore error: ${e.code} — ${e.message}`, 'err');
+          badges.push(badge('Firestore', false));
+        }
+      }
+
+    } catch (err) {
+      line(`\nFatal SDK error: ${err.message}`, 'err');
+      badges.push(badge('SDK load', false));
+    }
+
+    line('\n── Summary ──');
+    status.innerHTML = badges.join(' ');
+  </script>
+</body>
+</html>

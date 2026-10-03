@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Medical imaging diagnosis">
+  <defs>
+    <linearGradient id="bg1" x1="0" x2="1">
+      <stop offset="0%" stop-color="#dfeefb"/>
+      <stop offset="100%" stop-color="#b9d9ef"/>
+    </linearGradient>
+    <linearGradient id="screenGlow" x1="0" x2="1">
+      <stop offset="0%" stop-color="#e6f5ff"/>
+      <stop offset="100%" stop-color="#d2ecff"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg1)"/>
+  <rect x="30" y="40" width="260" height="180" rx="10" fill="#dfeaf3" stroke="#9ec9e6" stroke-width="2"/>
+  <rect x="46" y="56" width="228" height="148" rx="6" fill="url(#screenGlow)" stroke="#79afd0" stroke-width="2"/>
+  <circle cx="160" cy="130" r="52" fill="#f3fbff" stroke="#6ca7d7" stroke-width="3"/>
+  <circle cx="160" cy="130" r="40" fill="none" stroke="#5ea7cb" stroke-width="2" opacity="0.8"/>
+  <path d="M120 130c10-22 28-34 40-34s30 12 40 34-10 50-40 50-30-28-40-50z" fill="#cfeaff" opacity="0.8"/>
+  <path d="M123 130c7-10 24-17 37-17s30 7 37 17-16 20-37 20-30-10-37-20z" fill="#ffffff" opacity="0.9"/>
+  <path d="M160 90v80M120 130h80" stroke="#79b7de" stroke-width="2.5" opacity="0.7"/>
+  <g opacity="0.8">
+    <rect x="70" y="92" width="24" height="8" rx="4" fill="#89c3e6"/>
+    <rect x="70" y="110" width="18" height="8" rx="4" fill="#89c3e6"/>
+    <rect x="70" y="128" width="22" height="8" rx="4" fill="#89c3e6"/>
+  </g>
+  <rect x="74" y="210" width="140" height="12" rx="6" fill="#8bb9d9" opacity="0.75"/>
+  <g transform="translate(280 60)">
+    <rect x="0" y="0" width="86" height="114" rx="8" fill="#f7fbff" stroke="#9fc4df" stroke-width="2"/>
+    <rect x="15" y="18" width="56" height="8" rx="4" fill="#9fd0e9"/>
+    <rect x="15" y="34" width="46" height="8" rx="4" fill="#c5e6f8"/>
+    <rect x="15" y="50" width="52" height="8" rx="4" fill="#c5e6f8"/>
+    <rect x="18" y="68" width="20" height="20" rx="3" fill="#5ea9d2"/>
+    <rect x="45" y="68" width="18" height="20" rx="3" fill="#c6e0f2"/>
+  </g>
+  <g transform="translate(74 224)">
+    <circle cx="0" cy="0" r="7" fill="#5ea9d2"/>
+    <circle cx="28" cy="0" r="7" fill="#73c7b0"/>
+    <circle cx="56" cy="0" r="7" fill="#f7b267"/>
+  </g>
+  <rect x="196" y="226" width="110" height="18" rx="9" fill="#7daed0" opacity="0.9"/>
+</svg>

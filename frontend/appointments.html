@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Doctor Appointments & Teleconsultations | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #2563eb; 
+            --primary-light: #eff6ff; 
+            --primary-dark: #1d4ed8;
+            --primary-border: #bfdbfe;
+            --green: #059669; 
+            --green-light: #ecfdf5; 
+            --green-border: #a7f3d0;
+            --amber: #d97706; 
+            --amber-light: #fffbeb;
+            --amber-border: #fde68a;
+            --purple: #7c3aed;
+            --purple-light: #f5f3ff;
+            --purple-border: #ddd6fe;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 17px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(37,99,235,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--primary); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-color: var(--primary-border); 
+        }
+
+        /* MAIN CONTAINER */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--primary-light); 
+            border: 1px solid var(--primary-border); 
+            color: var(--primary-dark); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--gray-500); max-width: 680px; margin: 0 auto; font-size: 15px; }
+
+        /* TAB SWITCHER */
+        .tab-bar {
+            display: flex;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--gray-50); color: var(--gray-900); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(37,99,235,.25);
+        }
+
+        /* TAB PANELS */
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* CONTROLS CARD */
+        .search-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 28px;
+        }
+        .search-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .input-group {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 11px 14px 11px 40px;
+            border: 1px solid var(--gray-200);
+            background: var(--gray-50);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all .2s;
+        }
+        .input-group input:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 15px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* CITY & SPECIALTY CHIPS */
+        .chips-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .chips-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-right: 4px;
+        }
+        .chip {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+        .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--white); }
+        .chip.active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            box-shadow: 0 1px 3px rgba(37,99,235,0.15);
+        }
+
+        /* DOCTORS GRID */
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .doctor-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            transition: all .2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .doctor-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+        }
+        .doc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .doc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.35;
+        }
+        .rating-badge {
+            background: #fef08a;
+            color: #854d0e;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .doc-type {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .doc-addr {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.45;
+        }
+        .doc-addr svg { flex-shrink: 0; margin-top: 2px; color: var(--gray-400); }
+
+        .doc-actions {
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid var(--gray-100);
+            padding-top: 14px;
+        }
+        .btn-book {
+            flex: 1;
+            text-align: center;
+            background: var(--primary);
+            color: #fff;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all .15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-book:hover { background: var(--primary-dark); }
+        .btn-tel {
+            padding: 9px 12px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            color: var(--gray-700);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all .15s;
+        }
+        .btn-tel:hover { background: var(--gray-100); color: var(--gray-900); }
+        .btn-dir {
+            padding: 9px 12px;
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            color: var(--primary-dark);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-dir:hover { background: #dbeafe; }
+
+        /* GOVT ORS & TELECONSULTATION CARDS */
+        .portal-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+        .portal-card-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .2s;
+        }
+        .portal-card-box:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+        }
+        .pcb-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+        .pcb-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+        }
+        .pcb-desc {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        .pcb-features {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            color: var(--gray-700);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .pcb-features div { display: flex; align-items: center; gap: 6px; }
+
+        /* MY APPOINTMENTS SECTION */
+        .appointments-sec {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-top: 36px;
+        }
+        .sec-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .sec-hdr h2 { font-size: 18px; font-weight: 700; color: var(--gray-900); }
+        .app-record {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-md);
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .app-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+        .app-meta { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+        .status-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        .status-requested { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+        .status-confirmed { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15,23,42,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal {
+            background: var(--white);
+            width: 100%;
+            max-width: 480px;
+            border-radius: var(--r-xl);
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(16px);
+            transition: transform .25s ease;
+        }
+        .modal-overlay.active .modal { transform: translateY(0); }
+        .m-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .m-title { font-size: 19px; font-weight: 700; color: var(--gray-900); }
+        .m-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gray-400); line-height: 1; }
+        .m-close:hover { color: var(--gray-700); }
+
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--gray-50);
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .state-spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .doctors-grid { grid-template-columns: 1fr; }
+            .portal-grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a class="brand" href="dashboard/dashboard.html">
+                <div class="brand-icon">M</div>
+                <span class="brand-name">Medi<span>Care</span> Pro</span>
+            </a>
+            <div class="hdr-actions">
+                <a class="back-btn" href="dashboard/dashboard.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="hero">
+            <div class="hero-badge">
+                <span>🩺</span> Real-Time Doctor Booking & Teleconsultation Portal
+            </div>
+            <h1>Book Doctor <span>Appointments</span></h1>
+            <p>Access live appointments across verified clinics, Government Hospital OPD portals (ORS / AIIMS / JIPMER), and free national telemedicine video consultations.</p>
+        </div>
+
+        <!-- TAB NAVIGATION -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('local', this)">
+                <span>📍</span> Local Verified Doctors
+            </button>
+            <button class="tab-btn" onclick="switchTab('govt', this)">
+                <span>🏛️</span> Govt Hospital OPD (ORS)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tele', this)">
+                <span>📹</span> Free Live Video Doctor (eSanjeevani)
+            </button>
+            <button class="tab-btn" onclick="switchTab('private', this)">
+                <span>🛡️</span> Private Super-Specialists
+            </button>
+        </div>
+
+        <!-- ================= TAB 1: LOCAL VERIFIED DOCTORS ================= -->
+        <div id="tab-local" class="tab-panel active">
+            <div class="search-card">
+                <div class="search-row">
+                    <div class="input-group">
+                        <span class="input-icon">🔍</span>
+                        <input type="text" id="docSearchInput" placeholder="Search doctor, clinic, or specialization (e.g. Cardiologist in Chennai)..." onkeydown="if(event.key==='Enter') searchDoctors()" />
+                    </div>
+                    <button class="btn-primary" id="btnDocSearch" onclick="searchDoctors()">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        Search Doctors
+                    </button>
+                </div>
+
+                <!-- QUICK CITY CHIPS -->
+                <div class="chips-row">
+                    <span class="chips-label">Quick City:</span>
+                    <button class="chip active" onclick="setCityQuery('Chennai', this)">Chennai</button>
+                    <button class="chip" onclick="setCityQuery('Coimbatore', this)">Coimbatore</button>
+                    <button class="chip" onclick="setCityQuery('Madurai', this)">Madurai</button>
+                    <button class="chip" onclick="setCityQuery('Salem', this)">Salem</button>
+                    <button class="chip" onclick="setCityQuery('Trichy', this)">Trichy</button>
+                    <button class="chip" onclick="useCurrentLocation(this)">📍 Near My Location</button>
+                </div>
+
+                <!-- SPECIALTY CHIPS -->
+                <div class="chips-row" style="margin-top:12px;">
+                    <span class="chips-label">Specialty:</span>
+                    <button class="chip" onclick="setSpecialty('General Physician')">General Physician</button>
+                    <button class="chip" onclick="setSpecialty('Cardiologist')">Cardiologist</button>
+                    <button class="chip" onclick="setSpecialty('Pediatrician')">Pediatrician</button>
+                    <button class="chip" onclick="setSpecialty('Dentist')">Dentist</button>
+                    <button class="chip" onclick="setSpecialty('Dermatologist')">Dermatologist</button>
+                    <button class="chip" onclick="setSpecialty('Orthopedic')">Orthopedic</button>
+                    <button class="chip" onclick="setSpecialty('Gynecologist')">Gynecologist</button>
+                </div>
+            </div>
+
+            <!-- RESULTS GRID -->
+            <div id="doctorsGrid" class="doctors-grid">
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                    <div class="state-spinner"></div>
+                    <div>Fetching real practicing doctors from Google Cloud Places API...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: GOVT HOSPITAL OPD (ORS) ================= -->
+        <div id="tab-govt" class="tab-panel">
+            <div class="search-card">
+                <h3 style="font-size:18px; font-weight:700; color:var(--gray-900); margin-bottom:6px;">
+                    Official Central & State Govt Online OPD Registration System (ORS.gov.in)
+                </h3>
+                <p style="font-size:13px; color:var(--gray-500); margin-bottom:20px;">
+                    Skip hospital queues by generating a confirmed OPD appointment token in advance using your mobile or Aadhaar.
+                </p>
+
+                <div class="portal-grid-3">
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#e0f2fe; color:#0284c7;">🏛️</div>
+                            <div class="pcb-title">AIIMS New Delhi & Regional AIIMS</div>
+                            <div class="pcb-desc">Book direct OPD consultations with premier AIIMS specialist departments.</div>
+                            <div class="pcb-features">
+                                <div>✓ 100% Free Consultation</div>
+                                <div>✓ Aadhaar Linked Token</div>
+                                <div>✓ Lab & Scan Referral Access</div>
+                            </div>
+                        </div>
+                        <a href="https://ors.gov.in/orsportal/" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none;">
+                            Book on ORS Portal ↗
+                        </a>
+                    </div>
+
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#ecfdf5; color:#059669;">🏥</div>
+                            <div class="pcb-title">JIPMER Puducherry</div>
+                            <div class="pcb-desc">Jawaharlal Institute of Postgraduate Medical Education & Research online booking.</div>
+                            <div class="pcb-features">
+                                <div>✓ National Premier Institute</div>
+                                <div>✓ Advance OPD Slots</div>
+                                <div>✓ Super-specialty Clinics</div>
+                            </div>
+                        </div>
+                        <a href="https://ors.gov.in/orsportal/" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none; background:var(--green);">
+                            Book JIPMER Slot ↗
+                        </a>
+                    </div>
+
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#fef3c7; color:#d97706;">🏢</div>
+                            <div class="pcb-title">Tamil Nadu Govt Medical Colleges</div>
+                            <div class="pcb-desc">Madras Medical College (RGGGH), Stanley, Kilpauk, and Coimbatore Govt Hospital.</div>
+                            <div class="pcb-features">
+                                <div>✓ Free Specialist OPD</div>
+                                <div>✓ CMCHIS Cashless Care</div>
+                                <div>✓ Daily General Clinics</div>
+                            </div>
+                        </div>
+                        <a href="https://ors.gov.in/orsportal/" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none; background:var(--amber);">
+                            Book TN Govt Hospital ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: ESANJEEVANI TELECONSULTATION ================= -->
+        <div id="tab-tele" class="tab-panel">
+            <div class="search-card">
+                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+                    <div style="width:64px; height:64px; border-radius:16px; background:var(--green-light); color:var(--green); display:flex; align-items:center; justify-content:center; font-size:32px; flex-shrink:0;">
+                        📹
+                    </div>
+                    <div>
+                        <h2 style="font-size:22px; font-weight:800; color:var(--gray-900);">eSanjeevani - Free National Telemedicine Service</h2>
+                        <p style="font-size:14px; color:var(--gray-500); margin-top:2px;">Government of India initiative enabling instant live video doctor consultations from your home.</p>
+                    </div>
+                </div>
+
+                <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:14px; padding:20px; margin-bottom:24px;">
+                    <h4 style="font-size:15px; font-weight:700; color:var(--gray-900); margin-bottom:10px;">How It Works:</h4>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; font-size:13px; color:var(--gray-600);">
+                        <div style="background:var(--white); padding:14px; border-radius:10px; border:1px solid var(--gray-200);">
+                            <strong>1. Patient Login</strong>
+                            <p style="margin-top:4px;">Enter mobile number & OTP on the official eSanjeevani portal.</p>
+                        </div>
+                        <div style="background:var(--white); padding:14px; border-radius:10px; border:1px solid var(--gray-200);">
+                            <strong>2. Join Live Queue</strong>
+                            <p style="margin-top:4px;">Select your State & enter your symptoms or upload old prescriptions.</p>
+                        </div>
+                        <div style="background:var(--white); padding:14px; border-radius:10px; border:1px solid var(--gray-200);">
+                            <strong>3. Live Video Consultation</strong>
+                            <p style="margin-top:4px;">Consult directly via HD video with a qualified Government Medical Officer.</p>
+                        </div>
+                        <div style="background:var(--white); padding:14px; border-radius:10px; border:1px solid var(--gray-200);">
+                            <strong>4. Digital Prescription</strong>
+                            <p style="margin-top:4px;">Download a legally valid e-Prescription instantly on your phone.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <a href="https://esanjeevani.mohfw.gov.in/" target="_blank" rel="noopener" class="btn-primary" style="padding:14px 32px; font-size:15px; text-decoration:none; background:var(--green);">
+                        Launch eSanjeevani Live Consultation Now ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: PRIVATE SPECIALISTS ================= -->
+        <div id="tab-private" class="tab-panel">
+            <div class="search-card">
+                <h3 style="font-size:18px; font-weight:700; color:var(--gray-900); margin-bottom:6px;">
+                    Book Private Super-Specialists & Multi-Specialty Clinics
+                </h3>
+                <p style="font-size:13px; color:var(--gray-500); margin-bottom:20px;">
+                    Search live available appointment slots, verify consultation fees, and read patient feedback on verified medical networks.
+                </p>
+
+                <div class="portal-grid-3">
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#eef2ff; color:#6366f1;">🩺</div>
+                            <div class="pcb-title">Practo Verified Doctors</div>
+                            <div class="pcb-desc">India's leading clinic booking network across 100,000+ verified specialist doctors.</div>
+                            <div class="pcb-features">
+                                <div>✓ Instant Slot Confirmation</div>
+                                <div>✓ 100% Verified Patient Reviews</div>
+                                <div>✓ In-Clinic & Video Consults</div>
+                            </div>
+                        </div>
+                        <a href="https://www.practo.com/" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none; background:#4f46e5;">
+                            Find on Practo ↗
+                        </a>
+                    </div>
+
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#fef2f2; color:#ef4444;">🏥</div>
+                            <div class="pcb-title">Apollo 24|7 Consultations</div>
+                            <div class="pcb-desc">Book world-class specialists directly from the Apollo Hospitals Healthcare Network.</div>
+                            <div class="pcb-features">
+                                <div>✓ Apollo Hospital Specialists</div>
+                                <div>✓ 15-minute Emergency Teleconsult</div>
+                                <div>✓ Home Sample Pickup Included</div>
+                            </div>
+                        </div>
+                        <a href="https://www.apollo247.com/" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none; background:#dc2626;">
+                            Book on Apollo 24|7 ↗
+                        </a>
+                    </div>
+
+                    <div class="portal-card-box">
+                        <div>
+                            <div class="pcb-icon" style="background:#ecfdf5; color:#059669;">💊</div>
+                            <div class="pcb-title">Tata 1mg Doctor Consultation</div>
+                            <div class="pcb-desc">Consult specialists online across 25+ specialties with medicine delivery discounts.</div>
+                            <div class="pcb-features">
+                                <div>✓ Free Follow-up Consultations</div>
+                                <div>✓ Electronic Health Record Storage</div>
+                                <div>✓ Discount on Prescribed Drugs</div>
+                            </div>
+                        </div>
+                        <a href="https://www.1mg.com/doctors" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center; text-decoration:none; background:var(--green);">
+                            Consult on Tata 1mg ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MY LIVE APPOINTMENTS SECTION ================= -->
+        <section class="appointments-sec">
+            <div class="sec-hdr">
+                <div>
+                    <h2>My Booked Appointments</h2>
+                    <p style="font-size:13px; color:var(--gray-500); margin-top:2px;">Real-time synchronized records stored in your MediCare Cloud Account.</p>
+                </div>
+                <button class="back-btn" onclick="loadMyAppointments()" style="padding:6px 12px; font-size:12px;">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="myAppointmentsList">
+                <div style="text-align:center; padding:30px; color:var(--gray-500); font-size:14px;">
+                    Sign in to your MediCare account to view live appointments.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- APPOINTMENT BOOKING MODAL -->
+    <div class="modal-overlay" id="bookModal">
+        <div class="modal">
+            <div class="m-hdr">
+                <h3 class="m-title">Book Doctor Appointment</h3>
+                <button class="m-close" onclick="closeModal()">×</button>
+            </div>
+
+            <div class="form-group">
+                <label>Doctor / Clinic Name</label>
+                <input type="text" id="mDocName" readonly style="font-weight:600; color:var(--gray-900);" />
+            </div>
+
+            <div class="form-group">
+                <label>Clinic Address</label>
+                <input type="text" id="mDocAddr" readonly style="font-size:13px; color:var(--gray-600);" />
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Date & Time</label>
+                <input type="datetime-local" id="mDate" required />
+            </div>
+
+            <div class="form-group">
+                <label>Patient Contact Phone</label>
+                <input type="tel" id="mPhone" placeholder="10-digit mobile number" required />
+            </div>
+
+            <div class="form-group">
+                <label>Symptoms / Reason for Visit</label>
+                <textarea id="mReason" rows="2" placeholder="e.g. Fever, Chest pain, Regular checkup..."></textarea>
+            </div>
+
+            <button class="btn-primary" id="btnSubmitBooking" style="width:100%; justify-content:center; padding:12px; font-size:15px; margin-top:10px;" onclick="confirmBooking()">
+                Confirm Appointment Request
+            </button>
+        </div>
+    </div>
+
+    <!-- FIREBASE INTEGRATION -->
+    <script src="js/firebase-config.js"></script>
+    <script type="module" src="js/firebase-client.js"></script>
+    <script src="js/cloud-auth.js"></script>
+
+    <script>
+        let currentUser = null;
+        let cloudDb = null;
+        let addDocFunc = null;
+        let collectionFunc = null;
+        let serverTimestampFunc = null;
+        let queryFunc = null;
+        let getDocsFunc = null;
+        let whereFunc = null;
+
+        let activeCity = 'Chennai';
+        let currentDoctors = [];
+
+        // Tab Switching
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // City selection
+        function setCityQuery(city, el) {
+            activeCity = city;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+            document.getElementById('docSearchInput').value = `Doctor in ${city}`;
+            searchDoctors();
+        }
+
+        function setSpecialty(specialty) {
+            document.getElementById('docSearchInput').value = `${specialty} in ${activeCity}`;
+            searchDoctors();
+        }
+
+        function useCurrentLocation(el) {
+            if (navigator.geolocation) {
+                if (el) {
+                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    el.classList.add('active');
+                }
+                navigator.geolocation.getCurrentPosition(
+                    pos => {
+                        fetchNearby(pos.coords.latitude, pos.coords.longitude);
+                    },
+                    err => {
+                        console.warn('GPS error, falling back to Chennai:', err);
+                        searchDoctors();
+                    },
+                    { timeout: 7000 }
+                );
+            } else {
+                searchDoctors();
+            }
+        }
+
+        // 1. Search Doctors using Google Places API (New) via dev-server.py
+        async function searchDoctors() {
+            const query = (document.getElementById('docSearchInput').value || '').trim() || `Doctor in ${activeCity}`;
+            const grid = document.getElementById('doctorsGrid');
+            const btn = document.getElementById('btnDocSearch');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="state-spinner" style="width:14px;height:14px;border-width:2px;margin:0;display:inline-block;vertical-align:middle;"></span> Searching...`;
+
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                    <div class="state-spinner"></div>
+                    <div>Searching live Google Places verified doctors for "${escapeHtml(query)}"...</div>
+                </div>
+            `;
+
+            try {
+                const resp = await fetch(`/api/places/search?q=${encodeURIComponent(query)}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                currentDoctors = data.results || [];
+                renderDoctors(currentDoctors);
+            } catch (err) {
+                console.error('Doctor search error:', err);
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                        <div style="font-size:32px; margin-bottom:8px;">⚠️</div>
+                        <div style="font-weight:700; color:var(--gray-900);">Unable to search live doctors</div>
+                        <p style="font-size:13px; margin-top:4px;">Make sure your dev-server.py is running on http://127.0.0.1:3000</p>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    Search Doctors
+                `;
+            }
+        }
+
+        async function fetchNearby(lat, lng) {
+            const grid = document.getElementById('doctorsGrid');
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                    <div class="state-spinner"></div>
+                    <div>Finding practicing doctors within 8 km of your GPS location...</div>
+                </div>
+            `;
+            try {
+                const resp = await fetch(`/api/places/nearby?lat=${lat}&lng=${lng}`);
+                const data = await resp.json();
+                currentDoctors = data.results || [];
+                renderDoctors(currentDoctors);
+            } catch (e) {
+                searchDoctors();
+            }
+        }
+
+        // 2. Render Doctor Cards
+        function renderDoctors(places) {
+            const grid = document.getElementById('doctorsGrid');
+            if (!places.length) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--gray-500);">
+                        <div style="font-size:28px; margin-bottom:6px;">🔍</div>
+                        <div style="font-weight:700; color:var(--gray-900);">No doctors found</div>
+                        <p style="font-size:13px;">Try selecting another city like Chennai, Coimbatore, or searching by a different specialty.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = places.map((p, idx) => {
+                const name = p.displayName?.text || 'Medical Doctor';
+                const addr = p.formattedAddress || 'Address available on map';
+                const rating = p.rating ? p.rating.toFixed(1) : null;
+                const reviews = p.userRatingCount || 0;
+                const phone = p.nationalPhoneNumber || '';
+                const mapUrl = p.googleMapsUri || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + addr)}`;
+                const type = p.primaryTypeDisplayName?.text || 'Doctor / Clinic';
+
+                return `
+                    <div class="doctor-card">
+                        <div>
+                            <div class="doc-top">
+                                <div>
+                                    <h3 class="doc-title">${escapeHtml(name)}</h3>
+                                    <span class="doc-type">${escapeHtml(type)}</span>
+                                </div>
+                                ${rating ? `
+                                    <span class="rating-badge" title="${reviews} patient ratings on Google">
+                                        ⭐ ${rating}
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <div class="doc-addr">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>${escapeHtml(addr)}</span>
+                            </div>
+                        </div>
+
+                        <div class="doc-actions">
+                            <button class="btn-book" onclick="openBookingModal(${idx})">
+                                📅 Book Appointment
+                            </button>
+                            ${phone ? `
+                                <a href="tel:${escapeHtml(phone)}" class="btn-tel" title="Call Clinic">
+                                    📞 Call
+                                </a>
+                            ` : ''}
+                            <a href="${mapUrl}" target="_blank" rel="noopener" class="btn-dir" title="View Directions">
+                                🗺️ Directions
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 3. Modal Handlers
+        let selectedDoc = null;
+        function openBookingModal(idx) {
+            selectedDoc = currentDoctors[idx];
+            if (!selectedDoc) return;
+
+            document.getElementById('mDocName').value = selectedDoc.displayName?.text || 'Doctor';
+            document.getElementById('mDocAddr').value = selectedDoc.formattedAddress || '';
+            
+            // Set default date to tomorrow 10:00 AM
+            const tmrw = new Date();
+            tmrw.setDate(tmrw.getDate() + 1);
+            tmrw.setHours(10, 0, 0, 0);
+            document.getElementById('mDate').value = tmrw.toISOString().slice(0, 16);
+
+            document.getElementById('bookModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('bookModal').classList.remove('active');
+        }
+
+        // Storage helper for local fallback & instant testing
+        function getLocalAppointments() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_local_appointments') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLocalAppointments(list) {
+            localStorage.setItem('medicare_local_appointments', JSON.stringify(list));
+        }
+
+        async function confirmBooking() {
+            const dt = document.getElementById('mDate').value;
+            const ph = document.getElementById('mPhone').value.trim();
+            const reason = document.getElementById('mReason').value.trim();
+
+            if (!dt || !ph) {
+                alert('Please provide appointment date and contact phone number.');
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitBooking');
+            btn.disabled = true;
+            btn.textContent = 'Saving Appointment...';
+
+            const docName = selectedDoc?.displayName?.text || 'Doctor Specialist';
+            const docAddr = selectedDoc?.formattedAddress || 'Clinic Address';
+
+            const newAppt = {
+                id: 'appt_' + Date.now(),
+                patientId: currentUser ? currentUser.uid : 'guest_patient',
+                doctorName: docName,
+                clinicAddress: docAddr,
+                phone: ph,
+                appointmentDate: dt,
+                reason: reason || 'General Consultation',
+                status: 'confirmed',
+                bookedAt: new Date().toLocaleString()
+            };
+
+            // 1. Always save to LocalStorage for instant real-time UI response
+            const localList = getLocalAppointments();
+            localList.unshift(newAppt);
+            saveLocalAppointments(localList);
+
+            // 2. If Firebase cloud is ready, also sync to Firestore
+            if (currentUser && cloudDb && addDocFunc) {
+                try {
+                    await addDocFunc(collectionFunc(cloudDb, 'appointments'), {
+                        patientId: currentUser.uid,
+                        doctorName: docName,
+                        clinicAddress: docAddr,
+                        phone: ph,
+                        appointmentDate: dt,
+                        reason: reason || 'General Consultation',
+                        status: 'confirmed',
+                        createdAt: serverTimestampFunc ? serverTimestampFunc() : new Date().toISOString()
+                    });
+                } catch (err) {
+                    console.warn('Cloud sync background error:', err);
+                }
+            }
+
+            alert(`✅ Success! Your live appointment with "${docName}" on ${dt.replace('T', ' at ')} has been confirmed!`);
+            closeModal();
+            loadMyAppointments();
+
+            btn.disabled = false;
+            btn.textContent = 'Confirm Appointment Request';
+        }
+
+        // Cancel / Delete appointment
+        function cancelAppointment(id) {
+            if (!confirm('Are you sure you want to cancel this appointment?')) return;
+            let list = getLocalAppointments();
+            list = list.filter(a => a.id !== id);
+            saveLocalAppointments(list);
+            loadMyAppointments();
+        }
+
+        // 4. Load Live Appointments (Local + Firebase sync)
+        async function loadMyAppointments() {
+            const container = document.getElementById('myAppointmentsList');
+            let appointments = getLocalAppointments();
+
+            // Also fetch from Firebase if user is logged in
+            if (currentUser && cloudDb && getDocsFunc) {
+                try {
+                    const q = queryFunc(collectionFunc(cloudDb, 'appointments'), whereFunc('patientId', '==', currentUser.uid));
+                    const snap = await getDocsFunc(q);
+                    if (!snap.empty) {
+                        snap.docs.forEach(d => {
+                            const cloudData = d.data();
+                            if (!appointments.some(a => a.doctorName === cloudData.doctorName && a.appointmentDate === cloudData.appointmentDate)) {
+                                appointments.push({
+                                    id: d.id,
+                                    ...cloudData,
+                                    status: cloudData.status || 'confirmed'
+                                });
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Firebase appointments fetch fallback to local:', e);
+                }
+            }
+
+            if (!appointments.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:35px 20px; color:var(--gray-500); font-size:14px; background:var(--white); border-radius:12px; border:1px dashed var(--gray-300);">
+                        <div style="font-size:28px; margin-bottom:8px;">🗓️</div>
+                        <div style="font-weight:700; color:var(--gray-700); margin-bottom:4px;">No appointments booked yet</div>
+                        <p style="font-size:13px; color:var(--gray-500);">Search verified doctors above and click "Book Appointment" to reserve your live slot instantly.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = appointments.map(a => {
+                const isConfirmed = (a.status || 'confirmed').toLowerCase() === 'confirmed';
+                const statusClass = isConfirmed ? 'status-confirmed' : 'status-requested';
+                const dateDisplay = a.appointmentDate ? a.appointmentDate.replace('T', ' at ') : 'Flexible';
+
+                return `
+                    <div class="app-record">
+                        <div>
+                            <div class="app-title">${escapeHtml(a.doctorName || 'Doctor Consultation')}</div>
+                            <div class="app-meta">
+                                📅 <strong>Slot:</strong> ${escapeHtml(dateDisplay)} • 
+                                📍 <strong>Clinic:</strong> ${escapeHtml(a.clinicAddress || 'Hospital Visit')}
+                                ${a.phone ? ` • 📞 <strong>Phone:</strong> ${escapeHtml(a.phone)}` : ''}
+                            </div>
+                            ${a.reason ? `<div style="font-size:12px; color:var(--gray-600); margin-top:4px;"><strong>Reason:</strong> ${escapeHtml(a.reason)}</div>` : ''}
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="status-pill ${statusClass}">${escapeHtml((a.status || 'confirmed').toUpperCase())}</span>
+                            ${a.id ? `
+                                <button onclick="cancelAppointment('${a.id}')" style="background:#fee2e2; border:1px solid #fecdd3; color:#b91c1c; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;" title="Cancel Booking">
+                                    ✕ Cancel
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Listen for Firebase readiness
+        document.addEventListener('medicare:portal-ready', ({ detail }) => {
+            const { user, cloud } = detail;
+            currentUser = user;
+            cloudDb = cloud.db;
+            addDocFunc = cloud.addDoc;
+            collectionFunc = cloud.collection;
+            serverTimestampFunc = cloud.serverTimestamp;
+            queryFunc = cloud.query;
+            getDocsFunc = cloud.getDocs;
+            whereFunc = cloud.where;
+
+            loadMyAppointments();
+        });
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        // Auto initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('docSearchInput').value = 'Doctor in Chennai';
+            searchDoctors();
+            loadMyAppointments();
+        });
+    </script>
+</body>
+</html>

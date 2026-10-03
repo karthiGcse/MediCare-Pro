@@ -1,0 +1,9 @@
+{
+  "name": "medicare-cloud-compat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy folder retained for project structure. Production backend runs from cloud-functions on Google Cloud/Firebase.",
+  "scripts": {
+    "start": "echo \"MediCare uses Google Cloud/Firebase functions. Deploy from the project root with Firebase CLI.\""
+  }
+}

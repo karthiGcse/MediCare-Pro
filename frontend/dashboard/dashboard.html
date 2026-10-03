@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediCare Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- TOP NAVBAR -->
+
+    <header class="navbar">
+
+
+        <div class="nav-left">
+
+
+            <button class="menu-button">
+
+                ☰
+
+            </button>
+
+
+            <div class="brand">
+
+
+                <h2>
+
+                    Medi<span>Care</span>
+
+                </h2>
+
+
+                <p>
+
+                    Your Health, Our Priority
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <nav class="nav-links">
+
+
+            <a href="#" class="active">
+
+                Home
+
+            </a>
+
+
+            <a href="../appointments.html">
+
+                Doctors
+
+            </a>
+
+
+            <a href="#medicines">
+
+                Medicines
+
+            </a>
+
+
+            <a href="#services">
+
+                Services
+
+            </a>
+
+
+            <a href="../appointments.html">
+
+                Appointments
+
+            </a>
+
+
+            <a href="#records">
+
+                Health Records
+
+            </a>
+
+
+        </nav>
+
+
+
+        <div class="nav-right">
+
+
+            <button class="search-button">
+
+                🔍
+
+            </button>
+
+
+            <button class="notification">
+
+                🔔
+
+            </button>
+
+
+            <div class="user-location">
+
+                📍 Erode
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- DASHBOARD -->
+
+    <main class="dashboard">
+
+
+        <!-- WELCOME SECTION -->
+
+        <section class="welcome-section">
+
+
+            <div class="welcome-text">
+
+
+                <p class="welcome-small">
+
+                    GOOD MORNING
+
+                </p>
+
+
+                <h1>
+
+                    Welcome back!
+
+                </h1>
+
+
+                <p>
+
+                    Your health journey is just a few clicks away.
+
+                </p>
+
+
+            </div>
+
+
+            <button class="profile-button">
+
+                My Profile
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- SEARCH -->
+
+        <section class="search-section">
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search doctors, medicines and health services"
+            >
+
+
+            <button>
+
+                Search
+
+            </button>
+
+
+        </section>
+
+
+
+        <section class="health-banner" aria-label="Health promotions">
+            <div class="ad-track">
+
+                <div class="ad-item">
+                    <img src="../ads/ad1.png" alt="Advertisement 1">
+                </div>
+
+                <div class="ad-item">
+                    <img src="../ads/ad2.png" alt="Advertisement 2">
+                </div>
+
+                <div class="ad-item">
+                    <img src="../ads/ad3.png" alt="Advertisement 3">
+                </div>
+
+                <div class="ad-item">
+                    <img src="../ads/ad4.png" alt="Advertisement 4">
+                </div>
+
+                <div class="ad-item">
+                    <img src="../ads/ad5.png" alt="Advertisement 5">
+                </div>
+
+                <div class="ad-item">
+                    <img src="../ads/ad6.png" alt="Advertisement 6">
+                </div>
+
+            </div>
+
+            <div class="ad-dots">
+                <span class="ad-dot active" data-index="0"></span>
+                <span class="ad-dot" data-index="3"></span>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+
+                <h2>
+
+                    Quick Actions
+
+                </h2>
+
+
+                <a href="#">
+
+                    View All
+
+                </a>
+
+
+            </div>
+
+
+
+            <div class="quick-actions">
+
+
+                <button class="quick-action check-symptoms-card" type="button" data-link="../check-symptoms.html" onclick="window.location.href='../check-symptoms.html'">
+                    <img class="action-image" src="images/symptoms.png" alt="Digital health symptom check">
+                    <h3>Check Symptoms</h3>
+                    <p>Get AI-assisted health guidance</p>
+                    <span class="action-link action-link-green">Start Check <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+                <button class="quick-action" type="button" onclick="window.location.href='../medicines.html'">
+                    <img class="action-image" src="images/medicines.png" alt="Medicines and prescriptions">
+                    <h3>Find Medicines</h3>
+                    <p>Search medicines &amp; discounts</p>
+                    <span class="action-link action-link-red">Order Now <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+                <button class="quick-action" type="button" onclick="window.location.href='../prescription-scanner.html'">
+                    <img class="action-image" src="images/prescriptions.png" alt="Prescription records">
+                    <h3>My Prescriptions</h3>
+                    <p>Scan & manage prescriptions</p>
+                    <span class="action-link action-link-green">Scan Now <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+                <button class="quick-action" type="button" onclick="window.location.href='../appointments.html'">
+                    <img class="action-image" src="images/doctor.png" alt="Doctor consultation">
+                    <h3>Find a Doctor</h3>
+                    <p>Find verified doctors</p>
+                    <span class="action-link action-link-orange">Book Appointment <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+                <button class="quick-action" type="button" onclick="window.location.href='../appointments.html'">
+                    <img class="action-image" src="images/appointment.png" alt="Doctor appointment calendar">
+                    <h3>Book Appointment</h3>
+                    <p>Schedule a hospital or clinic visit</p>
+                    <span class="action-link action-link-blue">Select Slot <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+                <button class="quick-action" type="button" onclick="window.location.href='../lab-tests.html'">
+                    <img class="action-image" src="images/lab_tests.png" alt="Medical laboratory equipment">
+                    <h3>Lab Tests</h3>
+                    <p>Book a lab test with home sample</p>
+                    <span class="action-link action-link-blue">Book Test <span aria-hidden="true">&#8594;</span></span>
+                </button>
+
+
+            </div>
+
+
+
+        </section>
+
+
+
+        <!-- SERVICES -->
+
+        <section class="dashboard-section" id="services">
+
+
+            <div class="section-title">
+
+
+                <h2>
+
+                    Explore Health Services
+
+                </h2>
+
+
+                <a href="#">
+
+                    View All
+
+                </a>
+
+
+            </div>
+
+
+
+            <div class="services-grid">
+
+
+                <div class="service-card" onclick="window.location.href='../image-diagnosis.html'" style="cursor:pointer">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/1.png" alt="Image Diagnosis" />
+
+
+                    <h3>
+
+                        Image Diagnosis
+
+                    </h3>
+
+
+                    <p>
+
+                        Upload health images for analysis.
+
+                    </p>
+
+                    <span class="service-action-link action-teal">Start Check <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../mental-health.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/2.png" alt="Mental Health" />
+
+
+                    <h3>
+
+                        Mental Health
+
+                    </h3>
+
+
+                    <p>
+
+                        Support for your wellbeing.
+
+                    </p>
+
+                    <span class="service-action-link action-purple">Start Session <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../telemedicine.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/3.png" alt="Telemedicine" />
+
+
+                    <h3>
+
+                        Telemedicine
+
+                    </h3>
+
+
+                    <p>
+
+                        Consult doctors online.
+
+                    </p>
+
+                    <span class="service-action-link action-blue">Consult Now <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../global-telemedicine.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/4.png" alt="Global Telemedicine" />
+
+
+                    <h3>
+
+                        Global Telemedicine
+
+                    </h3>
+
+
+                    <p>
+
+                        Connect with doctors worldwide.
+
+                    </p>
+
+                    <span class="service-action-link action-blue">Explore Network <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../lab-tests.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/5.png" alt="Home Lab Test" />
+
+
+                    <h3>
+
+                        Home Lab Test
+
+                    </h3>
+
+
+                    <p>
+
+                        Book tests from your home.
+
+                    </p>
+
+                    <span class="service-action-link action-blue">Book Test <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../hospital-queue.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/6.png" alt="Hospital Queue" />
+
+
+                    <h3>
+
+                        Hospital Queue
+
+                    </h3>
+
+
+                    <p>
+
+                        Check hospital waiting time.
+
+                    </p>
+
+                    <span class="service-action-link action-blue">Check Queue <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../insurance.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/7.png" alt="Insurance" />
+
+
+                    <h3>
+
+                        Insurance
+
+                    </h3>
+
+
+                    <p>
+
+                        Manage your health insurance.
+
+                    </p>
+
+                    <span class="service-action-link action-green">View Plans <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../nutrition.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/8.png" alt="Nutrition Planner" />
+
+
+                    <h3>
+
+                        Nutrition Planner
+
+                    </h3>
+
+
+                    <p>
+
+                        Plan healthy meals.
+
+                    </p>
+
+                    <span class="service-action-link action-green">Plan Meals <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+
+                <div class="service-card" onclick="window.location.href='../blood.html'" style="cursor:pointer;">
+
+                    <img class="service-card-image" src="service-images/pdf-reference/9.png" alt="Blood Donation" />
+
+
+                    <h3>
+
+                        Blood Donation
+
+                    </h3>
+
+
+                    <p>
+
+                        Find and support blood donation.
+
+                    </p>
+
+                    <span class="service-action-link action-red">Live Availability <span class="arrow" aria-hidden="true">→</span></span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- HEALTH TIP -->
+
+        <section class="health-tip">
+
+
+            <div class="tip-content">
+
+
+                <p>
+
+                    DAILY HEALTH TIP
+
+                </p>
+
+
+                <h2>
+
+                    Stay hydrated and stay healthy
+
+                </h2>
+
+
+                <span>
+
+                    Drinking enough water every day helps your body
+                    stay active and healthy.
+
+                </span>
+
+
+                <button>
+
+                    Read More →
+
+                </button>
+
+
+            </div>
+
+
+            <div class="tip-image">
+
+                💧
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- APPOINTMENT -->
+
+        <section
+            class="dashboard-section"
+            id="appointments"
+        >
+
+
+            <div class="section-title">
+
+
+                <h2>
+
+                    Upcoming Appointments
+
+                </h2>
+
+
+                <a href="#">
+
+                    View All
+
+                </a>
+
+
+            </div>
+
+
+
+                        <div class="appointment-card">
+                <div class="appointment-details">
+                    <h3>Loading live appointments...</h3>
+                    <p>Connecting to your secure Google Cloud records.</p>
+                    <span>Live data</span>
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <!-- MORE FEATURES -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+
+                <h2>
+
+                    More MediCare Features
+
+                </h2>
+
+
+            </div>
+
+
+
+            <div class="features-grid">
+
+
+                <div class="feature-card" onclick="window.location.href='../wearables.html'" style="cursor:pointer;">
+
+                    ⌚
+
+                    <h3>
+
+                        Wearable Integration
+
+                    </h3>
+
+
+                    <p>
+
+                        Connect your health devices.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card" onclick="window.location.href='../health-records.html'" style="cursor:pointer;">
+
+                    🔐
+
+                    <h3>
+
+                        Blockchain Records
+
+                    </h3>
+
+
+                    <p>
+
+                        Secure health records.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card" onclick="window.location.href='../family-health.html'" style="cursor:pointer;">
+
+                    👨‍👩‍👧
+
+                    <h3>
+
+                        Family Health Hub
+
+                    </h3>
+
+
+                    <p>
+
+                        Manage your family health.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card" onclick="window.location.href='../health-records.html'" style="cursor:pointer;">
+
+                    📁
+
+                    <h3>
+
+                        Health Records
+
+                    </h3>
+
+
+                    <p>
+
+                        View your medical history.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- BOTTOM MOBILE NAVIGATION -->
+
+    <div class="bottom-nav">
+
+
+        <div class="nav-item active">
+
+            🏠
+
+            <span>
+
+                Home
+
+            </span>
+
+        </div>
+
+
+        <div class="nav-item">
+
+            👨‍⚕️
+
+            <span>
+
+                Doctors
+
+            </span>
+
+        </div>
+
+
+        <div class="nav-item">
+
+            📅
+
+            <span>
+
+                Appointments
+
+            </span>
+
+        </div>
+
+
+        <div class="nav-item">
+
+            📁
+
+            <span>
+
+                Records
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script src="dashboard.js"></script>
+
+
+    <script src="../../js/firebase-config.js"></script>
+    <script type="module" src="../../js/firebase-client.js"></script>
+    <script src="../../js/cloud-auth.js"></script>
+    <script type="module" src="cloud-dashboard.js"></script>
+</body>
+
+</html>

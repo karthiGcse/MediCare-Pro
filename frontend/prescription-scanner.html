@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prescription Scanner | MediCare Pro</title>
+  <meta name="description" content="Scan your prescription using camera or upload, add medicine schedules, and track your medication timings with MediCare Pro." />
+  <link rel="stylesheet" href="prescription-scanner.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="rx-header">
+    <div class="rx-header-inner">
+      <a class="rx-brand" href="dashboard/dashboard.html">
+        <div class="rx-brand-icon">M</div>
+        <span class="rx-brand-text">MediCare Pro</span>
+      </a>
+      <a class="rx-back-btn" href="dashboard/dashboard.html">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="rx-main">
+
+    <!-- Page Title -->
+    <div class="rx-page-title">
+      <div class="rx-badge">📋 Smart Prescription</div>
+      <h1>Prescription Scanner</h1>
+      <p>Scan or upload your prescription to extract medicine details. Add dosage timing, meal instructions, and duration to stay on track.</p>
+    </div>
+
+    <!-- ===== STEP 1: SCAN / UPLOAD ===== -->
+    <div class="rx-scanner-section">
+      <div class="rx-section-header">
+        <div class="rx-section-icon scan">📷</div>
+        <div>
+          <div class="rx-section-title">Scan Prescription</div>
+          <div class="rx-section-subtitle">Use camera or upload a photo of your prescription</div>
+        </div>
+      </div>
+
+      <!-- Tabs: Camera / Upload -->
+      <div class="rx-tabs">
+        <button class="rx-tab active" data-tab="camera" id="tabCamera">📷 Camera</button>
+        <button class="rx-tab" data-tab="upload" id="tabUpload">📁 Upload Image</button>
+      </div>
+
+      <!-- Camera Tab -->
+      <div class="rx-tab-panel active" id="panelCamera">
+        <div class="rx-camera-area" id="cameraArea">
+          <video id="cameraVideo" autoplay playsinline></video>
+          <canvas id="cameraCanvas"></canvas>
+          <div class="rx-scan-corners"><span></span></div>
+          <div class="rx-scan-line"></div>
+          <div class="rx-camera-placeholder" id="cameraPlaceholder">
+            <div class="cam-icon">📷</div>
+            <span>Tap "Open Camera" to start</span>
+            <span class="cam-hint">Position your prescription clearly in the frame</span>
+          </div>
+        </div>
+        <div class="rx-cam-actions">
+          <button class="rx-btn rx-btn-primary" id="btnOpenCamera">📷 Open Camera</button>
+          <button class="rx-btn rx-btn-secondary" id="btnCapture" disabled>📸 Capture</button>
+          <button class="rx-btn rx-btn-danger" id="btnStopCamera" style="display:none">⏹ Stop Camera</button>
+        </div>
+      </div>
+
+      <!-- Upload Tab -->
+      <div class="rx-tab-panel" id="panelUpload">
+        <div class="rx-upload-zone" id="uploadZone">
+          <div class="upload-icon">📁</div>
+          <div class="upload-text">Click to upload or drag & drop</div>
+          <div class="upload-hint">Supports JPG, PNG, WEBP — Max 10MB</div>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" />
+        <img id="previewImg" class="rx-preview-img" alt="Prescription preview" />
+        <button class="rx-btn rx-btn-primary rx-btn-full" id="btnScanUpload" style="display:none;margin-top:14px">🔍 Scan This Image</button>
+      </div>
+
+      <!-- OCR Loading -->
+      <div class="rx-loading" id="ocrLoading">
+        <div class="rx-spinner"></div>
+        <span>Scanning prescription text...</span>
+      </div>
+
+      <!-- OCR Result -->
+      <div class="rx-ocr-result" id="ocrResult">
+        <div class="rx-ocr-label">📄 Extracted Text</div>
+        <div class="rx-ocr-text-box" id="ocrText"></div>
+        
+        <div class="rx-ocr-label" style="margin-top: 15px; color: var(--accent-purple);">🤖 Vertex AI Analysis</div>
+        <div class="rx-ocr-text-box" id="aiAnalysisText" style="background: #f3e8ff; border-color: #d8b4fe;">Waiting for AI...</div>
+      </div>
+
+      <div class="rx-status" id="scanStatus"></div>
+    </div>
+
+    <!-- ===== STEP 2: ADD MEDICINE DETAILS ===== -->
+    <div class="rx-scanner-section">
+      <div class="rx-section-header">
+        <div class="rx-section-icon meds">💊</div>
+        <div>
+          <div class="rx-section-title">Add Medicine Details</div>
+          <div class="rx-section-subtitle">Enter or edit the medicine information from your prescription</div>
+        </div>
+      </div>
+
+      <form class="rx-med-form" id="medForm">
+
+        <div class="rx-form-row">
+          <div class="rx-form-group">
+            <label>💊 Tablet / Medicine Name <span class="req">*</span></label>
+            <input type="text" class="rx-input" id="medName" placeholder="e.g. Paracetamol, Amoxicillin" required />
+          </div>
+          <div class="rx-form-group">
+            <label>💪 Strength / Dosage</label>
+            <input type="text" class="rx-input" id="medStrength" placeholder="e.g. 500mg, 250mg" />
+          </div>
+        </div>
+
+        <div class="rx-form-group">
+          <label>🕐 When to Take <span class="req">*</span></label>
+          <div class="rx-timing-grid">
+            <div class="rx-timing-option">
+              <input type="checkbox" id="timeMorning" value="Morning" />
+              <label class="rx-timing-label" for="timeMorning">
+                <span class="timing-emoji">🌅</span> Morning
+              </label>
+            </div>
+            <div class="rx-timing-option">
+              <input type="checkbox" id="timeAfternoon" value="Afternoon" />
+              <label class="rx-timing-label" for="timeAfternoon">
+                <span class="timing-emoji">☀️</span> Afternoon
+              </label>
+            </div>
+            <div class="rx-timing-option">
+              <input type="checkbox" id="timeEvening" value="Evening" />
+              <label class="rx-timing-label" for="timeEvening">
+                <span class="timing-emoji">🌇</span> Evening
+              </label>
+            </div>
+            <div class="rx-timing-option">
+              <input type="checkbox" id="timeNight" value="Night" />
+              <label class="rx-timing-label" for="timeNight">
+                <span class="timing-emoji">🌙</span> Night
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="rx-form-group">
+          <label>🍽️ Meal Instruction</label>
+          <div class="rx-meal-grid">
+            <div class="rx-meal-option">
+              <input type="radio" name="mealRelation" id="mealBefore" value="Before Food" />
+              <label class="rx-meal-label" for="mealBefore">
+                <span class="meal-icon">🥄</span> Before Food
+              </label>
+            </div>
+            <div class="rx-meal-option">
+              <input type="radio" name="mealRelation" id="mealAfter" value="After Food" checked />
+              <label class="rx-meal-label" for="mealAfter">
+                <span class="meal-icon">🍽️</span> After Food
+              </label>
+            </div>
+            <div class="rx-meal-option">
+              <input type="radio" name="mealRelation" id="mealAny" value="Any Time" />
+              <label class="rx-meal-label" for="mealAny">
+                <span class="meal-icon">⏰</span> Any Time
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="rx-form-row">
+          <div class="rx-form-group">
+            <label>📅 Duration (Days) <span class="req">*</span></label>
+            <input type="number" class="rx-input" id="medDuration" placeholder="e.g. 5, 7, 10" min="1" max="365" required />
+          </div>
+          <div class="rx-form-group">
+            <label>🔢 Quantity per Dose</label>
+            <select class="rx-select" id="medQuantity">
+              <option value="1 tablet">1 Tablet</option>
+              <option value="2 tablets">2 Tablets</option>
+              <option value="Half tablet">Half Tablet</option>
+              <option value="1 capsule">1 Capsule</option>
+              <option value="5ml syrup">5ml Syrup</option>
+              <option value="10ml syrup">10ml Syrup</option>
+              <option value="1 spoon">1 Spoon</option>
+              <option value="As prescribed">As Prescribed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rx-form-group">
+          <label>📝 Additional Notes</label>
+          <textarea class="rx-textarea" id="medNotes" placeholder="e.g. Take with warm water, Avoid dairy products, Apply on affected area"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button type="submit" class="rx-btn rx-btn-success" style="flex:1">✅ Save Medicine</button>
+          <button type="button" class="rx-btn rx-btn-secondary" id="btnClearForm">🗑️ Clear Form</button>
+        </div>
+      </form>
+
+      <div class="rx-status" id="formStatus"></div>
+    </div>
+
+    <!-- ===== STEP 3: SAVED MEDICINES ===== -->
+    <div class="rx-scanner-section">
+      <div class="rx-section-header">
+        <div class="rx-section-icon saved">📋</div>
+        <div>
+          <div class="rx-section-title">My Medicine Schedule</div>
+          <div class="rx-section-subtitle">Your saved medicines and dosage timings</div>
+        </div>
+      </div>
+
+      <div class="rx-med-list" id="medList">
+        <div class="rx-empty-state">
+          <div class="rx-empty-icon">💊</div>
+          <div class="rx-empty-text">No medicines added yet</div>
+          <div class="rx-empty-hint">Scan a prescription or add medicine details above</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Tesseract.js for OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script>
+  (function() {
+    'use strict';
+
+    /* ---- Firebase init ---- */
+    const app = firebase.initializeApp(window.MediCareFirebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    /* ---- DOM refs ---- */
+    const $ = id => document.getElementById(id);
+    const cameraVideo = $('cameraVideo');
+    const cameraCanvas = $('cameraCanvas');
+    const cameraArea = $('cameraArea');
+    const cameraPlaceholder = $('cameraPlaceholder');
+    const btnOpenCamera = $('btnOpenCamera');
+    const btnCapture = $('btnCapture');
+    const btnStopCamera = $('btnStopCamera');
+    const ocrLoading = $('ocrLoading');
+    const ocrResult = $('ocrResult');
+    const ocrText = $('ocrText');
+    const aiAnalysisText = $('aiAnalysisText');
+    const scanStatus = $('scanStatus');
+    const uploadZone = $('uploadZone');
+    const fileInput = $('fileInput');
+    const previewImg = $('previewImg');
+    const btnScanUpload = $('btnScanUpload');
+    const medForm = $('medForm');
+    const medList = $('medList');
+    const formStatus = $('formStatus');
+    const btnClearForm = $('btnClearForm');
+
+    let cameraStream = null;
+    let medicines = [];
+
+    /* ---- Load saved medicines from localStorage ---- */
+    function loadMedicines() {
+      try {
+        const saved = localStorage.getItem('rx_medicines');
+        if (saved) medicines = JSON.parse(saved);
+      } catch(e) {}
+      renderMedicines();
+    }
+
+    /* Also load from Firestore if logged in */
+    function loadFromFirestore() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) return;
+        try {
+          const snap = await db.collection('prescriptions')
+            .where('patientId', '==', user.uid)
+            .orderBy('createdAt', 'desc')
+            .limit(50)
+            .get();
+          if (!snap.empty) {
+            const firestoreMeds = snap.docs.map(doc => ({ id: doc.id, ...doc.data(), _fromFirestore: true }));
+            // Merge: add any Firestore meds not already in local list
+            firestoreMeds.forEach(fm => {
+              if (!medicines.find(m => m.id === fm.id)) medicines.push(fm);
+            });
+            renderMedicines();
+          }
+        } catch(e) {
+          console.log('Firestore load optional:', e.message);
+        }
+      });
+    }
+
+    function saveMedicines() {
+      localStorage.setItem('rx_medicines', JSON.stringify(medicines));
+    }
+
+    /* ---- TABS ---- */
+    document.querySelectorAll('.rx-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.rx-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.rx-tab-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        $('panel' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active');
+      });
+    });
+
+    /* ---- CAMERA ---- */
+    btnOpenCamera.addEventListener('click', async () => {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
+        });
+        cameraVideo.srcObject = cameraStream;
+        cameraVideo.style.display = 'block';
+        cameraPlaceholder.style.display = 'none';
+        cameraArea.classList.add('active');
+        btnCapture.disabled = false;
+        btnOpenCamera.style.display = 'none';
+        btnStopCamera.style.display = 'inline-flex';
+        showStatus(scanStatus, '', '');
+      } catch(e) {
+        showStatus(scanStatus, 'Camera access denied. Please allow camera permission or use Upload.', 'error');
+      }
+    });
+
+    btnCapture.addEventListener('click', () => {
+      if (!cameraStream) return;
+      const ctx = cameraCanvas.getContext('2d');
+      cameraCanvas.width = cameraVideo.videoWidth;
+      cameraCanvas.height = cameraVideo.videoHeight;
+      ctx.drawImage(cameraVideo, 0, 0);
+      cameraCanvas.style.display = 'block';
+      cameraVideo.style.display = 'none';
+      cameraArea.classList.add('scanning');
+
+      // Stop camera
+      stopCamera();
+
+      // Run OCR on the captured image
+      const dataUrl = cameraCanvas.toDataURL('image/png');
+      runOCR(dataUrl);
+    });
+
+    btnStopCamera.addEventListener('click', () => {
+      stopCamera();
+      cameraArea.classList.remove('active', 'scanning');
+      cameraPlaceholder.style.display = 'flex';
+      cameraVideo.style.display = 'none';
+    });
+
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(t => t.stop());
+        cameraStream = null;
+      }
+      btnCapture.disabled = true;
+      btnOpenCamera.style.display = 'inline-flex';
+      btnStopCamera.style.display = 'none';
+    }
+
+    /* ---- UPLOAD ---- */
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.style.borderColor = 'var(--accent-teal)'; });
+    uploadZone.addEventListener('dragleave', () => { uploadZone.style.borderColor = ''; });
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.style.borderColor = '';
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) handleFile(fileInput.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        showStatus(scanStatus, 'Please select an image file (JPG, PNG, WEBP)', 'error');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        showStatus(scanStatus, 'File too large. Max 10MB allowed.', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImg.src = e.target.result;
+        previewImg.classList.add('visible');
+        btnScanUpload.style.display = 'flex';
+        uploadZone.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    btnScanUpload.addEventListener('click', () => {
+      runOCR(previewImg.src);
+    });
+
+    /* ---- OCR with Tesseract.js and Vertex AI ---- */
+    async function runOCR(imageSource) {
+      ocrLoading.classList.add('active');
+      ocrResult.classList.remove('visible');
+      showStatus(scanStatus, '', '');
+      aiAnalysisText.innerHTML = '<div class="rx-spinner" style="width:16px;height:16px;display:inline-block;border-width:2px;"></div> Analyzing with Vertex AI...';
+
+      try {
+        // 1. Run basic text extraction (Tesseract)
+        const result = await Tesseract.recognize(imageSource, 'eng', {
+          logger: info => {
+            if (info.status === 'recognizing text') {
+              ocrLoading.querySelector('span').textContent =
+                `Scanning... ${Math.round((info.progress || 0) * 100)}%`;
+            }
+          }
+        });
+
+        const text = result.data.text.trim();
+        ocrLoading.classList.remove('active');
+
+        if (text.length < 5) {
+          showStatus(scanStatus, 'Could not read text clearly. Try a better photo or enter details manually.', 'error');
+          return;
+        }
+
+        ocrText.textContent = text;
+        ocrResult.classList.add('visible');
+        showStatus(scanStatus, '✅ Text extracted! Vertex AI is generating insights...', 'success');
+
+        autoFillFromOCR(text);
+
+        // 2. Call Vertex AI via our new backend endpoint
+        try {
+            const aiResponse = await fetch("http://127.0.0.1:3000/api/image/diagnose", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ image_base64: imageSource })
+            });
+            const aiData = await aiResponse.json();
+            
+            if (aiResponse.ok) {
+                // Convert newlines to <br> for HTML display
+                aiAnalysisText.innerHTML = (aiData.diagnosis || "No analysis returned").replace(/\n/g, "<br>");
+                showStatus(scanStatus, '✅ Vertex AI Analysis Complete! Edit details below.', 'success');
+            } else {
+                aiAnalysisText.innerHTML = `⚠️ AI Error: ${aiData.message}`;
+            }
+        } catch (err) {
+            aiAnalysisText.innerHTML = `⚠️ Could not reach AI server. Make sure dev-server.py is running.`;
+        }
+
+      } catch(e) {
+        ocrLoading.classList.remove('active');
+        showStatus(scanStatus, 'Scan failed: ' + e.message, 'error');
+      }
+    }
+
+    /* ---- Auto-fill from OCR ---- */
+    function autoFillFromOCR(text) {
+      // Common medicine patterns: look for lines with "mg", "ml", "tab", "cap"
+      const lines = text.split('\n').filter(l => l.trim().length > 2);
+      const medPatterns = /(\d+\s*(mg|ml|mcg|gm|g)\b)/i;
+      const timingPatterns = /(morning|evening|night|afternoon|bedtime|daily|twice|thrice)/gi;
+      const durationPatterns = /(\d+)\s*(days?|weeks?|months?)/i;
+      const mealPatterns = /(before\s*food|after\s*food|before\s*meal|after\s*meal|empty\s*stomach)/i;
+
+      // Try to find a medicine name (usually the first "interesting" line)
+      for (const line of lines) {
+        const cleaned = line.trim();
+        if (cleaned.length > 3 && cleaned.length < 80 && !/^(dr\.|date|hospital|clinic|patient|name|age|rx|sig)/i.test(cleaned)) {
+          $('medName').value = cleaned.split(/\s{2,}/)[0].substring(0, 50);
+          break;
+        }
+      }
+
+      // Try to find strength
+      const strengthMatch = text.match(medPatterns);
+      if (strengthMatch) $('medStrength').value = strengthMatch[1];
+
+      // Try to find timing
+      const timingMatches = text.match(timingPatterns);
+      if (timingMatches) {
+        timingMatches.forEach(t => {
+          const lower = t.toLowerCase();
+          if (lower.includes('morning')) $('timeMorning').checked = true;
+          if (lower.includes('afternoon')) $('timeAfternoon').checked = true;
+          if (lower.includes('evening')) $('timeEvening').checked = true;
+          if (lower.includes('night') || lower.includes('bedtime')) $('timeNight').checked = true;
+        });
+      }
+
+      // Try to find duration
+      const durMatch = text.match(durationPatterns);
+      if (durMatch) {
+        let days = parseInt(durMatch[1]);
+        if (durMatch[2].toLowerCase().startsWith('week')) days *= 7;
+        if (durMatch[2].toLowerCase().startsWith('month')) days *= 30;
+        $('medDuration').value = days;
+      }
+
+      // Try to find meal instruction
+      const mealMatch = text.match(mealPatterns);
+      if (mealMatch) {
+        const m = mealMatch[1].toLowerCase();
+        if (m.includes('before') || m.includes('empty')) $('mealBefore').checked = true;
+        else $('mealAfter').checked = true;
+      }
+    }
+
+    /* ---- MEDICINE FORM SUBMIT ---- */
+    medForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = $('medName').value.trim();
+      const strength = $('medStrength').value.trim();
+      const duration = $('medDuration').value.trim();
+      const quantity = $('medQuantity').value;
+      const notes = $('medNotes').value.trim();
+
+      // Get timings
+      const timings = [];
+      if ($('timeMorning').checked) timings.push('Morning');
+      if ($('timeAfternoon').checked) timings.push('Afternoon');
+      if ($('timeEvening').checked) timings.push('Evening');
+      if ($('timeNight').checked) timings.push('Night');
+
+      if (timings.length === 0) {
+        showStatus(formStatus, 'Please select at least one timing (Morning/Afternoon/Evening/Night)', 'error');
+        return;
+      }
+
+      // Get meal relation
+      const mealRelation = document.querySelector('input[name="mealRelation"]:checked')?.value || 'After Food';
+
+      const med = {
+        id: 'med_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+        medicineName: name,
+        strength: strength,
+        timings: timings,
+        mealRelation: mealRelation,
+        duration: duration + ' days',
+        durationDays: parseInt(duration),
+        quantity: quantity,
+        notes: notes,
+        createdAt: new Date().toISOString(),
+        startDate: new Date().toISOString().split('T')[0]
+      };
+
+      medicines.unshift(med);
+      saveMedicines();
+      renderMedicines();
+
+      // Save to Firestore if logged in
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          await db.collection('prescriptions').add({
+            patientId: user.uid,
+            medicineName: name,
+            strength: strength,
+            timings: timings,
+            mealRelation: mealRelation,
+            duration: duration + ' days',
+            durationDays: parseInt(duration),
+            quantity: quantity,
+            dosage: `${quantity} - ${timings.join(', ')} - ${mealRelation}`,
+            notes: notes,
+            status: 'active',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          showStatus(formStatus, '✅ Medicine saved to your account & local storage!', 'success');
+        } catch(err) {
+          showStatus(formStatus, '✅ Medicine saved locally! (Cloud sync will happen on next login)', 'success');
+        }
+      } else {
+        showStatus(formStatus, '✅ Medicine saved locally! Login to sync across devices.', 'success');
+      }
+
+      // Reset form
+      medForm.reset();
+      $('mealAfter').checked = true;
+    });
+
+    btnClearForm.addEventListener('click', () => {
+      medForm.reset();
+      $('mealAfter').checked = true;
+      showStatus(formStatus, '', '');
+    });
+
+    /* ---- RENDER MEDICINE CARDS ---- */
+    function renderMedicines() {
+      if (medicines.length === 0) {
+        medList.innerHTML = `
+          <div class="rx-empty-state">
+            <div class="rx-empty-icon">💊</div>
+            <div class="rx-empty-text">No medicines added yet</div>
+            <div class="rx-empty-hint">Scan a prescription or add medicine details above</div>
+          </div>`;
+        return;
+      }
+
+      medList.innerHTML = medicines.map((med, idx) => {
+        const timingPills = (med.timings || []).map(t => {
+          const emoji = t === 'Morning' ? '🌅' : t === 'Afternoon' ? '☀️' : t === 'Evening' ? '🌇' : '🌙';
+          return `<span class="timing-pill">${emoji} ${esc(t)}</span>`;
+        }).join('');
+
+        // Calculate remaining days
+        let remainingInfo = '';
+        if (med.startDate && med.durationDays) {
+          const start = new Date(med.startDate);
+          const end = new Date(start);
+          end.setDate(end.getDate() + med.durationDays);
+          const today = new Date();
+          const diff = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+          if (diff > 0) remainingInfo = `${diff} days remaining`;
+          else remainingInfo = 'Course completed';
+        }
+
+        return `
+          <div class="rx-med-card">
+            <div class="rx-med-card-header">
+              <div>
+                <div class="rx-med-name">${esc(med.medicineName || 'Unknown Medicine')}</div>
+                ${med.strength ? `<div class="rx-med-strength">${esc(med.strength)}</div>` : ''}
+              </div>
+              <button class="rx-med-delete" data-idx="${idx}" title="Delete medicine">🗑️</button>
+            </div>
+            <div class="rx-med-details">
+              <div class="rx-med-detail">
+                <div class="rx-med-detail-label">Timing</div>
+                <div class="rx-med-detail-value">${timingPills || '—'}</div>
+              </div>
+              <div class="rx-med-detail">
+                <div class="rx-med-detail-label">Meal</div>
+                <div class="rx-med-detail-value">${esc(med.mealRelation || 'After Food')}</div>
+              </div>
+              <div class="rx-med-detail">
+                <div class="rx-med-detail-label">Duration</div>
+                <div class="rx-med-detail-value">${esc(med.duration || '—')}${remainingInfo ? '<br><small style="color:var(--accent-teal);font-size:11px">' + esc(remainingInfo) + '</small>' : ''}</div>
+              </div>
+              <div class="rx-med-detail">
+                <div class="rx-med-detail-label">Quantity</div>
+                <div class="rx-med-detail-value">${esc(med.quantity || '1 tablet')}</div>
+              </div>
+            </div>
+            ${med.notes ? `<div class="rx-med-notes">📝 ${esc(med.notes)}</div>` : ''}
+          </div>`;
+      }).join('');
+
+      // Attach delete handlers
+      medList.querySelectorAll('.rx-med-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx);
+          if (confirm(`Delete "${medicines[idx]?.medicineName}"?`)) {
+            medicines.splice(idx, 1);
+            saveMedicines();
+            renderMedicines();
+          }
+        });
+      });
+    }
+
+    /* ---- UTILS ---- */
+    function esc(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function showStatus(el, msg, type) {
+      if (!msg) { el.classList.remove('visible'); return; }
+      el.textContent = msg;
+      el.className = 'rx-status visible ' + (type || '');
+    }
+
+    /* ---- INIT ---- */
+    loadMedicines();
+    loadFromFirestore();
+
+  })();
+  </script>
+
+</body>
+</html>

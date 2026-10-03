@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check Symptoms | MediSphere</title>
+  <link rel="stylesheet" href="check-symptoms.css" />
+</head>
+<body>
+  <main class="symptom-shell">
+    <header class="page-header">
+      <div class="brand-row">
+        <div class="brand-mark">M</div>
+        <div class="brand-name">MediSphere</div>
+      </div>
+
+      <div class="back-row">
+        <a class="back-link" href="dashboard/dashboard.html">← Back to Dashboard</a>
+      </div>
+    </header>
+
+    <section class="page-title-wrap">
+      <div class="step-indicator">
+        <span class="step-pill">Symptom Check</span>
+        <span class="step-separator">›</span>
+        <span class="step-pill current">Start Check</span>
+      </div>
+      <h1>Check Symptoms</h1>
+      <p>AI-assisted preliminary guidance designed for demo use only.</p>
+    </section>
+
+    <div class="content-grid">
+      <section class="form-panel">
+        <div class="panel-kicker">Step 1</div>
+        <h2>Tell us what you're experiencing</h2>
+        <p class="subtext">Add your symptoms, note how long they've been happening, and review preliminary guidance.</p>
+
+        <div class="patient-meta-grid">
+          <div>
+            <label class="field-label" for="ageInput">Age</label>
+            <input id="ageInput" class="text-input" type="number" min="1" max="120" value="30" />
+          </div>
+          <div>
+            <label class="field-label" for="sexInput">Biological sex</label>
+            <select id="sexInput" class="text-input">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="field-label" for="symptomText">Symptoms</label>
+        <div class="symptom-input-row">
+          <textarea id="symptomText" class="symptom-textarea" placeholder="Example: fever, cough, headache"></textarea>
+          <button id="addSymptomsBtn" class="add-btn" type="button">Add Symptom</button>
+        </div>
+
+        <div class="selected-block">
+          <div class="selected-label">
+            <span>Selected symptoms</span>
+          </div>
+          <div id="selectedSymptoms" class="selected-chip-list" aria-live="polite"></div>
+        </div>
+
+        <div class="option-group">
+          <div class="selected-label">
+            <span>Quick picks</span>
+          </div>
+          <div id="quickSymptoms" class="quick-chip-list" aria-live="polite"></div>
+        </div>
+
+        <div class="option-group">
+          <label class="field-label">How long have these symptoms been happening?</label>
+          <div class="option-grid">
+            <label class="option-card">
+              <input type="radio" name="duration" value="Less than 24 hours" />
+              <span>Less than 24 hours</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="duration" value="1-3 days" checked />
+              <span>1–3 days</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="duration" value="4-7 days" />
+              <span>4–7 days</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="duration" value="More than 1 week" />
+              <span>More than 1 week</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label class="field-label">Severity level</label>
+          <div class="option-grid">
+            <label class="option-card">
+              <input type="radio" name="severity" value="Mild" />
+              <span>Mild</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="severity" value="Moderate" checked />
+              <span>Moderate</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="severity" value="Severe" />
+              <span>Severe</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="optional-group">
+          <label class="field-label" for="notes">Additional context</label>
+          <textarea id="notes" class="optional-textarea" placeholder="Tell us anything else that might help, such as triggers, recent travel, or injury."></textarea>
+        </div>
+
+        <div id="symptomError" class="error-box" aria-live="polite"></div>
+
+        <div id="loadingState" class="loading-state" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Analyzing symptoms...</span>
+        </div>
+
+        <button id="analyzeSymptomsBtn" class="primary-btn" type="button">Analyze Symptoms</button>
+      </section>
+
+      <aside id="resultsPanel" class="result-panel" hidden>
+        <div class="result-header">
+          <div>
+            <div class="panel-kicker">Analysis</div>
+            <h2>Symptom Analysis</h2>
+          </div>
+          <span id="riskValue" class="risk-pill">Preliminary</span>
+        </div>
+
+        <div id="questionContainer"></div>
+
+        <div class="result-grid">
+          <div class="detail-card">
+            <h3>Symptoms reviewed</h3>
+            <p id="symptomSummary">No symptoms submitted yet.</p>
+          </div>
+
+          <div class="detail-card">
+            <h3>Possible health conditions</h3>
+            <ul id="categoriesList" class="category-list"></ul>
+          </div>
+
+          <div class="detail-card">
+            <h3>Preliminary guidance</h3>
+            <p id="guidanceText">Please provide the symptoms and age information to begin your assessment.</p>
+          </div>
+
+          <div class="meta-boxes">
+            <div class="meta-box">
+              <span class="meta-label">Severity</span>
+              <strong id="careSummary">Awaiting assessment</strong>
+            </div>
+            <div class="meta-box">
+              <span class="meta-label">Priority</span>
+              <strong id="urgencyText">Monitor symptoms and consult a healthcare professional if needed</strong>
+            </div>
+          </div>
+
+          <div class="notice-box">
+            <p id="alertText">This tool provides AI-assisted preliminary health guidance and does not replace professional medical diagnosis or treatment.</p>
+            <button class="urgent-btn" type="button">Seek Medical Care</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="next-step-grid">
+      <button type="button" class="action-card">
+        <div class="action-icon green">🩺</div>
+        <div>
+          <h4>Find a Doctor</h4>
+          <small>Explore healthcare providers</small>
+        </div>
+      </button>
+
+      <button type="button" class="action-card">
+        <div class="action-icon blue">📅</div>
+        <div>
+          <h4>Book Appointment</h4>
+          <small>Schedule a consultation</small>
+        </div>
+      </button>
+
+      <button type="button" class="action-card">
+        <div class="action-icon teal">💬</div>
+        <div>
+          <h4>Telemedicine</h4>
+          <small>Consult a doctor online</small>
+        </div>
+      </button>
+    </div>
+
+    <div class="footer-actions">
+      <button class="secondary-btn" type="button" onclick="window.location.href='dashboard/dashboard.html'">Return to Dashboard</button>
+    </div>
+
+    <div class="disclaimer">
+      This tool provides AI-assisted preliminary health guidance and does not replace professional medical diagnosis or treatment.
+    </div>
+  </main>
+
+  <script src="check-symptoms.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script type="module" src="js/firebase-client.js"></script>
+    <script src="js/cloud-auth.js"></script>
+</body>
+</html>
+

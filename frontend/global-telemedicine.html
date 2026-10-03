@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Telemedicine & International Second Opinions | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #0284c7; /* Global Sky/Ocean Blue */
+            --primary-light: #f0f9ff;
+            --primary-dark: #0369a1;
+            --primary-border: #bae6fd;
+            --navy: #0f172a;
+            --emerald: #059669; 
+            --emerald-light: #ecfdf5; 
+            --emerald-border: #a7f3d0;
+            --blue: #2563eb; 
+            --blue-light: #eff6ff; 
+            --blue-border: #bfdbfe;
+            --amber: #d97706; 
+            --amber-light: #fffbeb; 
+            --amber-border: #fde68a;
+            --purple: #7c3aed;
+            --purple-light: #f5f3ff;
+            --purple-border: #ddd6fe;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; 
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--blue)); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(2,132,199,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--primary); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-color: var(--primary-border); 
+        }
+
+        /* MAIN CONTAINER */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--primary-light); 
+            border: 1px solid var(--primary-border); 
+            color: var(--primary-dark); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--gray-500); max-width: 740px; margin: 0 auto; font-size: 15px; }
+
+        /* TAB BAR */
+        .tab-bar {
+            display: flex;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 180px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: var(--shadow-xs);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn .25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TIMEZONE CLOCKS */
+        .tz-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-lg);
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+        }
+        .tz-card { text-align: center; }
+        .tz-city { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gray-500); letter-spacing: 0.05em; }
+        .tz-time { font-size: 18px; font-weight: 800; color: var(--gray-900); margin: 2px 0; font-variant-numeric: tabular-nums; }
+        .tz-status { font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .tz-status.open { color: var(--emerald); }
+        .tz-status.night { color: var(--gray-400); }
+
+        /* GLOBAL HOSPITALS GRID */
+        .hospital-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
+        }
+        .hosp-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .2s;
+        }
+        .hosp-card:hover { border-color: var(--primary-border); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .hosp-flag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; }
+        .flag-us { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .flag-uk { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .flag-sg { background: #fdf2f8; color: #be185d; border: 1px solid #fbcfe8; }
+        .hosp-title { font-size: 18px; font-weight: 800; color: var(--gray-900); margin-bottom: 6px; }
+        .hosp-loc { font-size: 12px; color: var(--gray-500); margin-bottom: 14px; }
+        
+        .specialties-box {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 12px;
+        }
+        .spec-title { font-weight: 700; color: var(--gray-700); margin-bottom: 6px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.03em; }
+        .spec-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .spec-tag { background: var(--white); border: 1px solid var(--gray-200); padding: 3px 8px; border-radius: 6px; color: var(--gray-700); font-weight: 500; font-size: 11px; }
+
+        .hosp-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gray-600);
+            padding: 10px 0;
+            border-top: 1px dashed var(--gray-200);
+            margin-bottom: 14px;
+        }
+
+        .hosp-actions { display: flex; gap: 8px; }
+        .btn-int-book {
+            flex: 2;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all .2s;
+            box-shadow: 0 4px 12px rgba(2,132,199,.25);
+        }
+        .btn-int-book:hover { background: var(--primary-dark); }
+        .btn-int-site {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            color: var(--gray-700);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all .2s;
+        }
+        .btn-int-site:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary-border); }
+
+        /* PLATFORMS GRID */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .portal-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .portal-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+        .portal-title { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .portal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 14px; }
+        .portal-features { font-size: 12px; color: var(--gray-600); margin-bottom: 20px; line-height: 1.8; }
+        .portal-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s;
+        }
+
+        /* MY CASES SECTION */
+        .sec-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .sec-hdr h2 { font-size: 20px; font-weight: 800; color: var(--gray-900); }
+        .case-record {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-xs);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .case-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+        .case-meta { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .status-active { background: var(--primary-light); color: var(--primary-dark); border: 1px solid var(--primary-border); }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn .2s ease-out; }
+        .modal {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            max-width: 520px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .m-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .m-title { font-size: 18px; font-weight: 800; color: var(--gray-900); }
+        .m-close { background: none; border: none; font-size: 24px; color: var(--gray-400); cursor: pointer; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--gray-900);
+            outline: none;
+            transition: border-color .2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2,132,199,.12);
+        }
+
+        @media (max-width: 768px) {
+            .tz-bar { grid-template-columns: repeat(2, 1fr); }
+            .hospital-grid, .portal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a href="dashboard/dashboard.html" class="brand">
+                <div class="brand-icon">🌐</div>
+                <div class="brand-name">MediCare <span>Global</span></div>
+            </a>
+            <div class="hdr-actions">
+                <a href="dashboard/dashboard.html" class="back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🌍</span> Cross-Border Teleconsultations & Remote Second Opinions
+            </div>
+            <h1>Global <span>Telemedicine Network</span></h1>
+            <p>Connect with world-renowned specialists from Cleveland Clinic, Mayo Clinic, Johns Hopkins, Great Ormond Street London, and Singapore General Hospital for authoritative written clinical second opinions and international video consultations.</p>
+        </section>
+
+        <!-- LIVE TIMEZONE BAR -->
+        <div class="tz-bar">
+            <div class="tz-card">
+                <div class="tz-city">🇺🇸 New York (EDT)</div>
+                <div class="tz-time" id="tzUS">--:-- --</div>
+                <div class="tz-status" id="statUS">● Live Hours</div>
+            </div>
+            <div class="tz-card">
+                <div class="tz-city">🇬🇧 London (BST)</div>
+                <div class="tz-time" id="tzUK">--:-- --</div>
+                <div class="tz-status" id="statUK">● Live Hours</div>
+            </div>
+            <div class="tz-card">
+                <div class="tz-city">🇦🇪 Dubai (GST)</div>
+                <div class="tz-time" id="tzUAE">--:-- --</div>
+                <div class="tz-status" id="statUAE">● Active</div>
+            </div>
+            <div class="tz-card">
+                <div class="tz-city">🇸🇬 Singapore (SGT)</div>
+                <div class="tz-time" id="tzSG">--:-- --</div>
+                <div class="tz-status" id="statSG">● Active</div>
+            </div>
+            <div class="tz-card">
+                <div class="tz-city">🇮🇳 Chennai (IST)</div>
+                <div class="tz-time" id="tzIN">--:-- --</div>
+                <div class="tz-status open">● Local Time</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('hospitals', this)">
+                <span>🏥</span> World-Leading Hospitals
+            </button>
+            <button class="tab-btn" onclick="switchTab('telehealth', this)">
+                <span>📱</span> 24/7 Global Telehealth Platforms
+            </button>
+            <button class="tab-btn" onclick="switchTab('mycases', this)">
+                <span>📑</span> My Global Cases (<span id="caseCountBadge">0</span>)
+            </button>
+        </div>
+
+        <!-- TAB 1: WORLD HOSPITALS -->
+        <div class="tab-panel active" id="tab-hospitals">
+            <div class="hospital-grid">
+                <!-- Cleveland Clinic -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-us">🇺🇸 Cleveland, Ohio • USA</div>
+                        <h3 class="hosp-title">Cleveland Clinic Virtual Second Opinions</h3>
+                        <p class="hosp-loc">Ranked #1 in Cardiology & Heart Surgery for 28 consecutive years.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Super-Specialty Second Opinions:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Cardiology & Bypass</span>
+                                <span class="spec-tag">Complex Oncology</span>
+                                <span class="spec-tag">Neurosurgery</span>
+                                <span class="spec-tag">Orthopedics</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>5-7 Days</strong></span>
+                            <span>📋 Format: <strong>Written Board Opinion</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('Cleveland Clinic Virtual Consult', 'Cleveland Clinic (USA)', 'Cardiology, Oncology, Neurosurgery')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://my.clevelandclinic.org/departments/patients-second-opinions" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mayo Clinic -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-us">🇺🇸 Rochester, Minnesota • USA</div>
+                        <h3 class="hosp-title">Mayo Clinic International Healthcare</h3>
+                        <p class="hosp-loc">Ranked #1 Hospital in the World by Newsweek.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Super-Specialty Second Opinions:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Rare Diseases</span>
+                                <span class="spec-tag">Comprehensive Cancer</span>
+                                <span class="spec-tag">Gastroenterology</span>
+                                <span class="spec-tag">Endocrinology</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>7-10 Days</strong></span>
+                            <span>📋 Format: <strong>Multidisciplinary Review</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('Mayo Clinic International Teleconsult', 'Mayo Clinic (USA)', 'Rare Conditions, Oncology')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://www.mayoclinic.org/departments-centers/international" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Johns Hopkins Medicine -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-us">🇺🇸 Baltimore, Maryland • USA</div>
+                        <h3 class="hosp-title">Johns Hopkins Medicine International</h3>
+                        <p class="hosp-loc">World leader in biomedical research and breakthrough surgical care.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Super-Specialty Second Opinions:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Neuroscience</span>
+                                <span class="spec-tag">Pediatric Oncology</span>
+                                <span class="spec-tag">Immunology</span>
+                                <span class="spec-tag">Urology</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>5-8 Days</strong></span>
+                            <span>📋 Format: <strong>Remote Clinical Dossier</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('Johns Hopkins International Consult', 'Johns Hopkins (USA)', 'Neurology, Immunology, Oncology')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://www.hopkinsmedicine.org/international" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Great Ormond Street Hospital (London) -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-uk">🇬🇧 London • United Kingdom</div>
+                        <h3 class="hosp-title">Great Ormond Street Hospital (GOSH)</h3>
+                        <p class="hosp-loc">Global pioneer in complex children's healthcare and rare pediatric conditions.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Pediatric Second Opinions:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Pediatric Cardiology</span>
+                                <span class="spec-tag">Child Neurology</span>
+                                <span class="spec-tag">Genetics</span>
+                                <span class="spec-tag">Metabolic Disorders</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>5-7 Days</strong></span>
+                            <span>📋 Format: <strong>Pediatric Board Panel</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('GOSH London Pediatric Opinion', 'Great Ormond Street Hospital (UK)', 'Pediatric Rare Diseases, Child Heart')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://www.gosh.nhs.uk/wards-and-departments/departments/international-and-private-care/" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SingHealth (Singapore) -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-sg">🇸🇬 Singapore</div>
+                        <h3 class="hosp-title">SingHealth / Singapore General Hospital</h3>
+                        <p class="hosp-loc">Southeast Asia's largest academic healthcare cluster.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Super-Specialty Teleconsultations:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Organ Transplants</span>
+                                <span class="spec-tag">National Cancer Centre</span>
+                                <span class="spec-tag">Heart Centre</span>
+                                <span class="spec-tag">Eye Care (SNEC)</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>3-5 Days</strong></span>
+                            <span>📋 Format: <strong>Live Video + Written</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('SingHealth Singapore Teleconsult', 'SingHealth SGH (Singapore)', 'Transplants, Cancer, Ophthalmology')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://www.singhealth.com.sg/patient-care/international-patients" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mass General Brigham (Harvard) -->
+                <div class="hosp-card">
+                    <div>
+                        <div class="hosp-flag flag-us">🇺🇸 Boston, Massachusetts • USA</div>
+                        <h3 class="hosp-title">Mass General Brigham (Harvard Teaching)</h3>
+                        <p class="hosp-loc">World-class multidisciplinary expert second opinions from Harvard professors.</p>
+                        
+                        <div class="specialties-box">
+                            <div class="spec-title">Super-Specialty Second Opinions:</div>
+                            <div class="spec-tags">
+                                <span class="spec-tag">Dana-Farber Cancer</span>
+                                <span class="spec-tag">Spine & Orthopedics</span>
+                                <span class="spec-tag">Rare Genetics</span>
+                                <span class="spec-tag">Rheumatology</span>
+                            </div>
+                        </div>
+
+                        <div class="hosp-meta">
+                            <span>⏱️ Turnaround: <strong>7-10 Days</strong></span>
+                            <span>📋 Format: <strong>Comprehensive Dossier</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="hosp-actions">
+                        <button class="btn-int-book" onclick="openGlobalModal('Mass General Harvard Opinion', 'Mass General Brigham (USA)', 'Dana-Farber Cancer, Spine, Genetics')">
+                            Request Second Opinion
+                        </button>
+                        <a href="https://www.massgeneralbrigham.org/en/patient-care/international-patients" target="_blank" rel="noopener" class="btn-int-site">
+                            Portal ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: GLOBAL TELEHEALTH PLATFORMS -->
+        <div class="tab-panel" id="tab-telehealth">
+            <div class="portal-grid">
+                <!-- Teladoc -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#f0f9ff; color:#0284c7;">🌍</div>
+                        <h3 class="portal-title">Teladoc Health Global</h3>
+                        <p class="portal-desc">World's largest telemedicine provider operating in 175+ countries. Connect with board-certified international physicians anytime, anywhere.</p>
+                        <div class="portal-features">
+                            <div>✓ 24/7 Global Doctor Video Consultations</div>
+                            <div>✓ Multilingual (English, Spanish, French, etc.)</div>
+                            <div>✓ Mental Health & Chronic Care Plans</div>
+                        </div>
+                    </div>
+                    <a href="https://www.teladochealth.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#0284c7;">
+                        Explore Teladoc Global ↗
+                    </a>
+                </div>
+
+                <!-- Doctor on Demand -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#eff6ff; color:#2563eb;">🩺</div>
+                        <h3 class="portal-title">Doctor On Demand (USA)</h3>
+                        <p class="portal-desc">Direct live video visits with US-licensed and board-certified physicians, therapists, and psychiatrists via high-definition secure telehealth.</p>
+                        <div class="portal-features">
+                            <div>✓ Average wait time under 10 minutes</div>
+                            <div>✓ Urgent care and preventive wellness</div>
+                            <div>✓ Clinical e-prescriptions & summaries</div>
+                        </div>
+                    </div>
+                    <a href="https://www.doctorondemand.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#2563eb;">
+                        Visit Doctor On Demand ↗
+                    </a>
+                </div>
+
+                <!-- Second Medic -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#ecfdf5; color:#059669;">🇮🇳</div>
+                        <h3 class="portal-title">Second Medic Cross-Border</h3>
+                        <p class="portal-desc">Dedicated international second opinion platform connecting Indian patients with leading specialists from USA, UK, and premier AIIMS doctors.</p>
+                        <div class="portal-features">
+                            <div>✓ US & UK Super-Specialist Panels</div>
+                            <div>✓ Complete medical records translation</div>
+                            <div>✓ Localized Indian follow-up support</div>
+                        </div>
+                    </div>
+                    <a href="https://www.secondmedic.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#059669;">
+                        Visit Second Medic ↗
+                    </a>
+                </div>
+
+                <!-- International SOS -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#fff1f2; color:#e11d48;">✈️</div>
+                        <h3 class="portal-title">International SOS Medical Assistance</h3>
+                        <p class="portal-desc">World's leading emergency medical assistance and international traveler healthcare coordination network with 27 global assistance centers.</p>
+                        <div class="portal-features">
+                            <div>✓ Global emergency teleconsultation</div>
+                            <div>✓ International medical evacuation (Air Ambulance)</div>
+                            <div>✓ 24/7 multilingual medical director team</div>
+                        </div>
+                    </div>
+                    <a href="https://www.internationalsos.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#e11d48;">
+                        Visit International SOS ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: MY GLOBAL CASES -->
+        <div class="tab-panel" id="tab-mycases">
+            <div class="sec-hdr">
+                <div>
+                    <h2>My International Case Inquiries</h2>
+                    <p style="font-size:13px; color:var(--gray-500); margin-top:2px;">Track remote second opinion intake records submitted from MediCare Pro.</p>
+                </div>
+                <button class="back-btn" onclick="loadMyGlobalCases()" style="padding:6px 12px; font-size:12px;">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="myGlobalCasesList">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </main>
+
+    <!-- INTAKE MODAL -->
+    <div class="modal-overlay" id="globalModal">
+        <div class="modal">
+            <div class="m-hdr">
+                <h3 class="m-title">Request International Second Opinion</h3>
+                <button class="m-close" onclick="closeGlobalModal()">×</button>
+            </div>
+
+            <div class="form-group">
+                <label>Target Medical Institution</label>
+                <input type="text" id="mHospName" readonly style="font-weight:700; color:var(--gray-900); background:var(--gray-50);" />
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:2;">
+                    <label>Patient Full Name</label>
+                    <input type="text" id="mPatName" placeholder="e.g. S. Karthikeyan" required />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Age</label>
+                    <input type="number" id="mPatAge" placeholder="Age" min="1" max="110" required />
+                </div>
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Email Address (For Written Opinion)</label>
+                    <input type="email" id="mPatEmail" placeholder="patient@example.com" required />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>WhatsApp / Phone (With Country Code)</label>
+                    <input type="tel" id="mPatPhone" placeholder="+91 9876543210" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Diagnosis / Medical Condition</label>
+                <input type="text" id="mPatCondition" placeholder="e.g. Stage 2 Breast Cancer / Complex Mitral Valve Regurgitation" required />
+            </div>
+
+            <div class="form-group">
+                <label>Specific Questions for the International Specialist Panel</label>
+                <textarea id="mPatQuestions" rows="3" placeholder="e.g. 1. Is surgical resection recommended over targeted chemotherapy? 2. Are there alternative FDA-approved therapies?"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Consultation Language</label>
+                <select id="mPatLang">
+                    <option value="English" selected>English (Default)</option>
+                    <option value="English + Tamil Translator">English with Tamil Medical Interpreter</option>
+                    <option value="English + Hindi Translator">English with Hindi Medical Interpreter</option>
+                    <option value="Arabic">Arabic (العربية)</option>
+                    <option value="French">French (Français)</option>
+                </select>
+            </div>
+
+            <button class="btn-int-book" id="btnSubmitGlobalCase" style="width:100%; padding:13px; font-size:14px; margin-top:10px;" onclick="confirmGlobalCase()">
+                Submit Case for International Medical Review
+            </button>
+        </div>
+    </div>
+
+    <!-- FIREBASE INTEGRATION -->
+    <script src="js/firebase-config.js"></script>
+    <script type="module" src="js/firebase-client.js"></script>
+    <script src="js/cloud-auth.js"></script>
+
+    <script>
+        let currentUser = null;
+        let cloudDb = null;
+        let addDocFunc = null;
+        let collectionFunc = null;
+        let serverTimestampFunc = null;
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // Live Timezone Clocks
+        function updateTimezones() {
+            const now = new Date();
+
+            const fmt = (tz) => {
+                return new Intl.DateTimeFormat('en-US', {
+                    timeZone: tz,
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).format(now);
+            };
+
+            const getHour24 = (tz) => {
+                const parts = new Intl.DateTimeFormat('en-US', {
+                    timeZone: tz,
+                    hour: 'numeric',
+                    hour12: false
+                }).format(now);
+                return parseInt(parts, 10);
+            };
+
+            document.getElementById('tzUS').textContent = fmt('America/New_York');
+            document.getElementById('tzUK').textContent = fmt('Europe/London');
+            document.getElementById('tzUAE').textContent = fmt('Asia/Dubai');
+            document.getElementById('tzSG').textContent = fmt('Asia/Singapore');
+            document.getElementById('tzIN').textContent = fmt('Asia/Kolkata');
+
+            // Determine if between 8am and 6pm in respective timezone
+            const checkStatus = (tz, elId) => {
+                const h = getHour24(tz);
+                const el = document.getElementById(elId);
+                if (h >= 8 && h < 18) {
+                    el.className = 'tz-status open';
+                    el.textContent = '● Clinic Hours Open';
+                } else {
+                    el.className = 'tz-status night';
+                    el.textContent = '● Night On-Call';
+                }
+            };
+
+            checkStatus('America/New_York', 'statUS');
+            checkStatus('Europe/London', 'statUK');
+            checkStatus('Asia/Dubai', 'statUAE');
+            checkStatus('Asia/Singapore', 'statSG');
+        }
+
+        // Modal Handlers
+        let selectedHosp = null;
+        function openGlobalModal(title, hospitalName, specs) {
+            selectedHosp = hospitalName;
+            document.getElementById('mHospName').value = `${hospitalName} — ${title}`;
+            document.getElementById('globalModal').classList.add('active');
+        }
+
+        function closeGlobalModal() {
+            document.getElementById('globalModal').classList.remove('active');
+        }
+
+        // Local Storage Case Management
+        function getLocalCases() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_global_telemed') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLocalCases(list) {
+            localStorage.setItem('medicare_global_telemed', JSON.stringify(list));
+            updateCaseBadge();
+        }
+
+        function updateCaseBadge() {
+            const list = getLocalCases();
+            const badge = document.getElementById('caseCountBadge');
+            if (badge) badge.textContent = list.length;
+        }
+
+        async function confirmGlobalCase() {
+            const hosp = document.getElementById('mHospName').value;
+            const patName = document.getElementById('mPatName').value.trim();
+            const patAge = document.getElementById('mPatAge').value.trim();
+            const patEmail = document.getElementById('mPatEmail').value.trim();
+            const patPhone = document.getElementById('mPatPhone').value.trim();
+            const patCondition = document.getElementById('mPatCondition').value.trim();
+            const patQuestions = document.getElementById('mPatQuestions').value.trim();
+            const patLang = document.getElementById('mPatLang').value;
+
+            if (!patName || !patEmail || !patPhone || !patCondition) {
+                alert('Please fill in patient name, email, phone number, and diagnosis.');
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitGlobalCase');
+            btn.disabled = true;
+            btn.textContent = 'Processing Intake...';
+
+            const newCase = {
+                id: 'int_' + Date.now(),
+                institution: hosp,
+                patientName: patName,
+                age: patAge,
+                email: patEmail,
+                phone: patPhone,
+                condition: patCondition,
+                questions: patQuestions,
+                language: patLang,
+                status: 'Case File Under Review',
+                submittedAt: new Date().toLocaleString()
+            };
+
+            // 1. Save locally
+            const list = getLocalCases();
+            list.unshift(newCase);
+            saveLocalCases(list);
+
+            // 2. Sync to Firebase if available
+            if (currentUser && cloudDb && addDocFunc) {
+                try {
+                    await addDocFunc(collectionFunc(cloudDb, 'global_consultations'), {
+                        patientId: currentUser.uid,
+                        ...newCase,
+                        createdAt: serverTimestampFunc ? serverTimestampFunc() : new Date().toISOString()
+                    });
+                } catch (e) {
+                    console.warn('Firebase global sync note:', e);
+                }
+            }
+
+            alert(`✅ International Second Opinion Case Received!\n\nCase ID: ${newCase.id}\nTarget: ${hosp}\n\nOur International Patient Coordinator will contact you on ${patEmail} within 24 hours to collect previous biopsy, MRI/CT DICOM scans, and blood reports.`);
+            closeGlobalModal();
+            loadMyGlobalCases();
+
+            btn.disabled = false;
+            btn.textContent = 'Submit Case for International Medical Review';
+
+            // Switch to cases tab
+            const tabBtn = document.querySelector('.tab-bar .tab-btn:nth-child(3)');
+            switchTab('mycases', tabBtn);
+        }
+
+        function cancelGlobalCase(id) {
+            if (!confirm('Are you sure you want to withdraw this international case request?')) return;
+            let list = getLocalCases();
+            list = list.filter(c => c.id !== id);
+            saveLocalCases(list);
+            loadMyGlobalCases();
+        }
+
+        function loadMyGlobalCases() {
+            const container = document.getElementById('myGlobalCasesList');
+            const cases = getLocalCases();
+
+            if (!cases.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:35px 20px; color:var(--gray-500); font-size:14px; background:var(--white); border-radius:14px; border:1px dashed var(--gray-300);">
+                        <div style="font-size:32px; margin-bottom:8px;">🌐</div>
+                        <div style="font-weight:700; color:var(--gray-700); margin-bottom:4px;">No International Cases Submitted</div>
+                        <p style="font-size:13px; color:var(--gray-500);">Explore Cleveland Clinic, Mayo Clinic, or GOSH London above to initiate an expert remote second opinion.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cases.map(c => `
+                <div class="case-record">
+                    <div>
+                        <div class="case-title">${escapeHtml(c.institution)}</div>
+                        <div class="case-meta">
+                            👤 <strong>Patient:</strong> ${escapeHtml(c.patientName)} (${escapeHtml(c.age)} yrs) • 
+                            ✉️ <strong>Email:</strong> ${escapeHtml(c.email)} • 
+                            📞 <strong>Phone:</strong> ${escapeHtml(c.phone)}
+                        </div>
+                        <div style="font-size:12px; color:var(--gray-700); margin-top:4px;">
+                            🩺 <strong>Diagnosis:</strong> ${escapeHtml(c.condition)} • 
+                            🌐 <strong>Language:</strong> ${escapeHtml(c.language)}
+                        </div>
+                        ${c.questions ? `<div style="font-size:12px; color:var(--gray-500); margin-top:4px; font-style:italic;">Query: "${escapeHtml(c.questions)}"</div>` : ''}
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="status-badge status-active">${escapeHtml(c.status).toUpperCase()}</span>
+                        <button onclick="cancelGlobalCase('${c.id}')" style="background:#fee2e2; border:1px solid #fecdd3; color:#b91c1c; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;" title="Withdraw Case">
+                            ✕ Withdraw
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Firebase readiness
+        document.addEventListener('medicare:portal-ready', ({ detail }) => {
+            const { user, cloud } = detail;
+            currentUser = user;
+            cloudDb = cloud.db;
+            addDocFunc = cloud.addDoc;
+            collectionFunc = cloud.collection;
+            serverTimestampFunc = cloud.serverTimestamp;
+        });
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateTimezones();
+            setInterval(updateTimezones, 10000);
+            updateCaseBadge();
+            loadMyGlobalCases();
+        });
+    </script>
+</body>
+</html>

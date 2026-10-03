@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicine & Live Online Doctor Consultations | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #2563eb; /* Telemedicine Blue */
+            --primary-light: #eff6ff;
+            --primary-dark: #1d4ed8;
+            --primary-border: #bfdbfe;
+            --emerald: #059669; 
+            --emerald-light: #ecfdf5; 
+            --emerald-border: #a7f3d0;
+            --amber: #d97706; 
+            --amber-light: #fffbeb; 
+            --amber-border: #fde68a;
+            --purple: #7c3aed;
+            --purple-light: #f5f3ff;
+            --purple-border: #ddd6fe;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; 
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(37,99,235,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--primary); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-color: var(--primary-border); 
+        }
+
+        /* MAIN CONTAINER */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--emerald-light); 
+            border: 1px solid var(--emerald-border); 
+            color: var(--emerald); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--gray-500); max-width: 720px; margin: 0 auto; font-size: 15px; }
+
+        /* TAB BAR */
+        .tab-bar {
+            display: flex;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 170px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: var(--shadow-xs);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn .25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SPECIALTIES GRID */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .spec-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .2s;
+        }
+        .spec-card:hover {
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .spec-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .spec-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .badge-live { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .badge-free { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+        .spec-icon { font-size: 32px; margin-bottom: 8px; }
+        .spec-title { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .spec-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 16px; line-height: 1.5; }
+        
+        .symptoms-list {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--gray-700);
+        }
+        .symptoms-list strong { color: var(--gray-900); display: block; margin-bottom: 4px; }
+
+        .spec-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px dashed var(--gray-200);
+            margin-bottom: 14px;
+        }
+        .price-tag { font-size: 20px; font-weight: 800; color: var(--primary); }
+        .wait-tag { font-size: 12px; color: var(--emerald); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+        .btn-consult-now {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37,99,235,.25);
+        }
+        .btn-consult-now:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        /* VIDEO ROOM SIMULATOR */
+        .video-room-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+        .room-screen {
+            background: #0f172a;
+            border-radius: 16px;
+            height: 380px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .doctor-video-feed {
+            text-align: center;
+        }
+        .doc-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--emerald));
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        .doc-feed-name { font-size: 18px; font-weight: 700; }
+        .doc-feed-status { font-size: 13px; color: #34d399; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .pip-patient {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 90px;
+            border-radius: 10px;
+            background: #1e293b;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .room-controls {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+        .control-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            color: var(--gray-700);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .control-btn:hover { background: var(--gray-100); }
+        .control-btn.end-call { background: #ef4444; color: #fff; border-color: #ef4444; }
+        .control-btn.end-call:hover { background: #dc2626; }
+
+        /* OFFICIAL PORTALS GRID */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .portal-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .portal-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+        .portal-title { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .portal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 14px; }
+        .portal-features { font-size: 12px; color: var(--gray-600); margin-bottom: 20px; line-height: 1.8; }
+        .portal-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s;
+        }
+
+        /* MY CONSULTATIONS */
+        .sec-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .sec-hdr h2 { font-size: 20px; font-weight: 800; color: var(--gray-900); }
+        .consult-record {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-xs);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .record-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+        .record-meta { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .status-confirmed { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn .2s ease-out; }
+        .modal {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            max-width: 520px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .m-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .m-title { font-size: 18px; font-weight: 800; color: var(--gray-900); }
+        .m-close { background: none; border: none; font-size: 24px; color: var(--gray-400); cursor: pointer; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--gray-900);
+            outline: none;
+            transition: border-color .2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+        }
+
+        @media (max-width: 768px) {
+            .spec-grid, .portal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a href="dashboard/dashboard.html" class="brand">
+                <div class="brand-icon">📹</div>
+                <div class="brand-name">MediCare <span>Telemed</span></div>
+            </a>
+            <div class="hdr-actions">
+                <a href="dashboard/dashboard.html" class="back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>⚡</span> Instant Video Visits in < 15 Mins • 100% Digital e-Prescriptions
+            </div>
+            <h1>Live Online <span>Doctor Teleconsultations</span></h1>
+            <p>Connect with verified general physicians and super-specialists directly through live encrypted video consultations or consult Government Medical College doctors free on national eSanjeevani.</p>
+        </section>
+
+        <!-- TABS -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('specialties', this)">
+                <span>👨‍⚕️</span> Online Specialties
+            </button>
+            <button class="tab-btn" onclick="switchTab('portals', this)">
+                <span>🏛️</span> Official Telehealth Networks
+            </button>
+            <button class="tab-btn" onclick="switchTab('room', this)">
+                <span>📹</span> Live Video Room
+            </button>
+            <button class="tab-btn" onclick="switchTab('myconsults', this)">
+                <span>📋</span> My Consultations (<span id="consultCountBadge">0</span>)
+            </button>
+        </div>
+
+        <!-- TAB 1: SPECIALTIES -->
+        <div class="tab-panel active" id="tab-specialties">
+            <div class="spec-grid">
+                <!-- 1. General Medicine -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● Doctors Online Now</span>
+                            <span class="spec-badge badge-free">Free on eSanjeevani</span>
+                        </div>
+                        <div class="spec-icon">🩺</div>
+                        <h3 class="spec-title">General Physician / Family MD</h3>
+                        <p class="spec-desc">Instant clinical triage, diagnostic advice, and prescription for everyday acute illnesses.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            Fever, Cough, Viral Flu, Sore Throat, Headaches, Diarrhea, Body Ache.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹199</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹499</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~5 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('General Physician (MBBS / MD)', '₹199', 'Fever, Viral, Cold, Headache')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Dermatology -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● 4 Specialists Available</span>
+                        </div>
+                        <div class="spec-icon">🧴</div>
+                        <h3 class="spec-title">Dermatology & Hair Care</h3>
+                        <p class="spec-desc">Visual video and high-resolution photo diagnosis for acute and chronic skin & hair issues.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            Acne, Psoriasis, Eczema, Fungal Infections, Hair Fall, Skin Pigmentation.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹399</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹799</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~10 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('Dermatologist (MD Skin & VD)', '₹399', 'Skin rash, Acne, Hair fall')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Pediatrics -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● Child Care Specialists</span>
+                        </div>
+                        <div class="spec-icon">👶</div>
+                        <h3 class="spec-title">Pediatrics (Child Health)</h3>
+                        <p class="spec-desc">Compassionate infant and child medical consultations without waiting in crowded clinic rooms.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            Pediatric fever, Colic pain, Ear pain, Vomiting, Vaccination schedule.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹349</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹699</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~8 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('Pediatrician (MD Pediatrics)', '₹349', 'Child fever, Vomiting, Colic')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Gynecology -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● 100% Confidential</span>
+                        </div>
+                        <div class="spec-icon">🌸</div>
+                        <h3 class="spec-title">Gynecology & Women's Health</h3>
+                        <p class="spec-desc">Private and discreet consultations with certified female senior gynecologists.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            PCOD/PCOS, Irregular cycles, Pregnancy care, Pelvic discomfort.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹449</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹899</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~10 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('Gynecologist (MS / DGO)', '₹449', 'PCOD, Irregular periods, Pregnancy')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. Orthopedics -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● Joint & Spine Care</span>
+                        </div>
+                        <div class="spec-icon">🦴</div>
+                        <h3 class="spec-title">Orthopedics & Joint Specialist</h3>
+                        <p class="spec-desc">Evaluation of musculoskeletal pain, back stiffness, arthritis, and sports injury rehabilitation.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            Lower back pain, Knee arthritis, Neck strain, Ligament sprain.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹399</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹750</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~12 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('Orthopedic Surgeon (MS Ortho)', '₹399', 'Back pain, Knee arthritis, Sprain')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6. Cardiology & Diabetology -->
+                <div class="spec-card">
+                    <div>
+                        <div class="spec-hdr">
+                            <span class="spec-badge badge-live">● Senior Consultants</span>
+                        </div>
+                        <div class="spec-icon">❤️</div>
+                        <h3 class="spec-title">Cardiology & Chronic Care</h3>
+                        <p class="spec-desc">Hypertension, cholesterol management, blood sugar control, and lifestyle medicine review.</p>
+
+                        <div class="symptoms-list">
+                            <strong>Common Consult Reasons:</strong>
+                            High BP, High HbA1c/Diabetes, Palpitations, Medication review.
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="spec-pricing">
+                            <div>
+                                <span class="price-tag">₹499</span>
+                                <span style="font-size:12px; color:var(--gray-400); text-decoration:line-through;"> ₹1,000</span>
+                            </div>
+                            <span class="wait-tag">⏱️ Wait: ~15 mins</span>
+                        </div>
+                        <button class="btn-consult-now" onclick="openTeleModal('Cardiologist / Diabetologist (DM / MD)', '₹499', 'BP, Diabetes, Cholesterol')">
+                            📹 Start Video Consult Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: OFFICIAL TELEHEALTH NETWORKS -->
+        <div class="tab-panel" id="tab-portals">
+            <div class="portal-grid">
+                <!-- eSanjeevani -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#ecfdf5; color:#059669;">🇮🇳</div>
+                        <h3 class="portal-title">eSanjeevani (Govt of India)</h3>
+                        <p class="portal-desc">Ministry of Health & Family Welfare (MoHFW) flagship telemedicine platform with 100M+ completed video consultations.</p>
+                        <div class="portal-features">
+                            <div>✓ 100% Free General & Specialty OPDs</div>
+                            <div>✓ Govt Medical College Doctors & AIIMS</div>
+                            <div>✓ Legally valid digitally signed e-prescriptions</div>
+                        </div>
+                    </div>
+                    <a href="https://esanjeevani.mohfw.gov.in/" target="_blank" rel="noopener" class="portal-btn" style="background:#059669;">
+                        Launch Free eSanjeevani OPD ↗
+                    </a>
+                </div>
+
+                <!-- Apollo 24|7 -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#eff6ff; color:#2563eb;">🏥</div>
+                        <h3 class="portal-title">Apollo 24|7 Consultations</h3>
+                        <p class="portal-desc">Consult specialists directly from Apollo Hospitals healthcare network with 15-minute emergency slots.</p>
+                        <div class="portal-features">
+                            <div>✓ 4,000+ Verified Apollo Specialists</div>
+                            <div>✓ Direct medicine order integration</div>
+                            <div>✓ Integrated Apollo health records</div>
+                        </div>
+                    </div>
+                    <a href="https://www.apollo247.com/teleconsultation" target="_blank" rel="noopener" class="portal-btn" style="background:#2563eb;">
+                        Book on Apollo 24|7 ↗
+                    </a>
+                </div>
+
+                <!-- Practo Consult -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#f5f3ff; color:#7c3aed;">📱</div>
+                        <h3 class="portal-title">Practo Instant Video Consult</h3>
+                        <p class="portal-desc">Connect with verified doctors in under 2 minutes for immediate medical assessment and digital prescription.</p>
+                        <div class="portal-features">
+                            <div>✓ Under 2-minute doctor connection</div>
+                            <div>✓ Free 7-day chat follow-up included</div>
+                            <div>✓ 100% Private and Encrypted audio/video</div>
+                        </div>
+                    </div>
+                    <a href="https://www.practo.com/consult" target="_blank" rel="noopener" class="portal-btn" style="background:#7c3aed;">
+                        Consult on Practo ↗
+                    </a>
+                </div>
+
+                <!-- Tata 1mg -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#fffbeb; color:#d97706;">💊</div>
+                        <h3 class="portal-title">Tata 1mg Doctor Consult</h3>
+                        <p class="portal-desc">Online doctor consultations across 25+ specialties paired with pharmacy doorstep delivery discounts.</p>
+                        <div class="portal-features">
+                            <div>✓ Complete EHR record storage</div>
+                            <div>✓ Verified MBBS/MD doctors</div>
+                            <div>✓ Up to 20% discount on prescribed medicines</div>
+                        </div>
+                    </div>
+                    <a href="https://www.1mg.com/doctors" target="_blank" rel="noopener" class="portal-btn" style="background:#d97706;">
+                        Consult on Tata 1mg ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: LIVE VIDEO ROOM -->
+        <div class="tab-panel" id="tab-room">
+            <div class="video-room-card">
+                <div class="room-screen" id="roomScreen">
+                    <div class="doctor-video-feed">
+                        <div class="doc-avatar">👨‍⚕️</div>
+                        <div class="doc-feed-name" id="roomDocName">Dr. S. Sundaram, MD</div>
+                        <div class="doc-feed-status">
+                            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+                            Consultation Room Live • Encrypted HD Audio & Video
+                        </div>
+                    </div>
+                    <div class="pip-patient" id="pipPatient">
+                        <span>Patient Video</span>
+                    </div>
+                </div>
+
+                <div class="room-controls">
+                    <button class="control-btn" id="btnMic" onclick="toggleMic()" title="Mute/Unmute Mic">🎤</button>
+                    <button class="control-btn" id="btnCam" onclick="toggleCam()" title="Camera On/Off">📷</button>
+                    <button class="control-btn" onclick="alert('Digital e-Prescription will be automatically delivered to your registered phone on call completion.')" title="Prescription">📄</button>
+                    <button class="control-btn end-call" onclick="endCall()" title="End Consultation">📞</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: MY CONSULTATIONS -->
+        <div class="tab-panel" id="tab-myconsults">
+            <div class="sec-hdr">
+                <div>
+                    <h2>My Booked Teleconsultations</h2>
+                    <p style="font-size:13px; color:var(--gray-500); margin-top:2px;">Track your confirmed video appointments and access consultation rooms.</p>
+                </div>
+                <button class="back-btn" onclick="loadMyConsultations()" style="padding:6px 12px; font-size:12px;">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="myConsultsList">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </main>
+
+    <!-- INTAKE MODAL -->
+    <div class="modal-overlay" id="teleModal">
+        <div class="modal">
+            <div class="m-hdr">
+                <h3 class="m-title">Start Video Teleconsultation</h3>
+                <button class="m-close" onclick="closeTeleModal()">×</button>
+            </div>
+
+            <div class="form-group">
+                <label>Selected Specialty</label>
+                <input type="text" id="mSpecName" readonly style="font-weight:700; color:var(--gray-900); background:var(--gray-50);" />
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:2;">
+                    <label>Patient Full Name</label>
+                    <input type="text" id="mPatName" placeholder="e.g. S. Karthikeyan" required />
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Age</label>
+                    <input type="number" id="mPatAge" placeholder="Age" min="1" max="110" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Phone (For SMS Consultation Link)</label>
+                <input type="tel" id="mPatPhone" placeholder="10-digit mobile number" required />
+            </div>
+
+            <div class="form-group">
+                <label>Describe Primary Symptoms</label>
+                <textarea id="mPatSymptoms" rows="2" placeholder="e.g. Fever since 2 days, sore throat, mild body pain..."></textarea>
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Preferred Language</label>
+                    <select id="mPatLang">
+                        <option value="Tamil" selected>Tamil (தமிழ்)</option>
+                        <option value="English">English</option>
+                        <option value="Hindi">Hindi (हिंदी)</option>
+                        <option value="Telugu">Telugu (తెలుగు)</option>
+                        <option value="Malayalam">Malayalam (മലയാളം)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Consultation Mode</label>
+                    <select id="mPatMode">
+                        <option value="Instant Video Call" selected>Instant Video Call</option>
+                        <option value="Audio Phone Call">Audio Phone Call</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-consult-now" id="btnSubmitTele" style="width:100%; padding:13px; font-size:14px; margin-top:10px;" onclick="confirmTeleConsult()">
+                Confirm & Join Video Waiting Room
+            </button>
+        </div>
+    </div>
+
+    <!-- FIREBASE INTEGRATION -->
+    <script src="js/firebase-config.js"></script>
+    <script type="module" src="js/firebase-client.js"></script>
+    <script src="js/cloud-auth.js"></script>
+
+    <script>
+        let currentUser = null;
+        let cloudDb = null;
+        let addDocFunc = null;
+        let collectionFunc = null;
+        let serverTimestampFunc = null;
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // Modal Handlers
+        function openTeleModal(specialty, price, commonSymptoms) {
+            document.getElementById('mSpecName').value = `${specialty} (${price})`;
+            document.getElementById('mPatSymptoms').placeholder = `e.g. ${commonSymptoms}...`;
+            document.getElementById('teleModal').classList.add('active');
+        }
+
+        function closeTeleModal() {
+            document.getElementById('teleModal').classList.remove('active');
+        }
+
+        // Local Storage for Teleconsultations
+        function getLocalConsults() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_teleconsult_bookings') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLocalConsults(list) {
+            localStorage.setItem('medicare_teleconsult_bookings', JSON.stringify(list));
+            updateConsultBadge();
+        }
+
+        function updateConsultBadge() {
+            const list = getLocalConsults();
+            const badge = document.getElementById('consultCountBadge');
+            if (badge) badge.textContent = list.length;
+        }
+
+        async function confirmTeleConsult() {
+            const spec = document.getElementById('mSpecName').value;
+            const patName = document.getElementById('mPatName').value.trim();
+            const patAge = document.getElementById('mPatAge').value.trim();
+            const patPhone = document.getElementById('mPatPhone').value.trim();
+            const symptoms = document.getElementById('mPatSymptoms').value.trim();
+            const lang = document.getElementById('mPatLang').value;
+            const mode = document.getElementById('mPatMode').value;
+
+            if (!patName || !patPhone) {
+                alert('Please provide patient name and contact phone number.');
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitTele');
+            btn.disabled = true;
+            btn.textContent = 'Connecting Doctor...';
+
+            const newBooking = {
+                id: 'tele_' + Date.now(),
+                specialty: spec,
+                patientName: patName,
+                age: patAge,
+                phone: patPhone,
+                symptoms: symptoms || 'General Consultation',
+                language: lang,
+                mode: mode,
+                status: 'Doctor Assigned • Room Active',
+                bookedAt: new Date().toLocaleString()
+            };
+
+            // 1. Save locally
+            const list = getLocalConsults();
+            list.unshift(newBooking);
+            saveLocalConsults(list);
+
+            // 2. Sync to Firebase if available
+            if (currentUser && cloudDb && addDocFunc) {
+                try {
+                    await addDocFunc(collectionFunc(cloudDb, 'teleconsultations'), {
+                        patientId: currentUser.uid,
+                        ...newBooking,
+                        createdAt: serverTimestampFunc ? serverTimestampFunc() : new Date().toISOString()
+                    });
+                } catch (e) {
+                    console.warn('Firebase teleconsult sync note:', e);
+                }
+            }
+
+            alert(`✅ Teleconsultation Room Ready!\n\nPatient: ${patName}\nSpecialty: ${spec}\nLanguage: ${lang}\n\nDoctor is ready. Switching to live consultation room.`);
+            closeTeleModal();
+            loadMyConsultations();
+
+            // Switch to Room tab
+            const roomBtn = document.querySelector('.tab-bar .tab-btn:nth-child(3)');
+            switchTab('room', roomBtn);
+
+            btn.disabled = false;
+            btn.textContent = 'Confirm & Join Video Waiting Room';
+        }
+
+        function cancelConsult(id) {
+            if (!confirm('Are you sure you want to cancel this teleconsultation appointment?')) return;
+            let list = getLocalConsults();
+            list = list.filter(c => c.id !== id);
+            saveLocalConsults(list);
+            loadMyConsultations();
+        }
+
+        function loadMyConsultations() {
+            const container = document.getElementById('myConsultsList');
+            const consults = getLocalConsults();
+
+            if (!consults.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:35px 20px; color:var(--gray-500); font-size:14px; background:var(--white); border-radius:14px; border:1px dashed var(--gray-300);">
+                        <div style="font-size:32px; margin-bottom:8px;">📹</div>
+                        <div style="font-weight:700; color:var(--gray-700); margin-bottom:4px;">No Active Teleconsultations</div>
+                        <p style="font-size:13px; color:var(--gray-500);">Select a specialty above to start an instant encrypted video visit with a certified doctor.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = consults.map(c => `
+                <div class="consult-record">
+                    <div>
+                        <div class="record-title">${escapeHtml(c.specialty)}</div>
+                        <div class="record-meta">
+                            👤 <strong>Patient:</strong> ${escapeHtml(c.patientName)} (${escapeHtml(c.age)} yrs) • 
+                            📞 <strong>Phone:</strong> ${escapeHtml(c.phone)} • 
+                            🌐 <strong>Lang:</strong> ${escapeHtml(c.language)}
+                        </div>
+                        <div style="font-size:12px; color:var(--gray-600); margin-top:4px;">
+                            🩺 <strong>Reason:</strong> ${escapeHtml(c.symptoms)} • 
+                            📹 <strong>Mode:</strong> ${escapeHtml(c.mode)}
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="status-badge status-confirmed">${escapeHtml(c.status).toUpperCase()}</span>
+                        <button onclick="switchTab('room', document.querySelector('.tab-bar .tab-btn:nth-child(3)'))" style="background:var(--primary); color:#fff; border:none; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
+                            📹 Join Room
+                        </button>
+                        <button onclick="cancelConsult('${c.id}')" style="background:#fee2e2; border:1px solid #fecdd3; color:#b91c1c; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;" title="Cancel Booking">
+                            ✕ Cancel
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Room Controls
+        let micOn = true;
+        let camOn = true;
+
+        function toggleMic() {
+            micOn = !micOn;
+            const btn = document.getElementById('btnMic');
+            btn.textContent = micOn ? '🎤' : '🔇';
+            btn.style.background = micOn ? 'var(--white)' : '#fee2e2';
+        }
+
+        function toggleCam() {
+            camOn = !camOn;
+            const btn = document.getElementById('btnCam');
+            const pip = document.getElementById('pipPatient');
+            btn.textContent = camOn ? '📷' : '🚫';
+            btn.style.background = camOn ? 'var(--white)' : '#fee2e2';
+            pip.style.background = camOn ? '#1e293b' : '#000';
+            pip.innerHTML = camOn ? '<span>Patient Video</span>' : '<span style="color:#ef4444;">Cam Off</span>';
+        }
+
+        function endCall() {
+            if (confirm('Do you want to end this teleconsultation?')) {
+                alert('Consultation ended. Digital e-prescription generated and saved to your health records.');
+                switchTab('specialties', document.querySelector('.tab-bar .tab-btn:nth-child(1)'));
+            }
+        }
+
+        // Firebase readiness
+        document.addEventListener('medicare:portal-ready', ({ detail }) => {
+            const { user, cloud } = detail;
+            currentUser = user;
+            cloudDb = cloud.db;
+            addDocFunc = cloud.addDoc;
+            collectionFunc = cloud.collection;
+            serverTimestampFunc = cloud.serverTimestamp;
+        });
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateConsultBadge();
+            loadMyConsultations();
+        });
+    </script>
+</body>
+</html>

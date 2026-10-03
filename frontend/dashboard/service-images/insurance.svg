@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Health insurance card">
+  <defs>
+    <linearGradient id="bg7" x1="0" x2="1">
+      <stop offset="0%" stop-color="#edf5ff"/>
+      <stop offset="100%" stop-color="#dfeefb"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg7)"/>
+  <rect x="48" y="52" width="300" height="190" rx="18" fill="#f6fbff" stroke="#a3c9e5" stroke-width="2"/>
+  <rect x="68" y="70" width="270" height="50" rx="12" fill="#eaf3fd"/>
+  <rect x="90" y="92" width="48" height="10" rx="5" fill="#5ca3db"/>
+  <rect x="152" y="92" width="80" height="10" rx="5" fill="#bfdff1"/>
+  <g transform="translate(84 128)">
+    <rect x="0" y="0" width="132" height="86" rx="12" fill="#0d3d7a"/>
+    <path d="M68 12c22 0 34 18 34 34s-12 34-34 34-34-18-34-34 12-34 34-34zm0 18c-8 0-14 7-14 16s6 16 14 16 14-7 14-16-6-16-14-16z" fill="#eaf6ff"/>
+    <path d="M68 18v64M34 52h68" stroke="#9cd2ef" stroke-width="4" opacity="0.8"/>
+  </g>
+  <g transform="translate(232 126)">
+    <rect x="0" y="0" width="88" height="88" rx="16" fill="#eff9ff" stroke="#9bc1dd" stroke-width="2"/>
+    <circle cx="44" cy="34" r="20" fill="#5fa7db"/>
+    <path d="M44 18v32M28 34h32" stroke="#f1fbff" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <rect x="82" y="218" width="236" height="12" rx="6" fill="#bddff2"/>
+</svg>

@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health & Wellbeing Hub | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #7c3aed; /* Calming Purple */
+            --primary-light: #f5f3ff;
+            --primary-dark: #6d28d9;
+            --primary-border: #ddd6fe;
+            --emerald: #059669; 
+            --emerald-light: #ecfdf5; 
+            --emerald-border: #a7f3d0;
+            --blue: #2563eb; 
+            --blue-light: #eff6ff; 
+            --blue-border: #bfdbfe;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --amber: #d97706; 
+            --amber-light: #fffbeb; 
+            --amber-border: #fde68a;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; 
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(124,58,237,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--primary); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-color: var(--primary-border); 
+        }
+
+        /* MAIN CONTAINER */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--primary-light); 
+            border: 1px solid var(--primary-border); 
+            color: var(--primary-dark); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--gray-500); max-width: 720px; margin: 0 auto; font-size: 15px; }
+
+        /* TAB BAR */
+        .tab-bar {
+            display: flex;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 6px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-xs);
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: var(--shadow-xs);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn .25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HELPLINES GRID */
+        .helpline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .helpline-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .2s;
+        }
+        .helpline-card:hover {
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+        }
+        .hl-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .hl-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .hl-badge.gov { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .hl-badge.crisis { background: var(--rose-light); color: var(--rose); border: 1px solid var(--rose-border); }
+        .hl-badge.inst { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+        .hl-title { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .hl-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 14px; }
+        .hl-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hl-desc { font-size: 12px; color: var(--gray-600); line-height: 1.7; margin-bottom: 20px; }
+        .btn-call {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .2s;
+            box-shadow: 0 4px 12px rgba(124,58,237,.25);
+        }
+        .btn-call:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        /* SCREENER CARD (PHQ-9) */
+        .screener-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+        .q-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .q-item:last-child { border-bottom: none; }
+        .q-text { font-size: 14px; font-weight: 600; color: var(--gray-900); margin-bottom: 10px; }
+        .q-options { display: flex; gap: 8px; flex-wrap: wrap; }
+        .opt-btn {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .opt-btn:hover { background: var(--gray-200); }
+        .opt-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .screener-result {
+            display: none;
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 24px;
+            text-align: center;
+        }
+        .res-score { font-size: 38px; font-weight: 800; color: var(--primary); }
+        .res-category { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+        .res-text { font-size: 13px; color: var(--gray-600); max-width: 600px; margin: 0 auto 16px; line-height: 1.6; }
+
+        /* BREATHING TOOL */
+        .breath-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 40px 24px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .breath-circle-wrap {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .breath-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-border));
+            border: 3px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 4s ease-in-out;
+            box-shadow: 0 10px 30px rgba(124,58,237,.15);
+        }
+        .breath-phase { font-size: 15px; font-weight: 700; color: var(--primary-dark); }
+        .breath-timer { font-size: 26px; font-weight: 800; color: var(--primary-dark); margin-top: 2px; }
+
+        .btn-breath {
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 4px 14px rgba(124,58,237,.3);
+        }
+        .btn-breath:hover { background: var(--primary-dark); }
+
+        /* PORTALS GRID */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .portal-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .portal-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+        .portal-title { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+        .portal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 14px; }
+        .portal-features { font-size: 12px; color: var(--gray-600); margin-bottom: 20px; line-height: 1.8; }
+        .portal-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a href="dashboard/dashboard.html" class="brand">
+                <div class="brand-icon">🧠</div>
+                <div class="brand-name">MediCare <span>Mind</span></div>
+            </a>
+            <div class="hdr-actions">
+                <a href="dashboard/dashboard.html" class="back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🛡️</span> 100% Confidential • 24/7 Verified Government & Clinical Support
+            </div>
+            <h1>Mental Health & <span>Emotional Wellbeing</span></h1>
+            <p>Access 24x7 toll-free crisis counselors via Tele-MANAS & NIMHANS, evaluate your emotional state using clinically validated PHQ-9 & GAD-7 screeners, and practice guided calming exercises.</p>
+        </section>
+
+        <!-- TABS -->
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('helplines', this)">
+                <span>📞</span> 24/7 Crisis Helplines
+            </button>
+            <button class="tab-btn" onclick="switchTab('screener', this)">
+                <span>📝</span> Clinical Self-Screeners (PHQ-9)
+            </button>
+            <button class="tab-btn" onclick="switchTab('breathing', this)">
+                <span>🌬️</span> 4-7-8 Breathing Calmer
+            </button>
+            <button class="tab-btn" onclick="switchTab('platforms', this)">
+                <span>🌐</span> Verified Therapy Platforms
+            </button>
+        </div>
+
+        <!-- TAB 1: 24/7 HELPLINES -->
+        <div class="tab-panel active" id="tab-helplines">
+            <div class="helpline-grid">
+                <!-- Tele-MANAS -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge gov">National 24/7 • MoHFW</span>
+                            <span style="font-size:12px; color:var(--gray-500);">Toll Free</span>
+                        </div>
+                        <h3 class="hl-title">Tele-MANAS (MoHFW)</h3>
+                        <p class="hl-sub">National Tele Mental Health Programme of India</p>
+                        <div class="hl-number">
+                            <span>📞</span> 14416 / 1800 891 4416
+                        </div>
+                        <p class="hl-desc">Official Government of India 24x7 free tele-counseling by trained clinical psychologists and psychiatrists. Available in Tamil, English, Hindi, and 17 other Indian regional languages.</p>
+                    </div>
+                    <a href="tel:14416" class="btn-call">
+                        📞 Call 14416 Now (Toll Free)
+                    </a>
+                </div>
+
+                <!-- KIRAN -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge gov">Govt of India Helpline</span>
+                            <span style="font-size:12px; color:var(--gray-500);">24/7 Free</span>
+                        </div>
+                        <h3 class="hl-title">KIRAN Mental Health</h3>
+                        <p class="hl-sub">Dept of Empowerment of Persons with Disabilities</p>
+                        <div class="hl-number">
+                            <span>📞</span> 1800-599-0019
+                        </div>
+                        <p class="hl-desc">Dedicated mental health rehabilitation and psychological crisis support helpline offering early screening, psychological first-aid, stress management, and suicidal ideation prevention.</p>
+                    </div>
+                    <a href="tel:18005990019" class="btn-call" style="background:#059669;">
+                        📞 Call 1800-599-0019 (Free)
+                    </a>
+                </div>
+
+                <!-- NIMHANS -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge inst">Apex Institute Bangalore</span>
+                            <span style="font-size:12px; color:var(--gray-500);">Clinical Care</span>
+                        </div>
+                        <h3 class="hl-title">NIMHANS Helpline</h3>
+                        <p class="hl-sub">National Institute of Mental Health & Neurosciences</p>
+                        <div class="hl-number">
+                            <span>📞</span> 080-46110007
+                        </div>
+                        <p class="hl-desc">Direct clinical consultation and psychosocial support by doctors and senior mental health specialists from India's premier neurological and psychiatric institute.</p>
+                    </div>
+                    <a href="tel:08046110007" class="btn-call" style="background:#2563eb;">
+                        📞 Call 080-46110007
+                    </a>
+                </div>
+
+                <!-- Vandrevala Foundation -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge crisis">Crisis Counseling</span>
+                            <span style="font-size:12px; color:var(--gray-500);">Call & WhatsApp</span>
+                        </div>
+                        <h3 class="hl-title">Vandrevala Foundation</h3>
+                        <p class="hl-sub">24/7 Free Mental Health Crisis Support</p>
+                        <div class="hl-number">
+                            <span>📞</span> 9999 666 555
+                        </div>
+                        <p class="hl-desc">Experienced clinical counselors providing immediate emotional support, depression intervention, anxiety management, and relationship counseling across India.</p>
+                    </div>
+                    <a href="tel:9999666555" class="btn-call" style="background:#dc2626;">
+                        📞 Call 9999 666 555
+                    </a>
+                </div>
+
+                <!-- AASRA -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge crisis">Suicide Prevention</span>
+                            <span style="font-size:12px; color:var(--gray-500);">Confidential</span>
+                        </div>
+                        <h3 class="hl-title">AASRA 24/7 Helpline</h3>
+                        <p class="hl-sub">Professional Non-Judgmental Crisis Care</p>
+                        <div class="hl-number">
+                            <span>📞</span> 91-9820466726
+                        </div>
+                        <p class="hl-desc">A non-profit, non-judgmental 24-hour telephone crisis helpline for anyone feeling depressed, overwhelmed, or having thoughts of self-harm.</p>
+                    </div>
+                    <a href="tel:919820466726" class="btn-call" style="background:#b91c1c;">
+                        📞 Call 91-9820466726
+                    </a>
+                </div>
+
+                <!-- Sneha India (Chennai) -->
+                <div class="helpline-card">
+                    <div>
+                        <div class="hl-top">
+                            <span class="hl-badge inst">Tamil Nadu / Chennai</span>
+                            <span style="font-size:12px; color:var(--gray-500);">Local Help</span>
+                        </div>
+                        <h3 class="hl-title">Sneha Suicide Prevention</h3>
+                        <p class="hl-sub">Chennai, Tamil Nadu Suicide Prevention Service</p>
+                        <div class="hl-number">
+                            <span>📞</span> 044-24640050
+                        </div>
+                        <p class="hl-desc">Premier 24-hour crisis emotional support center based in Chennai, offering compassionate, unconditional listening in Tamil and English.</p>
+                    </div>
+                    <a href="tel:04424640050" class="btn-call" style="background:#0f766e;">
+                        📞 Call 044-24640050
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: CLINICAL SCREENER (PHQ-9) -->
+        <div class="tab-panel" id="tab-screener">
+            <div class="screener-box">
+                <h3 style="font-size:20px; font-weight:800; color:var(--gray-900); margin-bottom:6px;">Patient Health Questionnaire (PHQ-9)</h3>
+                <p style="font-size:13px; color:var(--gray-500); margin-bottom:20px;">Over the <strong>last 2 weeks</strong>, how often have you been bothered by any of the following problems? This tool is for self-screening and does not replace professional medical evaluation.</p>
+
+                <div id="phqQuestions">
+                    <!-- 9 Standard Questions -->
+                </div>
+
+                <div style="margin-top:24px; text-align:center;">
+                    <button class="btn-breath" onclick="calculatePHQ9()">
+                        📊 View Assessment Result
+                    </button>
+                </div>
+
+                <div class="screener-result" id="phqResultBox">
+                    <div class="res-score" id="phqScore">0 / 27</div>
+                    <div class="res-category" id="phqCat">Minimal or No Depression</div>
+                    <p class="res-text" id="phqDesc">Your score indicates little to no depressive symptoms. Continue maintaining a balanced lifestyle, healthy sleep, and active social connections.</p>
+                    <a href="tel:14416" class="btn-call" style="display:inline-flex; width:auto; padding:10px 24px; background:var(--primary);">
+                        📞 Talk to Tele-MANAS Counselor (Free)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BREATHING CALMER -->
+        <div class="tab-panel" id="tab-breathing">
+            <div class="breath-card">
+                <h3 style="font-size:20px; font-weight:800; color:var(--gray-900); margin-bottom:6px;">4-7-8 Relaxing Breath Technique</h3>
+                <p style="font-size:13px; color:var(--gray-500); max-width:440px; margin:0 auto 20px;">Developed by Dr. Andrew Weil, this scientific parasympathetic nerve exercise reduces cortisol, slows heart rate, and melts acute stress.</p>
+
+                <div class="breath-circle-wrap">
+                    <div class="breath-circle" id="breathCircle">
+                        <div class="breath-phase" id="breathPhase">Ready</div>
+                        <div class="breath-timer" id="breathTimer">4s</div>
+                    </div>
+                </div>
+
+                <button class="btn-breath" id="btnBreathToggle" onclick="toggleBreathing()">
+                    ▶ Start 4-7-8 Breathing Cycle
+                </button>
+
+                <div style="margin-top:24px; font-size:12px; color:var(--gray-500); display:flex; justify-content:center; gap:20px;">
+                    <span>1. Inhale deeply (4s)</span>
+                    <span>2. Hold gently (7s)</span>
+                    <span>3. Exhale completely (8s)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: VERIFIED THERAPY PLATFORMS -->
+        <div class="tab-panel" id="tab-platforms">
+            <div class="portal-grid">
+                <!-- Tele-MANAS Portal -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#f5f3ff; color:var(--primary);">🏛️</div>
+                        <h3 class="portal-title">Tele-MANAS Official Portal</h3>
+                        <p class="portal-desc">Government of India National Tele Mental Health digital dashboard with round-the-clock district mental health team connects.</p>
+                        <div class="portal-features">
+                            <div>✓ 100% Free Government Service</div>
+                            <div>✓ Referral to District Mental Health Clinics</div>
+                            <div>✓ Multilingual Psychiatric Consultations</div>
+                        </div>
+                    </div>
+                    <a href="https://telemanas.mohfw.gov.in/" target="_blank" rel="noopener" class="portal-btn" style="background:var(--primary);">
+                        Visit Tele-MANAS Portal ↗
+                    </a>
+                </div>
+
+                <!-- YourDOST -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#ecfdf5; color:#059669;">🌱</div>
+                        <h3 class="portal-title">YourDOST Emotional Wellness</h3>
+                        <p class="portal-desc">Leading Indian emotional wellness platform connecting verified psychologists and counselors via chat and video sessions.</p>
+                        <div class="portal-features">
+                            <div>✓ 1000+ Verified Psychologists</div>
+                            <div>✓ Anonymous Audio/Video/Chat</div>
+                            <div>✓ Specialized in Stress, Career & Anxiety</div>
+                        </div>
+                    </div>
+                    <a href="https://yourdost.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#059669;">
+                        Explore YourDOST ↗
+                    </a>
+                </div>
+
+                <!-- The MindClan -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#eff6ff; color:#2563eb;">🤝</div>
+                        <h3 class="portal-title">The MindClan India</h3>
+                        <p class="portal-desc">Curated inclusive directory of verified, trauma-informed, and affordable mental health counselors and support groups across Indian cities.</p>
+                        <div class="portal-features">
+                            <div>✓ Trauma-informed verified therapists</div>
+                            <div>✓ Localized offline & online therapy</div>
+                            <div>✓ Filter by budget, language, and city</div>
+                        </div>
+                    </div>
+                    <a href="https://themindclan.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#2563eb;">
+                        Visit The MindClan ↗
+                    </a>
+                </div>
+
+                <!-- Wysa AI -->
+                <div class="portal-box">
+                    <div>
+                        <div class="portal-icon" style="background:#fffbeb; color:#d97706;">🐧</div>
+                        <h3 class="portal-title">Wysa - AI Therapy & CBT</h3>
+                        <p class="portal-desc">Clinically proven conversational AI bot using Cognitive Behavioral Therapy (CBT) techniques paired with human professional therapists.</p>
+                        <div class="portal-features">
+                            <div>✓ FDA Breakthrough Device Designation</div>
+                            <div>✓ Over 100+ CBT micro-actions</div>
+                            <div>✓ Daily guided mindfulness audios</div>
+                        </div>
+                    </div>
+                    <a href="https://www.wysa.com/" target="_blank" rel="noopener" class="portal-btn" style="background:#d97706;">
+                        Visit Wysa Platform ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // PHQ-9 Screener Logic
+        const phq9Questions = [
+            "Little interest or pleasure in doing things",
+            "Feeling down, depressed, or hopeless",
+            "Trouble falling or staying asleep, or sleeping too much",
+            "Feeling tired or having little energy",
+            "Poor appetite or overeating",
+            "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
+            "Trouble concentrating on things, such as reading or watching television",
+            "Moving or speaking so slowly that other people could have noticed, or being fidgety/restless",
+            "Thoughts that you would be better off dead, or of hurting yourself in some way"
+        ];
+
+        const phqScores = new Array(9).fill(0);
+
+        function renderPHQ9() {
+            const container = document.getElementById('phqQuestions');
+            container.innerHTML = phq9Questions.map((q, idx) => `
+                <div class="q-item">
+                    <div class="q-text">${idx + 1}. ${q}</div>
+                    <div class="q-options">
+                        <button type="button" class="opt-btn active" onclick="setPHQScore(${idx}, 0, this)">Not at all (0)</button>
+                        <button type="button" class="opt-btn" onclick="setPHQScore(${idx}, 1, this)">Several days (1)</button>
+                        <button type="button" class="opt-btn" onclick="setPHQScore(${idx}, 2, this)">More than half the days (2)</button>
+                        <button type="button" class="opt-btn" onclick="setPHQScore(${idx}, 3, this)">Nearly every day (3)</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setPHQScore(qIdx, val, btn) {
+            phqScores[qIdx] = val;
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function calculatePHQ9() {
+            const total = phqScores.reduce((acc, curr) => acc + curr, 0);
+            const box = document.getElementById('phqResultBox');
+            const scoreEl = document.getElementById('phqScore');
+            const catEl = document.getElementById('phqCat');
+            const descEl = document.getElementById('phqDesc');
+
+            scoreEl.textContent = `${total} / 27`;
+            box.style.display = 'block';
+
+            if (total <= 4) {
+                catEl.textContent = 'Minimal or No Depression (Score: 0-4)';
+                catEl.style.color = '#059669';
+                descEl.textContent = 'Your symptoms suggest minimal to no depression. Continue regular physical activity, healthy sleep habits, and social engagement.';
+            } else if (total <= 9) {
+                catEl.textContent = 'Mild Depression (Score: 5-9)';
+                catEl.style.color = '#2563eb';
+                descEl.textContent = 'You are experiencing mild depressive symptoms. Watchful waiting, guided breathing, mindfulness, and speaking with a trusted person or counselor can be very beneficial.';
+            } else if (total <= 14) {
+                catEl.textContent = 'Moderate Depression (Score: 10-14)';
+                catEl.style.color = '#d97706';
+                descEl.textContent = 'Your score indicates moderate depressive symptoms. We strongly recommend speaking to a licensed counselor or calling Tele-MANAS (14416) for a confidential evaluation.';
+            } else if (total <= 19) {
+                catEl.textContent = 'Moderately Severe Depression (Score: 15-19)';
+                catEl.style.color = '#ea580c';
+                descEl.textContent = 'Your score indicates significant emotional distress. Please consult a qualified mental health professional or psychiatrist for comprehensive support.';
+            } else {
+                catEl.textContent = 'Severe Depression (Score: 20-27)';
+                catEl.style.color = '#dc2626';
+                descEl.textContent = 'Your score indicates severe depressive symptoms. Please reach out immediately to Tele-MANAS (14416) or visit your nearest hospital for professional clinical care.';
+            }
+
+            box.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 4-7-8 Breathing Loop
+        let breathInterval = null;
+        let isBreathing = false;
+
+        function toggleBreathing() {
+            const btn = document.getElementById('btnBreathToggle');
+            const circle = document.getElementById('breathCircle');
+            const phaseEl = document.getElementById('breathPhase');
+            const timerEl = document.getElementById('breathTimer');
+
+            if (isBreathing) {
+                clearInterval(breathInterval);
+                isBreathing = false;
+                btn.textContent = '▶ Start 4-7-8 Breathing Cycle';
+                phaseEl.textContent = 'Ready';
+                timerEl.textContent = '4s';
+                circle.style.transform = 'scale(1)';
+                return;
+            }
+
+            isBreathing = true;
+            btn.textContent = '⏹ Stop Breathing Session';
+
+            let step = 0; // 0: Inhale (4s), 1: Hold (7s), 2: Exhale (8s)
+            let remaining = 4;
+
+            function runStep() {
+                if (step === 0) {
+                    phaseEl.textContent = 'Breathe In';
+                    timerEl.textContent = remaining + 's';
+                    circle.style.transform = 'scale(1.35)';
+                    circle.style.transition = 'transform 4s ease-in-out';
+                } else if (step === 1) {
+                    phaseEl.textContent = 'Hold';
+                    timerEl.textContent = remaining + 's';
+                    circle.style.transform = 'scale(1.35)';
+                    circle.style.transition = 'transform 0s';
+                } else {
+                    phaseEl.textContent = 'Exhale Slowly';
+                    timerEl.textContent = remaining + 's';
+                    circle.style.transform = 'scale(1)';
+                    circle.style.transition = 'transform 8s ease-in-out';
+                }
+
+                remaining--;
+                if (remaining < 0) {
+                    step = (step + 1) % 3;
+                    remaining = step === 0 ? 4 : (step === 1 ? 7 : 8);
+                }
+            }
+
+            runStep();
+            breathInterval = setInterval(runStep, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPHQ9();
+        });
+    </script>
+</body>
+</html>

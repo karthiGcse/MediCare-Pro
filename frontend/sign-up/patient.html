@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediCare - Patient Sign Up</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet"
+       
+
+</head>
+
+
+<body>
+
+    <div class="card">
+
+
+        <!-- Left Side -->
+
+        <div class="left-panel">
+
+            <div class="logo-header">
+
+                <img src="../Logo.png" alt="MediCare Logo">
+
+                <span>MediCare</span>
+
+            </div>
+
+
+            <div class="left-content">
+
+                <span class="left-tag">
+                    PATIENT PORTAL
+                </span>
+
+                <h1>
+                    Your health records, all in one place.
+                </h1>
+
+                <p>
+                    Join thousands of patients who trust MediCare
+                    for booking consultations and managing their
+                    health records easily.
+                </p>
+
+            </div>
+
+
+            <div class="security-badge">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Your health information is kept private and secure.
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Right Side -->
+
+        <div class="right-panel">
+
+            <div class="top-logo">
+
+                <img src="../Logo.png" alt="MediCare Logo">
+
+                <span>MediCare</span>
+
+            </div>
+
+
+            <span class="form-tag">
+                PATIENT REGISTRATION
+            </span>
+
+
+            <h2>
+                Patient Sign Up
+            </h2>
+
+
+            <p class="subtitle">
+                Create your personal MediCare account
+            </p>
+
+
+
+            <form id="patientForm">
+
+
+                <!-- Name and Email -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="you@example.com"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Phone and Date of Birth -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="dob">
+                            Date of Birth
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <input
+                                type="date"
+                                id="dob"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Gender -->
+
+                <div class="form-group">
+
+                    <label for="gender">
+                        Gender
+                    </label>
+
+
+                    <select id="gender" required>
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="male">
+                            Male
+                        </option>
+
+                        <option value="female">
+                            Female
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+
+                </div>
+
+
+
+                <!-- Address -->
+
+                <div class="form-group">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+
+                    <textarea
+                        id="address"
+                        placeholder="Enter your home address"
+                        rows="3"
+                        required
+                    ></textarea>
+
+
+                </div>
+
+
+
+                <!-- Password -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Create password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Terms -->
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <label for="terms">
+
+                        I agree to the
+
+                        <a href="#">
+                            Terms & Conditions
+                        </a>
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- Create Account -->
+
+                <button
+                    class="login-btn"
+                    type="submit"
+                >
+
+                    Create Account →
+
+                </button>
+
+
+
+                <!-- Login -->
+
+                <div class="footer-text">
+
+                    Already have an account?
+
+                    <a href="../index.html">
+                        Log In
+                    </a>
+
+                </div>
+
+
+
+                <!-- Back -->
+
+                <a
+                    href="role.html"
+                    class="back-link"
+                >
+
+                    ← Back to Role Selection
+
+                </a>
+
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+    <script src="../js/patient.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script type="module" src="../js/firebase-client.js"></script>
+    <script src="../js/cloud-auth.js"></script>
+</body>
+
+</html>

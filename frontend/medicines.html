@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Medicines | MediCare Pro</title>
+  <meta name="description" content="Search medicines — get side effects, warnings, dosage, pill images and full drug labels powered by OpenFDA, RxImage and DailyMed." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #15803d; --green-l: #ecfdf5; --green-b: #a7f3d0; --green-mid: #d1fae5;
+      --teal: #0f766e;
+      --red: #ef4444; --red-l: #fef2f2; --red-b: #fecaca;
+      --amber: #d97706; --amber-l: #fffbeb; --amber-b: #fde68a;
+      --blue: #2563eb; --blue-l: #eff6ff; --blue-b: #bfdbfe;
+      --purple: #7c3aed; --purple-l: #f5f3ff; --purple-b: #ddd6fe;
+      --gray-50:#f8fafc; --gray-100:#f1f5f9; --gray-200:#e2e8f0;
+      --gray-300:#cbd5e1; --gray-400:#94a3b8; --gray-500:#64748b;
+      --gray-700:#334155; --gray-900:#0f172a; --white:#ffffff;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,.1);
+      --r-sm:8px; --r-md:12px; --r-lg:18px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', Arial, sans-serif; background: var(--gray-50); color: var(--gray-900); min-height: 100vh; }
+
+    /* HEADER */
+    .hdr { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top:0; z-index:100; box-shadow: var(--shadow-sm); }
+    .hdr-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .brand-icon { width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,#15803d,#0f766e); color:#fff; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(15,118,110,.25); }
+    .brand-name { font-size:18px; font-weight:700; color:var(--gray-900); }
+    .brand-name span { color:var(--red); }
+    .back-btn { display:flex; align-items:center; gap:6px; background:var(--gray-100); border:1px solid var(--gray-200); color:var(--gray-500); padding:8px 16px; border-radius:var(--r-sm); font-size:13px; font-weight:500; text-decoration:none; transition:all .2s; }
+    .back-btn:hover { background:var(--green-l); color:var(--green); border-color:var(--green-b); }
+
+    /* MAIN */
+    .main { max-width:960px; margin:0 auto; padding:40px 24px 80px; }
+
+    /* HERO */
+    .hero { text-align:center; margin-bottom:36px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--green-l); border:1px solid var(--green-b); color:var(--green); border-radius:50px; padding:6px 18px; font-size:13px; font-weight:600; margin-bottom:16px; }
+    .hero h1 { font-size:36px; font-weight:800; margin-bottom:10px; }
+    .hero h1 span { color:var(--green); }
+    .hero p { font-size:15px; color:var(--gray-500); max-width:520px; margin:0 auto; line-height:1.7; }
+
+    /* SOURCE BADGES */
+    .sources { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:32px; }
+    .src-badge { display:flex; align-items:center; gap:7px; border-radius:50px; padding:7px 16px; font-size:13px; font-weight:500; box-shadow:var(--shadow-sm); }
+    .src-fda    { background:var(--red-l);    color:var(--red);    border:1px solid var(--red-b); }
+    .src-rximg  { background:var(--blue-l);   color:var(--blue);   border:1px solid var(--blue-b); }
+    .src-daily  { background:var(--purple-l); color:var(--purple); border:1px solid var(--purple-b); }
+    .src-rxnorm { background:var(--green-l);  color:var(--green);  border:1px solid var(--green-b); }
+
+    /* SEARCH CARD */
+    .card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--r-lg); box-shadow:var(--shadow-md); padding:28px; margin-bottom:24px; }
+    .card-hdr { display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+    .card-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+    .ic-green  { background:var(--green-l); }
+    .ic-red    { background:var(--red-l); }
+    .ic-blue   { background:var(--blue-l); }
+    .ic-purple { background:var(--purple-l); }
+    .ic-amber  { background:var(--amber-l); }
+    .card-title { font-size:17px; font-weight:700; color:var(--gray-900); }
+    .card-sub   { font-size:13px; color:var(--gray-400); margin-top:2px; }
+
+    /* SEARCH ROW */
+    .search-row { display:flex; gap:10px; }
+    .search-input {
+      flex:1; padding:12px 16px; border:1px solid var(--gray-200);
+      border-radius:var(--r-sm); font-size:15px; font-family:'Inter',sans-serif;
+      background:var(--gray-50); color:var(--gray-900); transition:all .2s;
+    }
+    .search-input:focus { outline:none; border-color:var(--green); background:var(--white); box-shadow:0 0 0 3px var(--green-mid); }
+    .btn { display:inline-flex; align-items:center; gap:7px; padding:12px 22px; border-radius:var(--r-sm); font-size:14px; font-weight:600; border:none; cursor:pointer; transition:all .2s; font-family:'Inter',sans-serif; }
+    .btn-green { background:linear-gradient(135deg,var(--green),var(--teal)); color:#fff; box-shadow:0 4px 12px rgba(15,118,110,.25); }
+    .btn-green:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(15,118,110,.3); }
+    .btn-green:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+    .btn-outline { background:var(--white); border:1px solid var(--gray-200); color:var(--gray-500); }
+    .btn-outline:hover { border-color:var(--green); color:var(--green); background:var(--green-l); }
+
+    /* QUICK PILLS */
+    .quick-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+    .q-pill { background:var(--gray-100); border:1px solid var(--gray-200); border-radius:50px; padding:5px 14px; font-size:12px; font-weight:500; color:var(--gray-500); cursor:pointer; transition:all .2s; }
+    .q-pill:hover { background:var(--green-l); color:var(--green); border-color:var(--green-b); }
+
+    /* LOADING */
+    .loading { display:none; align-items:center; gap:14px; padding:18px 20px; background:var(--green-l); border:1px solid var(--green-b); border-radius:var(--r-md); margin-top:16px; }
+    .loading.active { display:flex; }
+    .spinner { width:20px; height:20px; border-radius:50%; border:3px solid var(--green-b); border-top-color:var(--green); animation:spin .8s linear infinite; flex-shrink:0; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* STATUS */
+    .status { display:none; padding:12px 16px; border-radius:var(--r-sm); font-size:14px; font-weight:500; margin-top:14px; }
+    .status.visible { display:block; }
+    .status.error { background:var(--red-l); color:var(--red); border:1px solid var(--red-b); }
+    .status.success { background:var(--green-l); color:var(--green); border:1px solid var(--green-b); }
+
+    /* RESULT SECTION */
+    #resultSection { display:none; }
+    #resultSection.visible { display:block; }
+
+    /* MEDICINE HEADER CARD */
+    .med-header-card {
+      background: linear-gradient(135deg, var(--green-l), #f0fdfa);
+      border:1px solid var(--green-b); border-radius:var(--r-lg);
+      padding:28px; margin-bottom:20px;
+      display:flex; align-items:flex-start; gap:24px; flex-wrap:wrap;
+    }
+    .med-big-icon { font-size:56px; flex-shrink:0; }
+    .med-info { flex:1; min-width:200px; }
+    .med-name { font-size:28px; font-weight:800; color:var(--gray-900); margin-bottom:6px; }
+    .med-brand { font-size:15px; color:var(--gray-500); margin-bottom:12px; }
+    .med-tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .med-tag { border-radius:50px; padding:4px 14px; font-size:12px; font-weight:600; }
+    .tag-mfr  { background:var(--blue-l);   color:var(--blue);   border:1px solid var(--blue-b); }
+    .tag-daily { background:var(--purple-l); color:var(--purple); border:1px solid var(--purple-b); }
+
+    /* INFO GRID */
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+    @media (max-width:640px) { .info-grid { grid-template-columns:1fr; } }
+
+    /* INFO CARD */
+    .info-card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--r-md); padding:20px; box-shadow:var(--shadow-sm); }
+    .info-card.wide { grid-column:1/-1; }
+    .info-card-hdr { display:flex; align-items:center; gap:10px; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--gray-200); }
+    .info-card-icon { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+    .info-card-title { font-size:14px; font-weight:700; color:var(--gray-900); }
+    .info-card-src { font-size:11px; font-weight:600; padding:2px 10px; border-radius:50px; margin-left:auto; }
+    .src-fda-tag    { background:var(--red-l);    color:var(--red);    }
+    .src-img-tag    { background:var(--blue-l);   color:var(--blue);   }
+    .src-daily-tag  { background:var(--purple-l); color:var(--purple); }
+    .info-text { font-size:14px; color:var(--gray-700); line-height:1.75; }
+    .info-empty { font-size:13px; color:var(--gray-400); font-style:italic; }
+
+    /* PILL IMAGES */
+    .pill-images { display:flex; gap:12px; flex-wrap:wrap; }
+    .pill-img-card { background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--r-md); overflow:hidden; width:140px; }
+    .pill-img-card img { width:100%; height:100px; object-fit:contain; background:#fff; padding:8px; }
+    .pill-img-info { padding:8px 10px; }
+    .pill-img-name { font-size:11px; font-weight:600; color:var(--gray-700); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .pill-img-detail { font-size:11px; color:var(--gray-400); margin-top:2px; }
+
+    /* WARNING CARD */
+    .warn-card { background:var(--amber-l); border:1px solid var(--amber-b); border-radius:var(--r-md); padding:16px 20px; margin-bottom:14px; }
+    .warn-card-title { font-size:13px; font-weight:700; color:var(--amber); margin-bottom:6px; }
+    .warn-card-text { font-size:13px; color:var(--gray-700); line-height:1.7; }
+
+    /* DAILYMED LINK */
+    .dm-link { display:inline-flex; align-items:center; gap:7px; background:var(--purple-l); border:1px solid var(--purple-b); color:var(--purple); border-radius:var(--r-sm); padding:10px 18px; font-size:13px; font-weight:600; text-decoration:none; transition:all .2s; margin-top:14px; }
+    .dm-link:hover { background:var(--purple); color:#fff; }
+
+    /* DIVIDER */
+    .section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--gray-400); margin-bottom:12px; }
+
+    /* SEARCH RESULTS LIST */
+    .rx-list { margin-top:14px; }
+    .rx-item { display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--r-md); margin-bottom:8px; cursor:pointer; transition:all .2s; }
+    .rx-item:hover { border-color:var(--green-b); background:var(--green-l); }
+    .rx-item-name { font-size:14px; font-weight:600; color:var(--gray-900); }
+    .rx-item-rxcui { font-size:12px; color:var(--gray-400); margin-top:2px; }
+    .rx-arrow { color:var(--green); font-size:18px; margin-left:auto; flex-shrink:0; }
+
+    @media (max-width:600px) {
+      .hero h1 { font-size:26px; }
+      .hdr-inner { padding:12px 16px; }
+      .main { padding:24px 16px 60px; }
+      .search-row { flex-direction:column; }
+      .med-header-card { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-inner">
+      <a class="brand" href="dashboard/dashboard.html">
+        <div class="brand-icon">M</div>
+        <span class="brand-name">Medi<span>Care</span> Pro</span>
+      </a>
+      <a class="back-btn" href="dashboard/dashboard.html">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">💊 Medicine Intelligence</div>
+      <h1>Find <span>Medicines</span></h1>
+      <p>Search any medicine to instantly get side effects, warnings, dosage, pill images and the full drug label — powered by 3 trusted medical databases.</p>
+    </div>
+
+    <!-- SOURCE BADGES -->
+    <div class="sources">
+      <span class="src-badge src-fda">⚠️ OpenFDA — Side Effects &amp; Warnings</span>
+      <span class="src-badge src-rximg">🖼️ RxImage — Pill Images</span>
+      <span class="src-badge src-daily">📄 DailyMed — Full Drug Label</span>
+      <span class="src-badge src-rxnorm">🔍 RxNorm — Drug Search</span>
+    </div>
+
+    <!-- SEARCH CARD -->
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-icon ic-green">🔍</div>
+        <div>
+          <div class="card-title">Search Medicine</div>
+          <div class="card-sub">Enter brand name or generic name (e.g. Paracetamol, Aspirin, Metformin)</div>
+        </div>
+      </div>
+      <div class="search-row">
+        <input class="search-input" type="text" id="searchInput" placeholder="e.g. Aspirin, Ibuprofen, Metformin..." />
+        <button class="btn btn-green" id="btnSearch">🔍 Search</button>
+      </div>
+      <div class="quick-pills" id="quickPills">
+        <span class="q-pill" data-q="Aspirin">Aspirin</span>
+        <span class="q-pill" data-q="Ibuprofen">Ibuprofen</span>
+        <span class="q-pill" data-q="Metformin">Metformin</span>
+        <span class="q-pill" data-q="Amoxicillin">Amoxicillin</span>
+        <span class="q-pill" data-q="Paracetamol">Paracetamol</span>
+        <span class="q-pill" data-q="Lisinopril">Lisinopril</span>
+        <span class="q-pill" data-q="Atorvastatin">Atorvastatin</span>
+        <span class="q-pill" data-q="Omeprazole">Omeprazole</span>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading" id="loadingBox">
+        <div class="spinner"></div>
+        <span style="font-size:14px;font-weight:600;color:var(--green)" id="loadingText">Fetching from OpenFDA, RxImage &amp; DailyMed...</span>
+      </div>
+
+      <!-- STATUS -->
+      <div class="status" id="searchStatus"></div>
+
+      <!-- RxNorm search results list -->
+      <div id="rxListBox" style="display:none; margin-top:20px;">
+        <div class="section-label">🔍 RxNorm Search Results — Click to view full details</div>
+        <div class="rx-list" id="rxList"></div>
+      </div>
+    </div>
+
+    <!-- RESULT SECTION -->
+    <div id="resultSection">
+
+      <!-- MEDICINE HEADER -->
+      <div class="med-header-card" id="medHeaderCard">
+        <div class="med-big-icon">💊</div>
+        <div class="med-info">
+          <div class="med-name" id="medName">—</div>
+          <div class="med-brand" id="medBrand"></div>
+          <div class="med-tags" id="medTags"></div>
+        </div>
+      </div>
+
+      <!-- INFO GRID -->
+      <div class="info-grid">
+
+        <!-- DESCRIPTION -->
+        <div class="info-card">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-green">📋</div>
+            <div class="info-card-title">Description</div>
+            <span class="info-card-src src-fda-tag">OpenFDA</span>
+          </div>
+          <div class="info-text" id="infoDesc">—</div>
+        </div>
+
+        <!-- DOSAGE -->
+        <div class="info-card">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-green">💉</div>
+            <div class="info-card-title">Dosage &amp; Administration</div>
+            <span class="info-card-src src-fda-tag">OpenFDA</span>
+          </div>
+          <div class="info-text" id="infoDosage">—</div>
+        </div>
+
+        <!-- SIDE EFFECTS (wide) -->
+        <div class="info-card wide">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-red">⚠️</div>
+            <div class="info-card-title">Side Effects (Adverse Reactions)</div>
+            <span class="info-card-src src-fda-tag">OpenFDA</span>
+          </div>
+          <div class="info-text" id="infoSideEffects">—</div>
+        </div>
+
+        <!-- WARNINGS -->
+        <div class="info-card">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-amber">🚨</div>
+            <div class="info-card-title">Warnings</div>
+            <span class="info-card-src src-fda-tag">OpenFDA</span>
+          </div>
+          <div class="info-text" id="infoWarnings">—</div>
+        </div>
+
+        <!-- CONTRAINDICATIONS -->
+        <div class="info-card">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-red">🚫</div>
+            <div class="info-card-title">Contraindications</div>
+            <span class="info-card-src src-fda-tag">OpenFDA</span>
+          </div>
+          <div class="info-text" id="infoContra">—</div>
+        </div>
+
+        <!-- DAILYMED LABEL (wide) -->
+        <div class="info-card wide" id="dmCard">
+          <div class="info-card-hdr">
+            <div class="info-card-icon ic-purple">📄</div>
+            <div class="info-card-title">Official Drug Label</div>
+            <span class="info-card-src src-daily-tag">DailyMed (NIH)</span>
+          </div>
+          <div id="dmInfo" class="info-text"></div>
+        </div>
+
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div class="warn-card">
+        <div class="warn-card-title">⚠️ Medical Disclaimer</div>
+        <div class="warn-card-text">This information is sourced from official U.S. FDA and NIH databases for reference only. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Always consult a licensed healthcare provider before starting, stopping, or changing any medication.</div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+
+    const searchInput   = $('searchInput');
+    const btnSearch     = $('btnSearch');
+    const loadingBox    = $('loadingBox');
+    const loadingText   = $('loadingText');
+    const searchStatus  = $('searchStatus');
+    const resultSection = $('resultSection');
+    const rxListBox     = $('rxListBox');
+    const rxList        = $('rxList');
+
+    // Quick pill clicks
+    document.querySelectorAll('.q-pill').forEach(p => {
+      p.addEventListener('click', () => {
+        searchInput.value = p.dataset.q;
+        doSearch(p.dataset.q);
+      });
+    });
+
+    btnSearch.addEventListener('click', () => {
+      const q = searchInput.value.trim();
+      if (q.length < 2) { showStatus('Please enter at least 2 characters.', 'error'); return; }
+      doSearch(q);
+    });
+
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { const q = searchInput.value.trim(); if (q.length >= 2) doSearch(q); }
+    });
+
+    async function doSearch(name) {
+      loadingBox.classList.add('active');
+      loadingText.textContent = 'Fetching from OpenFDA, RxImage & DailyMed...';
+      resultSection.classList.remove('visible');
+      rxListBox.style.display = 'none';
+      showStatus('', '');
+      btnSearch.disabled = true;
+
+      try {
+        // 1. Fetch combined details (OpenFDA + RxImage + DailyMed)
+        const detailsResp = await fetch(`http://127.0.0.1:3000/api/medicine/details?name=${encodeURIComponent(name)}`);
+        const details = await detailsResp.json();
+
+        // 2. Fetch RxNorm search results
+        loadingText.textContent = 'Searching RxNorm drug database...';
+        const rxResp = await fetch(`http://127.0.0.1:3000/api/medicine/search?q=${encodeURIComponent(name)}`);
+        const rxData = await rxResp.json();
+
+        loadingBox.classList.remove('active');
+        btnSearch.disabled = false;
+
+        renderDetails(details);
+        renderRxList(rxData.results || [], name);
+
+        showStatus(`✅ Results found for "${name}" from OpenFDA, RxImage & DailyMed`, 'success');
+        resultSection.classList.add('visible');
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (err) {
+        loadingBox.classList.remove('active');
+        btnSearch.disabled = false;
+        showStatus('⚠️ Cannot connect to server. Make sure dev-server.py is running on port 3000.', 'error');
+      }
+    }
+
+    function renderDetails(d) {
+      const fda = d.openfda || {};
+
+      // Header
+      $('medName').textContent = fda.brand_name || d.name || '—';
+      $('medBrand').textContent = fda.brand_name && fda.brand_name !== d.name
+        ? `Generic: ${d.name}` : '';
+
+      const tagsEl = $('medTags');
+      tagsEl.innerHTML = '';
+      if (fda.manufacturer) tagsEl.innerHTML += `<span class="med-tag tag-mfr">🏭 ${esc(fda.manufacturer)}</span>`;
+      if (d.dailymed && d.dailymed.published) tagsEl.innerHTML += `<span class="med-tag tag-daily">📅 Updated: ${esc(d.dailymed.published)}</span>`;
+
+      // FDA fields
+      setText('infoDesc',       fda.description        || '');
+      setText('infoDosage',     fda.dosage             || '');
+      setText('infoSideEffects',fda.adverse_reactions  || '');
+      setText('infoWarnings',   fda.warnings           || '');
+      setText('infoContra',     fda.contraindications  || '');
+
+      // DailyMed
+      const dmEl = $('dmInfo');
+      if (d.dailymed && d.dailymed.title) {
+        dmEl.innerHTML = `
+          <div style="margin-bottom:10px"><strong>Label:</strong> ${esc(d.dailymed.title)}</div>
+          ${d.dailymed.published ? `<div style="margin-bottom:14px;font-size:13px;color:var(--gray-500)">📅 Published: ${esc(d.dailymed.published)}</div>` : ''}
+          <a class="dm-link" href="${esc(d.dailymed.url)}" target="_blank" rel="noopener">
+            📄 View Full Official Label on DailyMed →
+          </a>`;
+      } else {
+        dmEl.innerHTML = '<span class="info-empty">No DailyMed record found for this medicine.</span>';
+      }
+    }
+
+    function renderRxList(results, name) {
+      if (!results.length) { rxListBox.style.display = 'none'; return; }
+      rxListBox.style.display = 'block';
+      rxList.innerHTML = results.slice(0, 10).map(r => `
+        <div class="rx-item" data-name="${esc(r.name)}">
+          <div>
+            <div class="rx-item-name">💊 ${esc(r.name)}</div>
+            <div class="rx-item-rxcui">RxCUI: ${esc(r.rxcui)}${r.synonym ? ' · ' + esc(r.synonym) : ''}</div>
+          </div>
+          <span class="rx-arrow">→</span>
+        </div>`).join('');
+
+      rxList.querySelectorAll('.rx-item').forEach(item => {
+        item.addEventListener('click', () => {
+          searchInput.value = item.dataset.name;
+          doSearch(item.dataset.name);
+        });
+      });
+    }
+
+    function setText(id, text) {
+      const el = $(id);
+      if (!text || text.trim().length < 5) {
+        el.innerHTML = '<span class="info-empty">No information available from this source.</span>';
+      } else {
+        el.textContent = text;
+      }
+    }
+
+    function showStatus(msg, type) {
+      if (!msg) { searchStatus.classList.remove('visible'); return; }
+      searchStatus.textContent = msg;
+      searchStatus.className = 'status visible ' + (type || '');
+    }
+
+    function esc(str) { const d = document.createElement('div'); d.textContent = String(str||''); return d.innerHTML; }
+
+  })();
+  </script>
+
+</body>
+</html>

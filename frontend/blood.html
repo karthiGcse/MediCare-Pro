@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Blood Bank & Stock Search | MediCare Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #e11d48; 
+      --primary-light: #fff1f2; 
+      --primary-dark: #be123c;
+      --primary-border: #fecdd3;
+      --green: #059669; 
+      --green-light: #ecfdf5; 
+      --green-border: #a7f3d0;
+      --blue: #0284c7; 
+      --blue-light: #f0f9ff; 
+      --blue-border: #bae6fd;
+      --purple: #6366f1;
+      --purple-light: #eef2ff;
+      --purple-border: #c7d2fe;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-50: #f8fafc; 
+      --gray-100: #f1f5f9; 
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8; 
+      --gray-500: #64748b; 
+      --gray-600: #475569;
+      --gray-700: #334155; 
+      --gray-900: #0f172a;
+      --white: #ffffff; 
+      --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+      --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+      --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+      --r-md: 12px; 
+      --r-lg: 16px;
+      --r-xl: 20px;
+    }
+
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      background: #f8fafc; 
+      color: var(--gray-900); 
+      line-height: 1.5; 
+      -webkit-font-smoothing: antialiased; 
+    }
+
+    /* HEADER */
+    .hdr { 
+      background: rgba(255, 255, 255, 0.95); 
+      backdrop-filter: blur(10px); 
+      border-bottom: 1px solid var(--gray-200); 
+      position: sticky; 
+      top: 0; 
+      z-index: 100; 
+      box-shadow: var(--shadow-xs); 
+    }
+    .hdr-inner { 
+      max-width: 1160px; 
+      margin: 0 auto; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: 14px 24px; 
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-icon { 
+      width: 38px; 
+      height: 38px; 
+      border-radius: 10px; 
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+      color: #fff; 
+      font-weight: 800; 
+      font-size: 17px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      box-shadow: 0 4px 12px rgba(225,29,72,.25); 
+    }
+    .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+    .brand-name span { color: var(--primary); }
+    .back-btn { 
+      background: var(--white); 
+      border: 1px solid var(--gray-200); 
+      color: var(--gray-600); 
+      padding: 8px 16px; 
+      border-radius: 10px; 
+      font-size: 13px; 
+      font-weight: 600; 
+      text-decoration: none; 
+      transition: all .2s ease; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+      box-shadow: var(--shadow-xs);
+    }
+    .back-btn:hover { 
+      background: var(--primary-light); 
+      color: var(--primary); 
+      border-color: var(--primary-border); 
+    }
+
+    /* MAIN CONTAINER */
+    .main { max-width: 1160px; margin: 0 auto; padding: 36px 20px 80px; }
+
+    /* HERO */
+    .hero { text-align: center; margin-bottom: 32px; }
+    .hero-badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+      background: var(--primary-light); 
+      border: 1px solid var(--primary-border); 
+      color: var(--primary-dark); 
+      padding: 6px 14px; 
+      border-radius: 50px; 
+      font-size: 13px; 
+      font-weight: 600; 
+      margin-bottom: 14px; 
+    }
+    .hero h1 { 
+      font-size: 34px; 
+      font-weight: 800; 
+      letter-spacing: -0.03em; 
+      margin-bottom: 10px; 
+      color: var(--gray-900); 
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero p { color: var(--gray-500); max-width: 640px; margin: 0 auto; font-size: 15px; }
+
+    /* ACTION CARDS (Light and Clean) */
+    .action-cards { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 16px; 
+      margin-bottom: 36px; 
+    }
+    .action-card { 
+      background: var(--white); 
+      border: 1px solid var(--gray-200); 
+      border-radius: var(--r-lg); 
+      padding: 22px 24px; 
+      box-shadow: var(--shadow-sm); 
+      text-decoration: none; 
+      color: inherit; 
+      display: flex; 
+      align-items: center; 
+      gap: 18px; 
+      transition: all .2s ease; 
+      cursor: pointer;
+    }
+    .action-card:hover { 
+      transform: translateY(-2px); 
+      border-color: var(--primary-border); 
+      box-shadow: var(--shadow-md); 
+    }
+    .ac-icon { 
+      font-size: 28px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 56px; 
+      height: 56px; 
+      border-radius: 14px; 
+      background: var(--primary-light); 
+      color: var(--primary); 
+      flex-shrink: 0; 
+    }
+    .ac-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; color: var(--gray-900); }
+    .ac-desc { font-size: 13px; color: var(--gray-500); line-height: 1.45; }
+
+    /* LIVE BLOOD SEARCH SECTION (Main Light Component) */
+    .live-search-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-xl);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 36px;
+    }
+    .sec-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .sec-title-wrap h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-title-wrap p {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-light);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(5,150,105,0.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(5,150,105,0.5); }
+      70% { box-shadow: 0 0 0 6px rgba(5,150,105,0); }
+      100% { box-shadow: 0 0 0 0 rgba(5,150,105,0); }
+    }
+
+    /* FILTERS GRID */
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto;
+      gap: 12px;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+    .filter-box { display: flex; flex-direction: column; gap: 6px; }
+    .filter-box label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .filter-select, .filter-input {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--gray-900);
+      outline: none;
+      transition: all .2s;
+    }
+    .filter-select:focus, .filter-input:focus {
+      background: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+    .btn-search {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .btn-search:hover { background: var(--primary-dark); }
+    .btn-search:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* QUICK BLOOD GROUP CHIPS */
+    .bg-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+    }
+    .bg-chips-lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      margin-right: 4px;
+    }
+    .bg-chip {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .bg-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .bg-chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 6px rgba(225,29,72,0.3);
+    }
+
+    /* SUMMARY STATS STRIP */
+    .summary-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+    .summary-count { font-weight: 700; color: var(--gray-900); }
+    .quick-search-box {
+      position: relative;
+      width: 260px;
+    }
+    .quick-search-box input {
+      width: 100%;
+      padding: 7px 12px 7px 30px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      outline: none;
+    }
+    .quick-search-box input:focus { border-color: var(--primary); }
+    .quick-search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* BLOOD CENTERS GRID */
+    .centers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .center-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      transition: all .2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .center-card:hover {
+      border-color: var(--gray-300);
+      box-shadow: var(--shadow-sm);
+    }
+    .cc-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .cc-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1.35;
+    }
+    .cc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .badge-govt { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+    .badge-pvt { background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple-border); }
+    .badge-charity { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+    
+    .cc-meta {
+      font-size: 12px;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .cc-addr {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.4;
+    }
+    .cc-addr svg { flex-shrink: 0; margin-top: 2px; color: var(--gray-400); }
+
+    /* STOCK INVENTORY PILLS */
+    .stock-sec {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    .stock-sec-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .stock-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .stock-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stock-pill.has-stock {
+      background: var(--green-light);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+    .stock-pill.is-highlight {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+    .stock-pill .count { font-weight: 800; }
+    .stock-none { font-size: 12px; color: var(--gray-400); font-style: italic; }
+
+    /* CARD ACTIONS */
+    .cc-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-100);
+    }
+    .btn-call {
+      flex: 1;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all .15s;
+    }
+    .btn-call:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      border-color: var(--gray-300);
+    }
+    .btn-map {
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      color: var(--primary-dark);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all .15s;
+    }
+    .btn-map:hover { background: #ffe4e6; }
+
+    /* LOADING & EMPTY STATES */
+    .state-message {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-500);
+      font-size: 14px;
+      grid-column: span 2;
+    }
+    .state-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--gray-200);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* INFO & FIREBASE REQUESTS SECTION */
+    .info-section { 
+      background: var(--white); 
+      border: 1px solid var(--gray-200); 
+      border-radius: var(--r-xl); 
+      padding: 28px; 
+      box-shadow: var(--shadow-sm); 
+    }
+    .info-hdr { 
+      font-size: 18px; 
+      font-weight: 700; 
+      margin-bottom: 20px; 
+      color: var(--gray-900); 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+    }
+    .req-list { margin-top: 14px; }
+    .req-card { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: 14px 18px; 
+      background: var(--gray-50); 
+      border: 1px solid var(--gray-200); 
+      border-radius: var(--r-md); 
+      margin-bottom: 10px; 
+    }
+    .req-blood { 
+      font-size: 18px; 
+      font-weight: 800; 
+      color: var(--primary); 
+      background: var(--primary-light); 
+      border: 1px solid var(--primary-border);
+      padding: 8px 12px; 
+      border-radius: 8px; 
+      min-width: 58px; 
+      text-align: center; 
+      margin-right: 14px; 
+    }
+    .req-details h4 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 2px; }
+    .req-details p { font-size: 13px; color: var(--gray-500); }
+    .req-btn { 
+      background: var(--primary); 
+      color: #fff; 
+      border: none; 
+      padding: 8px 16px; 
+      border-radius: 8px; 
+      font-size: 13px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      transition: background .2s; 
+    }
+    .req-btn:hover { background: var(--primary-dark); }
+
+    /* MODAL */
+    .modal-overlay { 
+      position: fixed; 
+      top: 0; left: 0; right: 0; bottom: 0; 
+      background: rgba(15,23,42,0.5); 
+      backdrop-filter: blur(4px);
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      opacity: 0; 
+      pointer-events: none; 
+      transition: opacity .25s ease; 
+      z-index: 1000; 
+      padding: 20px; 
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal { 
+      background: var(--white); 
+      width: 100%; 
+      max-width: 440px; 
+      border-radius: var(--r-xl); 
+      padding: 28px; 
+      box-shadow: var(--shadow-lg); 
+      transform: translateY(16px); 
+      transition: transform .25s ease; 
+    }
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .m-title { font-size: 20px; font-weight: 700; margin-bottom: 18px; color: var(--gray-900); }
+    .m-close { 
+      float: right; 
+      background: none; 
+      border: none; 
+      font-size: 24px; 
+      cursor: pointer; 
+      color: var(--gray-400); 
+      line-height: 1; 
+    }
+    .m-close:hover { color: var(--gray-700); }
+    .form-grp { margin-bottom: 14px; }
+    .form-grp label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+    .form-grp input, .form-grp select { 
+      width: 100%; 
+      padding: 10px 12px; 
+      border: 1px solid var(--gray-200); 
+      border-radius: 8px; 
+      font-family: inherit; 
+      font-size: 14px; 
+      background: var(--gray-50);
+    }
+    .form-grp input:focus, .form-grp select:focus { 
+      outline: none; 
+      background: var(--white);
+      border-color: var(--primary); 
+      box-shadow: 0 0 0 3px var(--primary-light); 
+    }
+    .m-btn { 
+      display: block; 
+      width: 100%; 
+      padding: 11px; 
+      background: var(--primary); 
+      color: #fff; 
+      font-size: 15px; 
+      font-weight: 600; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      margin-top: 20px; 
+      transition: background .2s;
+    }
+    .m-btn:hover { background: var(--primary-dark); }
+
+    @media (max-width: 860px) {
+      .filter-grid { grid-template-columns: 1fr 1fr; }
+      .centers-grid { grid-template-columns: 1fr; }
+      .action-cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .filter-grid { grid-template-columns: 1fr; }
+      .quick-search-box { width: 100%; }
+      .summary-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-inner">
+      <a class="brand" href="dashboard/dashboard.html">
+        <div class="brand-icon">M</div>
+        <span class="brand-name">Medi<span>Care</span> Pro</span>
+      </a>
+      <a class="back-btn" href="dashboard/dashboard.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Dashboard
+      </a>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="hero">
+      <div class="hero-badge">
+        <span>🩸</span> Official Indian Blood Bank Network (e-RaktKosh)
+      </div>
+      <h1>Live Blood <span>Availability</span> Portal</h1>
+      <p>Instant access to real-time blood stock across verified government & private hospitals in your district.</p>
+    </div>
+
+    <!-- MAIN ACTIONS -->
+    <div class="action-cards">
+      <div class="action-card" onclick="openModal('register')">
+        <div class="ac-icon">💖</div>
+        <div>
+          <div class="ac-title">Register as Donor</div>
+          <div class="ac-desc">Join our volunteer donor community. Receive instant alerts when matching patients need blood nearby.</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="openModal('request')">
+        <div class="ac-icon">🚨</div>
+        <div>
+          <div class="ac-title">Post Urgent Request</div>
+          <div class="ac-desc">Have an emergency requirement? Broadcast your blood requirement to our live network instantly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE SEARCH CARD -->
+    <section class="live-search-card">
+      <div class="sec-top">
+        <div class="sec-title-wrap">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            Hospital Blood Stock Finder
+          </h2>
+          <p>Real-time inventory updated directly by hospitals on e-RaktKosh Central Portal</p>
+        </div>
+        <div class="live-indicator">
+          <span class="live-dot"></span>
+          <span>Live Official Sync</span>
+        </div>
+      </div>
+
+      <!-- FILTER CONTROLS -->
+      <div class="filter-grid">
+        <div class="filter-box">
+          <label>State</label>
+          <select id="stateSelect" class="filter-select">
+            <option value="33" selected>Tamil Nadu</option>
+          </select>
+        </div>
+
+        <div class="filter-box">
+          <label>District</label>
+          <select id="districtSelect" class="filter-select">
+            <option value="all">All Districts</option>
+            <option value="603" selected>Chennai</option>
+          </select>
+        </div>
+
+        <div class="filter-box">
+          <label>Blood Group</label>
+          <select id="bloodGroupSelect" class="filter-select">
+            <option value="all">All Groups</option>
+            <option value="O+Ve">O+ (Positive)</option>
+            <option value="O-Ve">O- (Negative)</option>
+            <option value="A+Ve">A+ (Positive)</option>
+            <option value="A-Ve">A- (Negative)</option>
+            <option value="B+Ve">B+ (Positive)</option>
+            <option value="B-Ve">B- (Negative)</option>
+            <option value="AB+Ve">AB+ (Positive)</option>
+            <option value="AB-Ve">AB- (Negative)</option>
+          </select>
+        </div>
+
+        <div class="filter-box">
+          <label>Component</label>
+          <select id="componentSelect" class="filter-select">
+            <option value="all">All Components</option>
+            <option value="Packed Red Blood Cells" selected>Packed Red Blood Cells</option>
+            <option value="Whole Blood">Whole Blood</option>
+            <option value="Platelet Concentrate">Platelets</option>
+            <option value="Fresh Frozen Plasma">Plasma (FFP)</option>
+          </select>
+        </div>
+
+        <div>
+          <button id="btnSearch" class="btn-search" onclick="fetchLiveStock()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Search Stock
+          </button>
+        </div>
+      </div>
+
+      <!-- QUICK BLOOD GROUP CHIPS -->
+      <div class="bg-chips">
+        <span class="bg-chips-lbl">Quick Filter:</span>
+        <button class="bg-chip active" onclick="setQuickGroup('all', this)">All</button>
+        <button class="bg-chip" onclick="setQuickGroup('O+Ve', this)">O+</button>
+        <button class="bg-chip" onclick="setQuickGroup('O-Ve', this)">O-</button>
+        <button class="bg-chip" onclick="setQuickGroup('A+Ve', this)">A+</button>
+        <button class="bg-chip" onclick="setQuickGroup('A-Ve', this)">A-</button>
+        <button class="bg-chip" onclick="setQuickGroup('B+Ve', this)">B+</button>
+        <button class="bg-chip" onclick="setQuickGroup('B-Ve', this)">B-</button>
+        <button class="bg-chip" onclick="setQuickGroup('AB+Ve', this)">AB+</button>
+        <button class="bg-chip" onclick="setQuickGroup('AB-Ve', this)">AB-</button>
+      </div>
+
+      <!-- SUMMARY BAR -->
+      <div class="summary-strip">
+        <div>
+          Showing <span id="foundCount" class="summary-count">0</span> blood centers in <span id="currentLocText" style="font-weight:600; color:var(--primary);">Chennai, Tamil Nadu</span>
+        </div>
+        <div class="quick-search-box">
+          <span class="quick-search-icon">🔍</span>
+          <input type="text" id="hospitalSearchInput" placeholder="Filter hospital name..." oninput="filterHospitalNames()" />
+        </div>
+      </div>
+
+      <!-- RESULTS GRID -->
+      <div id="centersGrid" class="centers-grid">
+        <div class="state-message">
+          <div class="state-spinner"></div>
+          <div>Connecting to e-RaktKosh live database...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIREBASE COMMUNITY FEED -->
+    <div class="info-section">
+      <div class="info-hdr">
+        <div>
+          <span>Community Blood Requests</span>
+          <span style="font-size:12px; font-weight:600; color:var(--green); background:var(--green-light); border:1px solid var(--green-border); padding:3px 9px; border-radius:50px; margin-left:8px;">Live Feed</span>
+        </div>
+        <button class="back-btn" onclick="openModal('request')" style="padding:6px 12px; font-size:12px;">+ Request Blood</button>
+      </div>
+
+      <div class="req-list" id="realRequestsList">
+        <div style="text-align:center; padding:20px; color:var(--gray-500); font-size:14px;">Loading local blood requests...</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="m-close" onclick="closeModal()">×</button>
+      <h3 class="m-title" id="mTitle">Register as Donor</h3>
+      
+      <div class="form-grp">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter your name" id="mName">
+      </div>
+      
+      <div class="form-grp">
+        <label>Blood Group</label>
+        <select id="mGroup">
+          <option>O+</option><option>O-</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+      
+      <div class="form-grp">
+        <label>City / Location</label>
+        <input type="text" placeholder="e.g. Chennai" id="mCity">
+      </div>
+      
+      <div class="form-grp">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="10-digit mobile number" id="mPhone">
+      </div>
+      
+      <button class="m-btn" onclick="submitForm()" id="mBtnText">Submit</button>
+    </div>
+  </div>
+
+  <!-- FIREBASE INTEGRATION -->
+  <script src="js/firebase-config.js"></script>
+  <script type="module" src="js/firebase-client.js"></script>
+  <script src="js/cloud-auth.js"></script>
+
+  <script>
+    // Global data stores
+    let allStates = [];
+    let currentCenters = [];
+    let selectedGroup = 'all';
+
+    const stateSelect = document.getElementById('stateSelect');
+    const districtSelect = document.getElementById('districtSelect');
+    const bloodGroupSelect = document.getElementById('bloodGroupSelect');
+    const componentSelect = document.getElementById('componentSelect');
+    const centersGrid = document.getElementById('centersGrid');
+    const foundCount = document.getElementById('foundCount');
+    const currentLocText = document.getElementById('currentLocText');
+    const btnSearch = document.getElementById('btnSearch');
+    const hospitalSearchInput = document.getElementById('hospitalSearchInput');
+
+    // 1. Initialize States & Districts
+    async function loadStatesMaster() {
+      try {
+        const resp = await fetch('/api/blood/states');
+        if (!resp.ok) throw new Error('Failed to load states');
+        allStates = await resp.json();
+
+        // Populate State Dropdown
+        stateSelect.innerHTML = allStates.map(s => 
+          `<option value="${s.stateCode}" ${s.stateCode === '33' ? 'selected' : ''}>${escapeHtml(s.stateName)}</option>`
+        ).join('');
+
+        populateDistricts('33');
+      } catch (err) {
+        console.warn('Could not fetch states from server, using default Tamil Nadu:', err);
+        // Fallback Tamil Nadu districts
+        populateDistricts('33');
+      }
+    }
+
+    function populateDistricts(stateCode) {
+      const state = allStates.find(s => String(s.stateCode) === String(stateCode));
+      let districts = [];
+
+      if (state && state.districts && state.districts.length > 0) {
+        districts = state.districts;
+      } else if (stateCode === '33') {
+        // Fallback default TN districts
+        districts = [
+          { districtCode: '603', districtName: 'Chennai' },
+          { districtCode: '632', districtName: 'Coimbatore' },
+          { districtCode: '623', districtName: 'Madurai' },
+          { districtCode: '608', districtName: 'Salem' },
+          { districtCode: '614', districtName: 'Tiruchirappalli' },
+          { districtCode: '605', districtName: 'Vellore' },
+          { districtCode: '604', districtName: 'Kanchipuram' },
+          { districtCode: '735', districtName: 'Chengalpattu' }
+        ];
+      }
+
+      districtSelect.innerHTML = `<option value="all">All Districts (${districts.length})</option>` +
+        districts.map(d => `<option value="${d.districtCode}" ${d.districtCode === '603' ? 'selected' : ''}>${escapeHtml(d.districtName)}</option>`).join('');
+    }
+
+    stateSelect.addEventListener('change', () => {
+      populateDistricts(stateSelect.value);
+      fetchLiveStock();
+    });
+
+    districtSelect.addEventListener('change', () => {
+      fetchLiveStock();
+    });
+
+    bloodGroupSelect.addEventListener('change', () => {
+      setQuickGroup(bloodGroupSelect.value);
+    });
+
+    componentSelect.addEventListener('change', () => {
+      renderCenters();
+    });
+
+    function setQuickGroup(group, el) {
+      selectedGroup = group;
+      bloodGroupSelect.value = group;
+
+      document.querySelectorAll('.bg-chip').forEach(btn => btn.classList.remove('active'));
+      if (el) {
+        el.classList.add('active');
+      } else {
+        const found = Array.from(document.querySelectorAll('.bg-chip')).find(b => b.textContent.trim().startsWith(group.replace('Ve', '')));
+        if (found) found.classList.add('active');
+      }
+      renderCenters();
+    }
+
+    // 2. Fetch Live Stock from Official API via Backend Proxy
+    async function fetchLiveStock() {
+      const stateCode = stateSelect.value || '33';
+      const districtId = districtSelect.value || 'all';
+
+      const sName = stateSelect.options[stateSelect.selectedIndex]?.text || 'Tamil Nadu';
+      const dName = districtSelect.options[districtSelect.selectedIndex]?.text || 'All Districts';
+      currentLocText.textContent = `${dName}, ${sName}`;
+
+      btnSearch.disabled = true;
+      btnSearch.innerHTML = `<span class="state-spinner" style="width:14px;height:14px;border-width:2px;margin:0;display:inline-block;vertical-align:middle;"></span> Searching...`;
+      
+      centersGrid.innerHTML = `
+        <div class="state-message">
+          <div class="state-spinner"></div>
+          <div>Fetching live inventory from e-RaktKosh blood centres...</div>
+        </div>
+      `;
+
+      try {
+        let url = `/api/blood/availability?stateCode=${encodeURIComponent(stateCode)}`;
+        if (districtId && districtId !== 'all') {
+          url += `&districtId=${encodeURIComponent(districtId)}`;
+        }
+
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        currentCenters = Array.isArray(data) ? data : [];
+        renderCenters();
+      } catch (err) {
+        console.error('Fetch live stock failed:', err);
+        centersGrid.innerHTML = `
+          <div class="state-message">
+            <div style="font-size:32px; margin-bottom:8px;">⚠️</div>
+            <div style="font-weight:700; color:var(--gray-900); margin-bottom:4px;">Unable to fetch real-time data</div>
+            <p style="font-size:13px; color:var(--gray-500); max-width:400px; margin:0 auto 16px;">
+              Please ensure your development server is running (<code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;">python dev-server.py</code>).
+            </p>
+            <button class="req-btn" onclick="fetchLiveStock()">Try Again</button>
+          </div>
+        `;
+        foundCount.textContent = '0';
+      } finally {
+        btnSearch.disabled = false;
+        btnSearch.innerHTML = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search Stock
+        `;
+      }
+    }
+
+    // 3. Render Centers
+    function renderCenters() {
+      const q = (hospitalSearchInput.value || '').toLowerCase().trim();
+      const compKey = componentSelect.value;
+
+      let filtered = currentCenters.filter(c => {
+        if (!q) return true;
+        const name = (c.hospitalname || '').toLowerCase();
+        const addr = (c.hospitaladd || '').toLowerCase();
+        return name.includes(q) || addr.includes(q);
+      });
+
+      // If specific blood group selected, we sort hospitals with that stock on top
+      if (selectedGroup !== 'all') {
+        filtered.sort((a, b) => {
+          const qtyA = getGroupQty(a, compKey, selectedGroup);
+          const qtyB = getGroupQty(b, compKey, selectedGroup);
+          return qtyB - qtyA;
+        });
+      }
+
+      foundCount.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        centersGrid.innerHTML = `
+          <div class="state-message">
+            <div style="font-size:28px; margin-bottom:6px;">🔍</div>
+            <div style="font-weight:700; color:var(--gray-900);">No blood centers found</div>
+            <p style="font-size:13px; color:var(--gray-500);">Try clearing the hospital name filter or selecting "All Districts".</p>
+          </div>
+        `;
+        return;
+      }
+
+      centersGrid.innerHTML = filtered.map(c => renderCenterCard(c, compKey)).join('');
+    }
+
+    function getGroupQty(center, compKey, groupName) {
+      const comps = center.components || {};
+      const targetComp = compKey === 'all' 
+        ? (comps['Packed Red Blood Cells'] || comps['Whole Blood'] || Object.values(comps)[0]) 
+        : comps[compKey];
+      if (!targetComp || !targetComp.available_WithQty) return 0;
+      
+      const pairs = targetComp.available_WithQty.split(',');
+      for (const p of pairs) {
+        const [grp, count] = p.split(':').map(s => s.trim());
+        if (grp === groupName) {
+          return parseInt(count, 10) || 0;
+        }
+      }
+      return 0;
+    }
+
+    function renderCenterCard(c, compKey) {
+      const type = c.hospitalType || 'Blood Bank';
+      let badgeClass = 'badge-govt';
+      if (type.toLowerCase().includes('private')) badgeClass = 'badge-pvt';
+      else if (type.toLowerCase().includes('charit')) badgeClass = 'badge-charity';
+
+      const phoneMatch = (c.hospitalcontact || '').match(/Phone:\s*([0-9\s,-]+)/i);
+      const phone = phoneMatch ? phoneMatch[1].split(',')[0].trim() : '';
+
+      const updated = c.entrydate || 'Recently';
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((c.hospitalname || '') + ' ' + (c.hospitaladd || ''))}`;
+
+      // Build stock pills
+      const comps = c.components || {};
+      let stockDisplay = '';
+
+      const compToInspect = compKey === 'all' 
+        ? (comps['Packed Red Blood Cells'] || comps['Whole Blood'] || Object.values(comps)[0])
+        : comps[compKey];
+
+      const compLabel = compKey === 'all' ? 'Packed Red Blood Cells (PRBC)' : compKey;
+
+      if (compToInspect && compToInspect.available_WithQty && compToInspect.available_WithQty.trim() !== '') {
+        const pairs = compToInspect.available_WithQty.split(',').map(s => s.trim()).filter(Boolean);
+        const pillsHtml = pairs.map(p => {
+          const [grp, count] = p.split(':').map(s => s.trim());
+          const cnt = parseInt(count, 10) || 0;
+          const isSelected = (selectedGroup !== 'all' && grp === selectedGroup);
+          const hasStock = cnt > 0;
+          const cls = isSelected ? 'stock-pill is-highlight' : (hasStock ? 'stock-pill has-stock' : 'stock-pill');
+          return `
+            <span class="${cls}">
+              <span>${escapeHtml(grp)}:</span>
+              <span class="count">${cnt}</span>
+            </span>
+          `;
+        }).join('');
+
+        stockDisplay = `
+          <div class="stock-sec">
+            <div class="stock-sec-title">
+              <span>${escapeHtml(compLabel)}</span>
+              <span>Available Units</span>
+            </div>
+            <div class="stock-pills">${pillsHtml}</div>
+          </div>
+        `;
+      } else {
+        stockDisplay = `
+          <div class="stock-sec">
+            <div class="stock-sec-title">
+              <span>${escapeHtml(compLabel)}</span>
+            </div>
+            <div class="stock-none">Current stock details not reported / Zero units</div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="center-card">
+          <div>
+            <div class="cc-hdr">
+              <h3 class="cc-title">${escapeHtml(c.hospitalname || 'Blood Bank')}</h3>
+              <span class="cc-badge ${badgeClass}">${escapeHtml(type)}</span>
+            </div>
+
+            <div class="cc-meta">
+              <span>🕒 Updated: ${escapeHtml(updated)}</span>
+            </div>
+
+            <div class="cc-addr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>${escapeHtml(c.hospitaladd || 'Address not listed')}</span>
+            </div>
+
+            ${stockDisplay}
+          </div>
+
+          <div class="cc-actions">
+            ${phone ? `
+              <a href="tel:${escapeHtml(phone)}" class="btn-call">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call: ${escapeHtml(phone)}
+              </a>
+            ` : `
+              <span class="btn-call" style="opacity:0.6; cursor:default;">Phone not provided</span>
+            `}
+            <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="btn-map" title="View hospital location on Google Maps">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+              Directions
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterHospitalNames() {
+      renderCenters();
+    }
+
+    // 4. Modal Handlers
+    const overlay = document.getElementById('modalOverlay');
+    const mTitle = document.getElementById('mTitle');
+    const mBtnText = document.getElementById('mBtnText');
+    const reqList = document.getElementById('realRequestsList');
+    
+    const mName = document.getElementById('mName');
+    const mGroup = document.getElementById('mGroup');
+    const mCity = document.getElementById('mCity');
+    const mPhone = document.getElementById('mPhone');
+
+    let currentMode = '';
+    let db = null;
+    let addDoc = null;
+    let collection = null;
+    let serverTimestamp = null;
+
+    document.addEventListener('medicare:portal-ready', ({detail}) => {
+      const {cloud} = detail;
+      db = cloud.db;
+      addDoc = cloud.addDoc;
+      collection = cloud.collection;
+      serverTimestamp = cloud.serverTimestamp;
+      
+      const q = cloud.query(collection(db, "blood_requests"), cloud.orderBy("timestamp", "desc"), cloud.limit(10));
+      cloud.onSnapshot(q, (snapshot) => {
+        if (snapshot.empty) {
+          reqList.innerHTML = '<div style="text-align:center; padding:20px; color:var(--gray-500); font-size:14px;">No active community requests right now.</div>';
+          return;
+        }
+        
+        reqList.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          reqList.innerHTML += `
+            <div class="req-card">
+              <div style="display:flex; align-items:center;">
+                <div class="req-blood">${escapeHtml(data.bloodGroup || 'Any')}</div>
+                <div class="req-details">
+                  <h4>${escapeHtml(data.name || 'Anonymous Patient')}</h4>
+                  <p>Location: ${escapeHtml(data.city || 'Unknown')} • Contact: ${escapeHtml(data.phone || 'N/A')}</p>
+                </div>
+              </div>
+              <button class="req-btn" onclick="alert('Please contact the requester at: ${escapeHtml(data.phone)}')">Contact Requester</button>
+            </div>
+          `;
+        });
+      });
+    });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = String(str);
+      return div.innerHTML;
+    }
+
+    function openModal(mode) {
+      currentMode = mode;
+      mName.value = '';
+      mCity.value = '';
+      mPhone.value = '';
+      
+      if (mode === 'register') {
+        mTitle.textContent = 'Register as Donor';
+        mBtnText.textContent = 'Join Donor Network';
+      } else {
+        mTitle.textContent = 'Post Urgent Blood Need';
+        mBtnText.textContent = 'Broadcast Request';
+      }
+      overlay.classList.add('active');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+    }
+
+    window.submitForm = async function() {
+      if (!db) { alert('Please sign in to the MediCare dashboard first.'); return; }
+      
+      const n = mName.value.trim();
+      const c = mCity.value.trim();
+      const p = mPhone.value.trim();
+      const g = mGroup.value;
+
+      if(!n || !c || !p) { alert('Please fill all fields!'); return; }
+      
+      mBtnText.textContent = 'Saving...';
+      mBtnText.disabled = true;
+
+      try {
+        if (currentMode === 'register') {
+          await addDoc(collection(db, "blood_donors"), {
+            name: n, city: c, phone: p, bloodGroup: g,
+            timestamp: serverTimestamp()
+          });
+          alert(`Thank you ${n}! You are now successfully registered as an ${g} donor.`);
+        } else {
+          await addDoc(collection(db, "blood_requests"), {
+            name: n, city: c, phone: p, bloodGroup: g,
+            status: 'active',
+            timestamp: serverTimestamp()
+          });
+          alert(`Your urgent request for ${g} blood has been broadcasted!`);
+        }
+        closeModal();
+      } catch (err) {
+        console.error(err);
+        alert('Error saving data to Firebase. Make sure Firestore rules allow writes.');
+      }
+      mBtnText.disabled = false;
+    }
+
+    // Auto-load on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStatesMaster();
+      fetchLiveStock();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+:root {
+    --green: #15803d;
+    --red: #ef4444;
+    --bg: #f5f7f6;
+    --text: #17201b;
+    --muted: #66736b;
+    --border: #e1e8e4;
+    --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.portal-shell { max-width: 1180px; margin: 0 auto; padding: 28px 20px 50px; }
+.portal-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 20px; background: var(--white); border: 1px solid var(--border); border-radius: 18px;
+}
+.portal-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.portal-brand img { width: 40px; height: 40px; object-fit: contain; }
+.portal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.portal-btn { border: 0; border-radius: 10px; padding: 10px 15px; cursor: pointer; background: var(--green); color: #fff; }
+.portal-btn.secondary { background: #eef3ef; color: var(--text); }
+.portal-title { margin: 30px 0 8px; }
+.portal-subtitle { margin: 0 0 22px; color: var(--muted); }
+.portal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.portal-card { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+.portal-card h2 { margin-top: 0; }
+.portal-form { display: grid; gap: 12px; }
+.portal-form label { font-weight: 600; font-size: 14px; }
+.portal-form input, .portal-form select, .portal-form textarea {
+    width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff;
+}
+.portal-record { padding: 14px; border: 1px solid var(--border); border-radius: 12px; margin-top: 10px; }
+.portal-record strong { display: block; margin-bottom: 5px; }
+.portal-empty { color: var(--muted); padding: 14px 0; }
+.portal-status { padding: 10px 12px; border-radius: 10px; background: #eef7f0; color: #166534; }
+.portal-danger { background: #fef2f2; color: #991b1b; }
+@media (max-width: 760px) { .portal-grid { grid-template-columns: 1fr; } .portal-header { align-items: flex-start; flex-direction: column; } }

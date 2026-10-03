@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediCare - Doctor Sign Up</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet"
+      
+
+</head>
+
+
+<body>
+
+    <div class="card">
+
+
+        <!-- Left Panel -->
+
+        <div class="left-panel">
+
+            <div class="logo-header">
+
+                <img src="../Logo.png" alt="MediCare Logo">
+
+                <span>MediCare</span>
+
+            </div>
+
+
+            <div class="left-content">
+
+                <span class="left-tag">
+                    PHYSICIAN NETWORK
+                </span>
+
+                <h1>
+                    Elevate your clinical practice.
+                </h1>
+
+                <p>
+                    Connect with verified patients, manage consultations online,
+                    and issue digital prescriptions with ease.
+                </p>
+
+            </div>
+
+
+            <div class="security-badge">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Medical information is private and secure.
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Right Panel -->
+
+        <div class="right-panel">
+
+            <div class="top-logo">
+
+                <img src="../Logo.png" alt="MediCare Logo">
+
+                <span>MediCare</span>
+
+            </div>
+
+
+            <span class="form-tag">
+                DOCTOR CREDENTIALING
+            </span>
+
+
+            <h2>
+                Doctor Sign Up
+            </h2>
+
+
+            <p class="subtitle">
+                Register your medical practitioner account
+            </p>
+
+
+
+            <form id="doctorForm">
+
+
+                <!-- Name and Email -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-user-doctor"></i>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Phone and License -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="license">
+                            Medical License Number
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-id-card"></i>
+
+                            <input
+                                type="text"
+                                id="license"
+                                placeholder="Enter license number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Qualification and Specialization -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="qualification">
+                            Qualification
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                            <input
+                                type="text"
+                                id="qualification"
+                                placeholder="Example: MBBS, MD"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="specialization">
+                            Specialization
+                        </label>
+
+
+                        <select id="specialization" required>
+
+                            <option value="">
+                                Select Specialization
+                            </option>
+
+                            <option value="general">
+                                General Physician
+                            </option>
+
+                            <option value="cardiology">
+                                Cardiology
+                            </option>
+
+                            <option value="dermatology">
+                                Dermatology
+                            </option>
+
+                            <option value="pediatrics">
+                                Pediatrics
+                            </option>
+
+                            <option value="orthopedics">
+                                Orthopedics
+                            </option>
+
+                            <option value="neurology">
+                                Neurology
+                            </option>
+
+                            <option value="gynecology">
+                                Gynecology
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Experience and Clinic -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="experience">
+                            Years of Experience
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-award"></i>
+
+                            <input
+                                type="number"
+                                id="experience"
+                                min="0"
+                                placeholder="Enter experience"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="clinic">
+                            Hospital / Clinic Name
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-hospital"></i>
+
+                            <input
+                                type="text"
+                                id="clinic"
+                                placeholder="Enter hospital name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Address -->
+
+                <div class="form-group">
+
+                    <label for="address">
+                        Hospital / Clinic Address
+                    </label>
+
+
+                    <textarea
+                        id="address"
+                        placeholder="Enter clinic address"
+                        rows="2"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- Password -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Create password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Terms -->
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <label for="terms">
+
+                        I agree to the
+
+                        <a href="#">
+                            Terms & Conditions
+                        </a>
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- Create Account -->
+
+                <button
+                    class="login-btn"
+                    type="submit"
+                >
+
+                    Create Doctor Account →
+
+                </button>
+
+
+
+                <!-- Login -->
+
+                <div class="footer-text">
+
+                    Already have an account?
+
+                    <a href="../index.html">
+                        Log In
+                    </a>
+
+                </div>
+
+
+
+                <!-- Back -->
+
+                <a
+                    href="role.html"
+                    class="back-link"
+                >
+
+                    ← Back to Role Selection
+
+                </a>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <script src="../js/doctor.js"></script>
+
+
+    <script src="../js/firebase-config.js"></script>
+    <script type="module" src="../js/firebase-client.js"></script>
+    <script src="../js/cloud-auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Healthy nutrition plan">
+  <defs>
+    <linearGradient id="bg8" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff5ec"/>
+      <stop offset="100%" stop-color="#eaf6d9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg8)"/>
+  <ellipse cx="205" cy="188" rx="118" ry="58" fill="#d9f3c9"/>
+  <ellipse cx="205" cy="176" rx="103" ry="48" fill="#f5fbf0" stroke="#b9d89c" stroke-width="2"/>
+  <g>
+    <circle cx="160" cy="120" r="22" fill="#f8bf5a"/>
+    <circle cx="188" cy="104" r="18" fill="#ef9d36"/>
+    <circle cx="218" cy="120" r="20" fill="#f4d058"/>
+    <circle cx="244" cy="106" r="16" fill="#7bbf53"/>
+    <circle cx="272" cy="120" r="18" fill="#f7b267"/>
+    <circle cx="138" cy="150" r="18" fill="#8cc05d"/>
+    <circle cx="284" cy="140" r="20" fill="#d9d56b"/>
+  </g>
+  <g>
+    <rect x="78" y="116" width="90" height="62" rx="12" fill="#fffaf0" stroke="#d5d3c8" stroke-width="2"/>
+    <path d="M90 165c18-8 32-12 48-12 15 0 30 4 48 12" fill="none" stroke="#dca862" stroke-width="3" stroke-linecap="round"/>
+    <rect x="145" y="142" width="18" height="34" rx="8" fill="#d3a66a"/>
+  </g>
+  <g transform="translate(228 72)">
+    <rect x="0" y="0" width="110" height="72" rx="12" fill="#f7fbf4" stroke="#bfd7a6" stroke-width="2"/>
+    <text x="55" y="24" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#4a7f52">Healthy Diet Plan</text>
+    <path d="M18 38h70" stroke="#bada8a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M18 50h52" stroke="#d7e8ad" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(50 60)">
+    <path d="M0 40c10-10 18-16 28-16 12 0 18 10 26 16v40H0V40z" fill="#e8b1a6"/>
+    <path d="M26 14c6 0 10 6 10 14s-4 14-10 14-10-6-10-14 4-14 10-14z" fill="#f5d3b5"/>
+  </g>
+</svg>

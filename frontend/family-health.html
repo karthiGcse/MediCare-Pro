@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Health Hub & UIP Child Immunization | MediCare Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #4f46e5; /* Indigo */
+            --primary-light: #eef2ff;
+            --primary-dark: #4338ca;
+            --primary-border: #c7d2fe;
+            --emerald: #059669; 
+            --emerald-light: #ecfdf5; 
+            --emerald-border: #a7f3d0;
+            --rose: #e11d48;
+            --rose-light: #fff1f2;
+            --rose-border: #fecdd3;
+            --amber: #d97706; 
+            --amber-light: #fffbeb; 
+            --amber-border: #fde68a;
+            --blue: #0284c7;
+            --blue-light: #f0f9ff;
+            --blue-border: #bae6fd;
+            --gray-50: #f8fafc; 
+            --gray-100: #f1f5f9; 
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; 
+            --gray-400: #94a3b8; 
+            --gray-500: #64748b; 
+            --gray-600: #475569;
+            --gray-700: #334155; 
+            --gray-900: #0f172a;
+            --white: #ffffff; 
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); 
+            --shadow-md: 0 4px 20px -2px rgba(15,23,42,0.07);
+            --shadow-lg: 0 10px 25px -3px rgba(15,23,42,0.08);
+            --r-md: 12px; 
+            --r-lg: 16px;
+            --r-xl: 20px;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #f8fafc; 
+            color: var(--gray-900); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        /* HEADER */
+        .hdr { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--gray-200); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: var(--shadow-xs); 
+        }
+        .hdr-inner { 
+            max-width: 1180px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 24px; 
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: #fff; 
+            font-weight: 800; 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 12px rgba(79,70,229,.25); 
+        }
+        .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.02em; }
+        .brand-name span { color: var(--primary); }
+        .hdr-actions { display: flex; align-items: center; gap: 10px; }
+        .back-btn { 
+            background: var(--white); 
+            border: 1px solid var(--gray-200); 
+            color: var(--gray-600); 
+            padding: 8px 16px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: all .2s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            box-shadow: var(--shadow-xs);
+        }
+        .back-btn:hover { 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-color: var(--primary-border); 
+        }
+
+        /* MAIN */
+        .main { max-width: 1180px; margin: 0 auto; padding: 36px 20px 80px; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            background: var(--primary-light); 
+            border: 1px solid var(--primary-border); 
+            color: var(--primary-dark); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 14px; 
+        }
+        .hero h1 { 
+            font-size: 34px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 10px; 
+            color: var(--gray-900); 
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--gray-500); max-width: 720px; margin: 0 auto; font-size: 15px; }
+
+        /* ACTION BAR */
+        .section-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .section-title-wrap h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title-wrap p {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.35);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+            color: var(--gray-900);
+        }
+
+        /* MEMBERS ROW */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 34px;
+        }
+        .member-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            position: relative;
+            transition: all .2s;
+        }
+        .member-card:hover { 
+            border-color: var(--primary-border); 
+            box-shadow: var(--shadow-md); 
+            transform: translateY(-2px); 
+        }
+        .member-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            border: 1px solid var(--primary-border);
+        }
+        .member-info { flex: 1; min-width: 0; }
+        .member-name { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--gray-900); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+        .member-rel { font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+        .member-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .member-blood {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--rose-light);
+            color: var(--rose);
+            padding: 2px 7px;
+            border-radius: 5px;
+            border: 1px solid var(--rose-border);
+        }
+        .member-phone {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+        .member-del-btn {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1;
+            transition: all .2s;
+        }
+        .member-del-btn:hover {
+            color: var(--rose);
+            background: var(--rose-light);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            background: var(--white);
+            border: 1.5px dashed var(--gray-300);
+            border-radius: var(--r-xl);
+            padding: 42px 24px;
+            text-align: center;
+            margin-bottom: 34px;
+        }
+        .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.9; }
+        .empty-title { font-size: 17px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+        .empty-desc { font-size: 13px; color: var(--gray-500); max-width: 480px; margin: 0 auto 18px; }
+
+        /* SECTION BOX */
+        .section-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--r-xl);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+        .box-title { font-size: 20px; font-weight: 800; color: var(--gray-900); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+        .box-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 20px; }
+
+        /* UIP NOTICE BANNER */
+        .uip-notice {
+            background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+            border: 1px solid var(--emerald-border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .uip-notice-left { display: flex; align-items: center; gap: 12px; }
+        .uip-flag { font-size: 24px; }
+        .uip-text-title { font-size: 13px; font-weight: 700; color: #065f46; }
+        .uip-text-sub { font-size: 12px; color: #047857; margin-top: 1px; }
+        .uip-link-btn {
+            background: #059669;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all .2s;
+        }
+        .uip-link-btn:hover { background: #047857; }
+
+        /* VACCINATION MILESTONES */
+        .vax-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 12px;
+            transition: all .2s;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .vax-item:last-child { margin-bottom: 0; }
+        .vax-item:hover { background: #fff; border-color: var(--primary-border); box-shadow: var(--shadow-xs); }
+        .vax-age { font-weight: 700; color: var(--primary); font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .vax-name { font-weight: 700; color: var(--gray-900); font-size: 15px; margin-top: 2px; }
+        .vax-protect { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+        .vax-action-wrap { display: flex; align-items: center; gap: 8px; }
+        .vax-status { 
+            font-size: 11px; 
+            font-weight: 700; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            border: 1px solid transparent; 
+        }
+        .vax-done { background: var(--emerald-light); color: var(--emerald); border-color: var(--emerald-border); }
+        .vax-pending { background: var(--gray-100); color: var(--gray-600); border-color: var(--gray-200); }
+        .btn-toggle-vax {
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
+            padding: 5px 12px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .btn-toggle-vax:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* MEDICATION REMINDER LIST */
+        .med-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+            transition: all .2s;
+        }
+        .med-row:last-child { margin-bottom: 0; }
+        .med-row:hover { background: #fff; border-color: var(--gray-300); }
+        .med-info { flex: 1; min-width: 220px; }
+        .med-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+        .med-sub { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+        .med-actions { display: flex; align-items: center; gap: 10px; }
+        .med-time-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-med-del {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .btn-med-del:hover { color: var(--rose); background: var(--rose-light); }
+
+        /* MODALS */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-box {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            max-width: 480px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray-400);
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover { color: var(--gray-700); }
+        .modal-title { font-size: 19px; font-weight: 800; color: var(--gray-900); margin-bottom: 6px; }
+        .modal-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); margin-bottom: 6px; }
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-300);
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--gray-900);
+            outline: none;
+            transition: all .2s;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.12);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        @media (max-width: 640px) {
+            .section-header-row { flex-direction: column; align-items: flex-start; }
+            .vax-item { flex-direction: column; align-items: flex-start; }
+            .vax-action-wrap { width: 100%; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="hdr">
+        <div class="hdr-inner">
+            <a href="dashboard/dashboard.html" class="brand">
+                <div class="brand-icon">👨‍👩‍👧</div>
+                <div class="brand-name">MediCare <span>Family</span></div>
+            </a>
+            <div class="hdr-actions">
+                <a href="dashboard/dashboard.html" class="back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🛡️</span> 100% Real Household Health & Records
+            </div>
+            <h1>Family <span>Health Hub</span></h1>
+            <p>Manage medical profiles for your parents, children, and spouse. Track National Universal Immunization Programme (UIP) doses, set real daily chronic prescription alerts, and keep emergency info instantly accessible.</p>
+        </section>
+
+        <!-- FAMILY MEMBERS SECTION -->
+        <div class="section-header-row">
+            <div class="section-title-wrap">
+                <h2><span>👨‍👩‍👧</span> Household Profiles</h2>
+                <p>Add and manage profiles for family members under your care</p>
+            </div>
+            <button class="btn-primary" onclick="openMemberModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Family Member
+            </button>
+        </div>
+
+        <!-- MEMBERS GRID (DYNAMIC REAL DATA) -->
+        <div id="membersContainer">
+            <!-- Dynamically populated from localStorage -->
+        </div>
+
+        <!-- CHILD IMMUNIZATION TRACKER (UIP INDIA) -->
+        <div class="section-box">
+            <div class="box-title">
+                <span>National Child Immunization Schedule (UIP India)</span>
+                <span style="font-size:12px; font-weight:600; color:var(--emerald); background:var(--emerald-light); padding:3px 10px; border-radius:6px; border:1px solid var(--emerald-border);">
+                    Ministry of Health & Family Welfare
+                </span>
+            </div>
+            <p class="box-desc">Official Government of India Universal Immunization Programme (UIP) guidelines. Track real vaccination progress for children in your household.</p>
+
+            <div class="uip-notice">
+                <div class="uip-notice-left">
+                    <div class="uip-flag">🇮🇳</div>
+                    <div>
+                        <div class="uip-text-title">Official U-WIN & UIP Portal Integration</div>
+                        <div class="uip-text-sub">Universal Immunization Programme standards for maternal & child vaccination across India.</div>
+                    </div>
+                </div>
+                <a href="https://uwin.mohfw.gov.in/" target="_blank" rel="noopener noreferrer" class="uip-link-btn">
+                    Visit U-WIN Portal ↗
+                </a>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+                <label style="font-size:13px; font-weight:700; color:var(--gray-700);">
+                    Select Member to Track Immunizations:
+                </label>
+                <select id="vaxMemberSelect" class="form-control" style="width:auto; min-width:200px; padding:6px 12px; font-size:13px;" onchange="renderVaxSchedule()">
+                    <option value="general">Household Overview (General)</option>
+                </select>
+            </div>
+
+            <!-- VAX ITEMS LIST -->
+            <div id="vaxScheduleList">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- FAMILY DAILY MEDICATION ALERTS -->
+        <div class="section-box">
+            <div class="box-title">
+                <span>Daily Family Medication Reminders</span>
+                <button class="btn-primary" style="padding:6px 14px; font-size:12px;" onclick="openMedModal()">
+                    + Add Reminder
+                </button>
+            </div>
+            <p class="box-desc">Automated schedule for household prescription compliance. Add real morning, afternoon, and evening medicines.</p>
+
+            <div id="medRemindersList">
+                <!-- Dynamically populated from localStorage -->
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL: ADD FAMILY MEMBER -->
+    <div class="modal-overlay" id="memberModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeMemberModal()">&times;</button>
+            <div class="modal-title">Add Family Member</div>
+            <div class="modal-desc">Create a digital health profile for your parent, child, spouse, or dependent.</div>
+
+            <form onsubmit="handleSaveMember(event)">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="mName" class="form-control" placeholder="e.g. Ramesh Kumar" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Relationship *</label>
+                        <select id="mRel" class="form-control" required>
+                            <option value="Self">Self</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
+                            <option value="Grandparent">Grandparent</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Age / Years *</label>
+                        <input type="number" id="mAge" class="form-control" placeholder="e.g. 32" min="0" max="120" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select id="mBlood" class="form-control">
+                            <option value="Unknown">Not Known</option>
+                            <option value="O+">O positive (O+)</option>
+                            <option value="O-">O negative (O-)</option>
+                            <option value="A+">A positive (A+)</option>
+                            <option value="A-">A negative (A-)</option>
+                            <option value="B+">B positive (B+)</option>
+                            <option value="B-">B negative (B-)</option>
+                            <option value="AB+">AB positive (AB+)</option>
+                            <option value="AB-">AB negative (AB-)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Emergency Phone</label>
+                        <input type="tel" id="mPhone" class="form-control" placeholder="+91 98765 43210" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Known Allergies / Chronic Conditions</label>
+                    <input type="text" id="mConditions" class="form-control" placeholder="e.g. Penicillin allergy, Type 2 Diabetes, or None" />
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                    <button type="button" class="btn-outline" onclick="closeMemberModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD MEDICATION REMINDER -->
+    <div class="modal-overlay" id="medModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeMedModal()">&times;</button>
+            <div class="modal-title">Add Medication Reminder</div>
+            <div class="modal-desc">Set a daily dose reminder for yourself or a family member.</div>
+
+            <form onsubmit="handleSaveMed(event)">
+                <div class="form-group">
+                    <label>Family Member *</label>
+                    <select id="medMemberSelect" class="form-control" required>
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Medicine Name & Strength *</label>
+                    <input type="text" id="medName" class="form-control" placeholder="e.g. Paracetamol 500mg, Telmisartan 40mg" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Reminder Time *</label>
+                        <input type="time" id="medTime" class="form-control" value="08:30" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Frequency *</label>
+                        <select id="medFreq" class="form-control">
+                            <option value="Daily">Daily</option>
+                            <option value="Twice Daily">Twice Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="As Needed">As Needed (PRN)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Instruction / Notes</label>
+                    <input type="text" id="medNotes" class="form-control" placeholder="e.g. 1 Tablet Morning After Breakfast" />
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                    <button type="button" class="btn-outline" onclick="closeMedModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Reminder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // OFFICIAL GOVERNMENT OF INDIA UNIVERSAL IMMUNIZATION PROGRAMME (UIP) DATA
+        const UIP_VACCINES = [
+            {
+                id: 'uip_birth',
+                age: 'At Birth',
+                name: 'BCG + OPV-0 + Hepatitis B (Birth Dose)',
+                protect: 'Protects against childhood Tuberculosis (TB), Poliomyelitis, and Hepatitis B viral infection'
+            },
+            {
+                id: 'uip_6w',
+                age: '6 Weeks',
+                name: 'Pentavalent-1 + Rotavirus-1 + fIPV-1 + PCV-1',
+                protect: 'Protects against Diphtheria, Pertussis, Tetanus, Hep B, Hib pneumonia, severe diarrhea & Polio'
+            },
+            {
+                id: 'uip_10w',
+                age: '10 Weeks',
+                name: 'Pentavalent-2 + Rotavirus-2 + OPV-1',
+                protect: 'Second infant dose for five-in-one protection & Rotavirus gastroenteritis'
+            },
+            {
+                id: 'uip_14w',
+                age: '14 Weeks',
+                name: 'Pentavalent-3 + Rotavirus-3 + fIPV-2 + PCV-2',
+                protect: 'Completion of primary infant immunization series'
+            },
+            {
+                id: 'uip_9m',
+                age: '9 - 12 Months',
+                name: 'MR-1 (Measles & Rubella) + PCV Booster + Vitamin A (1st Dose)',
+                protect: 'Protects against Measles, congenital Rubella syndrome, Pneumococcal pneumonia & blindness'
+            },
+            {
+                id: 'uip_16m',
+                age: '16 - 24 Months',
+                name: 'MR-2 + DPT Booster-1 + OPV Booster',
+                protect: 'Toddler immune memory booster dose for long-term antibody persistence'
+            },
+            {
+                id: 'uip_5y',
+                age: '5 - 6 Years',
+                name: 'DPT Booster-2',
+                protect: 'School entry booster protection against Diphtheria, Pertussis and Tetanus'
+            },
+            {
+                id: 'uip_10y',
+                age: '10 & 16 Years',
+                name: 'Td (Tetanus & adult Diphtheria)',
+                protect: 'Adolescent booster against Tetanus and Diphtheria'
+            }
+        ];
+
+        function getEmojiForRel(rel, age) {
+            if (rel === 'Father' || rel === 'Grandparent') return '👴';
+            if (rel === 'Mother') return '👵';
+            if (rel === 'Spouse') return '👩';
+            if (rel === 'Son' || rel === 'Daughter') {
+                return (age && age <= 3) ? '👶' : '🧒';
+            }
+            return '🧑';
+        }
+
+        // LOCAL STORAGE HELPERS
+        function getRealMembers() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_real_family_members') || '[]');
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function saveRealMembers(members) {
+            localStorage.setItem('medicare_real_family_members', JSON.stringify(members));
+        }
+
+        function getRealMedReminders() {
+            try {
+                return JSON.parse(localStorage.getItem('medicare_real_med_reminders') || '[]');
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function saveRealMedReminders(rems) {
+            localStorage.setItem('medicare_real_med_reminders', JSON.stringify(rems));
+        }
+
+        function getVaxStatus(memberId) {
+            try {
+                return JSON.parse(localStorage.getItem(`medicare_real_vax_${memberId}`) || '{}');
+            } catch(e) {
+                return {};
+            }
+        }
+
+        function setVaxStatus(memberId, vaxId, status) {
+            const current = getVaxStatus(memberId);
+            current[vaxId] = status;
+            localStorage.setItem(`medicare_real_vax_${memberId}`, JSON.stringify(current));
+        }
+
+        // RENDER MEMBERS
+        function renderMembers() {
+            const container = document.getElementById('membersContainer');
+            const members = getRealMembers();
+
+            updateSelectDropdowns(members);
+
+            if (!members.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">👨‍👩‍👧‍👦</div>
+                        <div class="empty-title">No Family Members Added Yet</div>
+                        <div class="empty-desc">Create profiles for your parents, children, spouse, or dependents to track their vaccinations, store emergency cards, and set medication schedules.</div>
+                        <button class="btn-primary" onclick="openMemberModal()">
+                            + Add First Family Member
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="members-grid">
+                    ${members.map(m => `
+                        <div class="member-card">
+                            <div class="member-avatar">${getEmojiForRel(m.relationship, m.age)}</div>
+                            <div class="member-info">
+                                <div class="member-name">${escapeHtml(m.name)}</div>
+                                <div class="member-rel">${escapeHtml(m.relationship)} • ${m.age} ${m.age == 1 ? 'yr' : 'yrs'}</div>
+                                <div class="member-tags">
+                                    ${m.blood && m.blood !== 'Unknown' ? `<span class="member-blood">Blood: ${escapeHtml(m.blood)}</span>` : ''}
+                                    ${m.phone ? `<span class="member-phone">📞 ${escapeHtml(m.phone)}</span>` : ''}
+                                </div>
+                                ${m.conditions ? `
+                                    <div style="font-size:11px; color:var(--gray-600); margin-top:6px; background:var(--gray-50); padding:4px 8px; border-radius:6px; border:1px solid var(--gray-200);">
+                                        <strong>Notes:</strong> ${escapeHtml(m.conditions)}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <button class="member-del-btn" title="Delete Profile" onclick="deleteMember('${m.id}')">&times;</button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function updateSelectDropdowns(members) {
+            // Update Vax selector
+            const vaxSelect = document.getElementById('vaxMemberSelect');
+            const currentVaxVal = vaxSelect.value;
+            vaxSelect.innerHTML = `<option value="general">Household Overview (General)</option>` + 
+                members.map(m => `<option value="${m.id}">${escapeHtml(m.name)} (${escapeHtml(m.relationship)})</option>`).join('');
+            if ([...vaxSelect.options].some(o => o.value === currentVaxVal)) {
+                vaxSelect.value = currentVaxVal;
+            }
+
+            // Update Med Member selector
+            const medSelect = document.getElementById('medMemberSelect');
+            if (members.length) {
+                medSelect.innerHTML = members.map(m => `<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)} (${escapeHtml(m.relationship)})</option>`).join('');
+            } else {
+                medSelect.innerHTML = `<option value="Self">Self (Primary User)</option>`;
+            }
+        }
+
+        // RENDER VACCINATION SCHEDULE
+        function renderVaxSchedule() {
+            const vaxList = document.getElementById('vaxScheduleList');
+            const memberId = document.getElementById('vaxMemberSelect').value;
+            const statusMap = getVaxStatus(memberId);
+
+            vaxList.innerHTML = UIP_VACCINES.map(v => {
+                const isDone = !!statusMap[v.id];
+                return `
+                    <div class="vax-item">
+                        <div>
+                            <span class="vax-age">${v.age}</span>
+                            <div class="vax-name">${v.name}</div>
+                            <div class="vax-protect">${v.protect}</div>
+                        </div>
+                        <div class="vax-action-wrap">
+                            <span class="vax-status ${isDone ? 'vax-done' : 'vax-pending'}">
+                                ${isDone ? '✓ Completed' : 'Pending / Due'}
+                            </span>
+                            <button class="btn-toggle-vax" onclick="toggleVax('${memberId}', '${v.id}')">
+                                ${isDone ? 'Mark Pending' : 'Mark Completed'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleVax(memberId, vaxId) {
+            const statusMap = getVaxStatus(memberId);
+            const nextStatus = !statusMap[vaxId];
+            setVaxStatus(memberId, vaxId, nextStatus);
+            renderVaxSchedule();
+        }
+
+        // RENDER MEDICATION REMINDERS
+        function renderMedReminders() {
+            const container = document.getElementById('medRemindersList');
+            const reminders = getRealMedReminders();
+
+            if (!reminders.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:32px 20px; color:var(--gray-500); font-size:13px; background:var(--gray-50); border-radius:12px; border:1px dashed var(--gray-300);">
+                        No medication reminders set yet. Click <strong>"+ Add Reminder"</strong> above to schedule prescription alerts.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reminders.map(r => `
+                <div class="med-row">
+                    <div class="med-info">
+                        <div class="med-name">${escapeHtml(r.memberName)} — ${escapeHtml(r.medName)}</div>
+                        <div class="med-sub">${escapeHtml(r.notes || 'As prescribed')} • Frequency: ${escapeHtml(r.freq)}</div>
+                    </div>
+                    <div class="med-actions">
+                        <span class="med-time-tag">⏰ ${formatTime(r.time)}</span>
+                        <button class="btn-med-del" title="Delete Reminder" onclick="deleteMed('${r.id}')">&times;</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const [h, m] = timeStr.split(':');
+            let hour = parseInt(h);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            hour = hour % 12 || 12;
+            return `${hour.toString().padStart(2, '0')}:${m} ${ampm}`;
+        }
+
+        // MODAL TOGGLES
+        function openMemberModal() {
+            document.getElementById('memberModal').style.display = 'flex';
+            document.getElementById('mName').focus();
+        }
+        function closeMemberModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+
+        function openMedModal() {
+            document.getElementById('medModal').style.display = 'flex';
+            document.getElementById('medName').focus();
+        }
+        function closeMedModal() {
+            document.getElementById('medModal').style.display = 'none';
+        }
+
+        // SAVE MEMBER
+        function handleSaveMember(e) {
+            e.preventDefault();
+            const name = document.getElementById('mName').value.trim();
+            const rel = document.getElementById('mRel').value;
+            const age = parseInt(document.getElementById('mAge').value);
+            const blood = document.getElementById('mBlood').value;
+            const phone = document.getElementById('mPhone').value.trim();
+            const conditions = document.getElementById('mConditions').value.trim();
+
+            if (!name) return;
+
+            const newMember = {
+                id: 'mem_' + Date.now(),
+                name,
+                relationship: rel,
+                age,
+                blood,
+                phone,
+                conditions
+            };
+
+            const members = getRealMembers();
+            members.push(newMember);
+            saveRealMembers(members);
+
+            closeMemberModal();
+            renderMembers();
+            e.target.reset();
+        }
+
+        function deleteMember(id) {
+            if (!confirm('Remove this family member profile?')) return;
+            let members = getRealMembers();
+            members = members.filter(m => m.id !== id);
+            saveRealMembers(members);
+            renderMembers();
+            renderVaxSchedule();
+        }
+
+        // SAVE MED REMINDER
+        function handleSaveMed(e) {
+            e.preventDefault();
+            const memberName = document.getElementById('medMemberSelect').value;
+            const medName = document.getElementById('medName').value.trim();
+            const time = document.getElementById('medTime').value;
+            const freq = document.getElementById('medFreq').value;
+            const notes = document.getElementById('medNotes').value.trim();
+
+            if (!medName) return;
+
+            const newRem = {
+                id: 'med_' + Date.now(),
+                memberName,
+                medName,
+                time,
+                freq,
+                notes
+            };
+
+            const rems = getRealMedReminders();
+            rems.push(newRem);
+            saveRealMedReminders(rems);
+
+            closeMedModal();
+            renderMedReminders();
+            e.target.reset();
+        }
+
+        function deleteMed(id) {
+            let rems = getRealMedReminders();
+            rems = rems.filter(r => r.id !== id);
+            saveRealMedReminders(rems);
+            renderMedReminders();
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        // CLOSE ON BACKDROP
+        window.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('memberModal')) closeMemberModal();
+            if (e.target === document.getElementById('medModal')) closeMedModal();
+        });
+
+        // INIT
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMembers();
+            renderVaxSchedule();
+            renderMedReminders();
+        });
+    </script>
+</body>
+</html>

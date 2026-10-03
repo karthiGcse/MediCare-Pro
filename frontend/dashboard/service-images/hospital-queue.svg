@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Hospital queue and reception">
+  <defs>
+    <linearGradient id="bg6" x1="0" x2="1">
+      <stop offset="0%" stop-color="#edf6ff"/>
+      <stop offset="100%" stop-color="#d9ebf9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg6)"/>
+  <rect x="0" y="190" width="400" height="110" fill="#ddedf9"/>
+  <rect x="36" y="56" width="328" height="180" rx="18" fill="#f4fbff" stroke="#99c6e9" stroke-width="2"/>
+  <rect x="56" y="70" width="110" height="68" rx="12" fill="#ffffff" stroke="#a9d0e5" stroke-width="2"/>
+  <rect x="86" y="92" width="52" height="24" rx="8" fill="#7eb8e0"/>
+  <rect x="72" y="118" width="72" height="8" rx="4" fill="#cfe7f5"/>
+  <rect x="186" y="70" width="150" height="64" rx="12" fill="#d9edf9" stroke="#8dc1eb" stroke-width="2"/>
+  <rect x="208" y="84" width="98" height="18" rx="9" fill="#4a9edf"/>
+  <rect x="202" y="110" width="110" height="12" rx="6" fill="#cfe7f9"/>
+  <g>
+    <rect x="68" y="180" width="56" height="30" rx="8" fill="#dfeaf4"/>
+    <rect x="134" y="180" width="56" height="30" rx="8" fill="#dfeaf4"/>
+    <rect x="200" y="180" width="56" height="30" rx="8" fill="#dfeaf4"/>
+    <rect x="266" y="180" width="56" height="30" rx="8" fill="#dfeaf4"/>
+  </g>
+  <g transform="translate(100 150)">
+    <circle cx="0" cy="0" r="16" fill="#f2d0ad"/>
+    <path d="M-18 38c8-15 20-22 34-22s26 7 34 22v20H-18V38z" fill="#98c6e5"/>
+  </g>
+  <g transform="translate(236 148)">
+    <circle cx="0" cy="0" r="16" fill="#f2d0ad"/>
+    <path d="M-18 38c8-15 20-22 34-22s26 7 34 22v20H-18V38z" fill="#9dc7e0"/>
+  </g>
+  <g transform="translate(278 178)">
+    <rect x="0" y="0" width="50" height="32" rx="8" fill="#113f72"/>
+    <text x="25" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">A-12</text>
+  </g>
+</svg>

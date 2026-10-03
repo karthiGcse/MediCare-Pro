@@ -1,0 +1,170 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function userRole() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    function isAdmin() {
+      return userRole() == 'admin';
+    }
+
+    match /users/{uid} {
+      allow create: if isOwner(uid);
+      allow read: if isOwner(uid) || isAdmin();
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /doctorProfiles/{uid} {
+      allow create: if isOwner(uid) && userRole() == 'doctor';
+      allow read: if isOwner(uid) || isAdmin() ||
+        (signedIn() && resource.data.active == true && resource.data.verificationStatus == 'verified');
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /pharmacyProfiles/{uid} {
+      allow create: if isOwner(uid) && userRole() == 'pharmacist';
+      allow read: if isOwner(uid) || isAdmin() ||
+        (signedIn() && resource.data.active == true && resource.data.verificationStatus == 'verified');
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /appointments/{appointmentId} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+      allow update: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+      allow delete: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || isAdmin());
+    }
+
+    match /prescriptions/{prescriptionId} {
+      allow create: if signedIn() && request.resource.data.doctorId == request.auth.uid && userRole() == 'doctor';
+      allow read: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow update: if signedIn() &&
+        (resource.data.doctorId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /pharmacyInventory/{itemId} {
+      allow create: if signedIn() && request.resource.data.pharmacyId == request.auth.uid && userRole() == 'pharmacist';
+      allow read: if signedIn() &&
+        (resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow update: if signedIn() &&
+        (resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow delete: if signedIn() &&
+        (resource.data.pharmacyId == request.auth.uid || isAdmin());
+    }
+
+    match /orders/{orderId} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow update: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /healthRecords/{recordId} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+      allow update: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /symptomAssessments/{assessmentId} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() &&
+        (resource.data.patientId == request.auth.uid || isAdmin());
+      allow update: if signedIn() && resource.data.patientId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+
+    match /refillRequests/{id} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() && (resource.data.patientId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+      allow update: if signedIn() && (resource.data.patientId == request.auth.uid || resource.data.pharmacyId == request.auth.uid || isAdmin());
+    }
+
+    match /telemedicineRequests/{id} {
+      allow create: if signedIn() && request.resource.data.patientId == request.auth.uid;
+      allow read: if signedIn() && (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+      allow update: if signedIn() && (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || isAdmin());
+    }
+
+    match /labRequests/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /bloodDonorRegistrations/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /emergencyContacts/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /emergencyRequests/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /familyLinks/{id} {
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow read, update: if signedIn() && (resource.data.ownerId == request.auth.uid || isAdmin());
+    }
+
+    match /healthWallet/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /wearableReadings/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /insurancePolicies/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /nutritionLogs/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /wellnessNotes/{id} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    match /notifications/{notificationId} {
+      allow create: if signedIn();
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow update: if signedIn() && resource.data.userId == request.auth.uid;
+      allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare — Workspace</title>
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+<div class="portal-shell">
+    <header class="portal-header">
+        <div class="portal-brand"><img src="Logo.png" alt="MediCare"><span>MediCare</span></div>
+        <div class="portal-actions">
+            <button class="portal-btn secondary" onclick="window.location.href='dashboard/dashboard.html'">Dashboard</button>
+            <button class="portal-btn" data-signout>Sign out</button>
+        </div>
+    </header>
+
+    <h1 class="portal-title">Healthcare Workspace</h1>
+    <p class="portal-subtitle">Signed in as <strong data-user-name>user</strong> · <span data-user-role>account</span></p>
+    <div id="workspaceStatus"></div>
+
+    <div id="patientWorkspace" class="portal-grid" hidden>
+        <section class="portal-card">
+            <h2>My Prescriptions</h2>
+            <div id="patientPrescriptions"></div>
+        </section>
+        <section class="portal-card">
+            <h2>Verified Pharmacies</h2>
+            <div id="patientPharmacies"></div>
+        </section>
+        <section class="portal-card">
+            <h2>Medicine Orders</h2>
+            <div id="patientOrders"></div>
+        </section>
+    </div>
+
+    <div id="doctorWorkspace" class="portal-grid" hidden>
+        <section class="portal-card">
+            <h2>Appointment Requests</h2>
+            <div id="doctorAppointments"></div>
+        </section>
+        <section class="portal-card">
+            <h2>Create Digital Prescription</h2>
+            <form id="prescriptionForm" class="portal-form">
+                <label>Patient ID<input id="prescriptionPatientId" required></label>
+                <label>Medicine name<input id="prescriptionMedicine" required></label>
+                <label>Strength<input id="prescriptionStrength"></label>
+                <label>Dosage instructions<textarea id="prescriptionDosage" required></textarea></label>
+                <label>Duration<input id="prescriptionDuration"></label>
+                <button class="portal-btn" type="submit">Create Prescription</button>
+            </form>
+            <div id="doctorPrescriptionStatus"></div>
+        </section>
+    </div>
+
+    <div id="pharmacyWorkspace" class="portal-grid" hidden>
+        <section class="portal-card">
+            <h2>Prescription Orders</h2>
+            <div id="pharmacyOrders"></div>
+        </section>
+        <section class="portal-card">
+            <h2>Inventory</h2>
+            <form id="inventoryForm" class="portal-form">
+                <label>Medicine name<input id="inventoryMedicine" required></label>
+                <label>Quantity<input id="inventoryQuantity" type="number" min="0" required></label>
+                <label>Batch number<input id="inventoryBatch"></label>
+                <label>Expiry date<input id="inventoryExpiry" type="date"></label>
+                <button class="portal-btn" type="submit">Save Inventory Item</button>
+            </form>
+            <div id="inventoryStatus"></div>
+            <div id="pharmacyInventory"></div>
+        </section>
+    </div>
+
+    <div id="adminWorkspace" class="portal-grid" hidden>
+        <section class="portal-card">
+            <h2>Doctor Verification</h2>
+            <div id="adminDoctors"></div>
+        </section>
+        <section class="portal-card">
+            <h2>Pharmacy Verification</h2>
+            <div id="adminPharmacies"></div>
+        </section>
+    </div>
+</div>
+
+<script src="js/firebase-config.js"></script>
+<script type="module" src="js/firebase-client.js"></script>
+<script src="js/cloud-auth.js"></script>
+<script src="portal.js"></script>
+<script>
+document.addEventListener('medicare:portal-ready', async ({ detail }) => {
+    const { user, profile, cloud } = detail;
+    const status = document.getElementById('workspaceStatus');
+    const show = id => document.getElementById(id).hidden = false;
+    const set = (id, html) => document.getElementById(id).innerHTML = html;
+    const record = (title, body, extra='') => `<div class="portal-record"><strong>${portalEscape(title)}</strong><div>${body}</div>${extra}</div>`;
+    const empty = message => `<div class="portal-empty">${portalEscape(message)}</div>`;
+
+    if (profile.role === 'patient') {
+        show('patientWorkspace');
+        await patientFlow();
+    } else if (profile.role === 'doctor') {
+        show('doctorWorkspace');
+        await doctorFlow();
+    } else if (profile.role === 'pharmacist') {
+        show('pharmacyWorkspace');
+        await pharmacyFlow();
+    } else if (profile.role === 'admin') {
+        show('adminWorkspace');
+        await adminFlow();
+    } else {
+        status.innerHTML = '<div class="portal-status portal-danger">Your account role is not configured.</div>';
+    }
+
+    async function patientFlow() {
+        const prescriptions = await getBy('prescriptions', 'patientId', user.uid);
+        set('patientPrescriptions', prescriptions.length ? prescriptions.map(p => record(
+            p.medicineName || 'Prescription',
+            `${portalEscape(p.dosage || '')} · ${portalEscape(p.duration || '')}<br>Status: ${portalEscape(p.status || 'active')}`,
+            `<button class="portal-btn" data-order-prescription="${p.id}" style="margin-top:10px">Choose pharmacy</button>`
+        )).join('') : empty('No prescription records found.'));
+
+        const pharmacies = await getVerified('pharmacyProfiles');
+        set('patientPharmacies', pharmacies.length ? pharmacies.map(p => record(
+            p.pharmacyName || p.name || 'Verified pharmacy',
+            `${portalEscape(p.address || '')}<br>${portalEscape(p.pharmacyType || '')}`
+        )).join('') : empty('No verified pharmacies are currently available.'));
+
+        const orders = await getBy('orders', 'patientId', user.uid);
+        set('patientOrders', orders.length ? orders.map(o => record(
+            `Order ${o.orderNumber || o.id}`,
+            `Prescription: ${portalEscape(o.prescriptionId || '')}<br>Status: ${portalEscape(o.status || 'pending')}`
+        )).join('') : empty('No medicine orders found.'));
+
+        document.querySelectorAll('[data-order-prescription]').forEach(button => {
+            button.addEventListener('click', async () => {
+                if (!pharmacies.length) {
+                    alert('No verified pharmacy is available.');
+                    return;
+                }
+                const pharmacy = pharmacies[0];
+                try {
+                    await cloud.addDoc(cloud.collection(cloud.db, 'orders'), {
+                        patientId: user.uid,
+                        pharmacyId: pharmacy.uid,
+                        prescriptionId: button.dataset.orderPrescription,
+                        status: 'requested',
+                        orderNumber: `MC-${Date.now()}`,
+                        createdAt: cloud.serverTimestamp()
+                    });
+                    alert(`Order request sent to ${pharmacy.pharmacyName || pharmacy.name || 'the verified pharmacy'}.`);
+                    await patientFlow();
+                } catch (error) {
+                    console.error(error);
+                    alert('Unable to create the order.');
+                }
+            });
+        });
+    }
+
+    async function doctorFlow() {
+        const appointments = await getBy('appointments', 'doctorId', user.uid);
+        set('doctorAppointments', appointments.length ? appointments.map(a => record(
+            `Patient: ${a.patientId}`,
+            `Requested: ${portalEscape(a.appointmentDate || '')}<br>Status: ${portalEscape(a.status || 'requested')}`,
+            `<button class="portal-btn" data-approve="${a.id}" style="margin-top:10px">Accept</button>`
+        )).join('') : empty('No appointment requests found.'));
+
+        document.querySelectorAll('[data-approve]').forEach(button => {
+            button.addEventListener('click', async () => {
+                await cloud.updateDoc(cloud.doc(cloud.db, 'appointments', button.dataset.approve), {
+                    status: 'confirmed',
+                    updatedAt: cloud.serverTimestamp()
+                });
+                await doctorFlow();
+            });
+        });
+    }
+
+    document.getElementById('prescriptionForm')?.addEventListener('submit', async event => {
+        event.preventDefault();
+        const patientId = document.getElementById('prescriptionPatientId').value.trim();
+        try {
+            await cloud.addDoc(cloud.collection(cloud.db, 'prescriptions'), {
+                patientId,
+                doctorId: user.uid,
+                medicineName: document.getElementById('prescriptionMedicine').value.trim(),
+                strength: document.getElementById('prescriptionStrength').value.trim(),
+                dosage: document.getElementById('prescriptionDosage').value.trim(),
+                duration: document.getElementById('prescriptionDuration').value.trim(),
+                status: 'active',
+                createdAt: cloud.serverTimestamp()
+            });
+            document.getElementById('doctorPrescriptionStatus').innerHTML = '<div class="portal-status">Prescription created in Firestore.</div>';
+            event.target.reset();
+        } catch (error) {
+            console.error(error);
+            document.getElementById('doctorPrescriptionStatus').innerHTML = '<div class="portal-status portal-danger">Unable to create prescription.</div>';
+        }
+    });
+
+    async function pharmacyFlow() {
+        const orders = await getBy('orders', 'pharmacyId', user.uid);
+        set('pharmacyOrders', orders.length ? orders.map(o => record(
+            `Order ${o.orderNumber || o.id}`,
+            `Prescription: ${portalEscape(o.prescriptionId || '')}<br>Status: ${portalEscape(o.status || 'requested')}`,
+            `<button class="portal-btn" data-fulfil="${o.id}" style="margin-top:10px">Mark fulfilled</button>`
+        )).join('') : empty('No prescription orders found.'));
+
+        document.querySelectorAll('[data-fulfil]').forEach(button => {
+            button.addEventListener('click', async () => {
+                await cloud.updateDoc(cloud.doc(cloud.db, 'orders', button.dataset.fulfil), {
+                    status: 'fulfilled',
+                    fulfilledAt: cloud.serverTimestamp()
+                });
+                await pharmacyFlow();
+            });
+        });
+
+        const inventory = await getBy('pharmacyInventory', 'pharmacyId', user.uid);
+        set('pharmacyInventory', inventory.length ? inventory.map(i => record(
+            i.medicineName || 'Medicine',
+            `Quantity: ${portalEscape(i.quantity ?? 0)}<br>Batch: ${portalEscape(i.batchNumber || 'Not provided')}<br>Expiry: ${portalEscape(i.expiryDate || 'Not provided')}`
+        )).join('') : empty('No inventory records found.'));
+    }
+
+    document.getElementById('inventoryForm')?.addEventListener('submit', async event => {
+        event.preventDefault();
+        try {
+            await cloud.addDoc(cloud.collection(cloud.db, 'pharmacyInventory'), {
+                pharmacyId: user.uid,
+                medicineName: document.getElementById('inventoryMedicine').value.trim(),
+                quantity: Number(document.getElementById('inventoryQuantity').value),
+                batchNumber: document.getElementById('inventoryBatch').value.trim(),
+                expiryDate: document.getElementById('inventoryExpiry').value,
+                createdAt: cloud.serverTimestamp(),
+                updatedAt: cloud.serverTimestamp()
+            });
+            document.getElementById('inventoryStatus').innerHTML = '<div class="portal-status">Inventory item saved.</div>';
+            event.target.reset();
+            await pharmacyFlow();
+        } catch (error) {
+            console.error(error);
+            document.getElementById('inventoryStatus').innerHTML = '<div class="portal-status portal-danger">Unable to save inventory.</div>';
+        }
+    });
+
+    async function adminFlow() {
+        const doctors = await getBy('doctorProfiles', 'verificationStatus', 'pending');
+        const pharmacies = await getBy('pharmacyProfiles', 'verificationStatus', 'pending');
+
+        set('adminDoctors', doctors.length ? doctors.map(d => record(
+            d.name || 'Doctor',
+            `${portalEscape(d.qualification || '')}<br>License: ${portalEscape(d.license || '')}`,
+            `<button class="portal-btn" data-verify-doctor="${d.uid}" style="margin-top:10px">Verify doctor</button>`
+        )).join('') : empty('No pending doctor verification records.'));
+
+        set('adminPharmacies', pharmacies.length ? pharmacies.map(p => record(
+            p.pharmacyName || p.name || 'Pharmacy',
+            `License: ${portalEscape(p.license || '')}<br>${portalEscape(p.address || '')}`,
+            `<button class="portal-btn" data-verify-pharmacy="${p.uid}" style="margin-top:10px">Verify pharmacy</button>`
+        )).join('') : empty('No pending pharmacy verification records.'));
+
+        document.querySelectorAll('[data-verify-doctor]').forEach(button => {
+            button.addEventListener('click', async () => {
+                const uid = button.dataset.verifyDoctor;
+                await cloud.updateDoc(cloud.doc(cloud.db, 'doctorProfiles', uid), { verificationStatus: 'verified', active: true });
+                await cloud.updateDoc(cloud.doc(cloud.db, 'users', uid), { accountStatus: 'active' });
+                await adminFlow();
+            });
+        });
+
+        document.querySelectorAll('[data-verify-pharmacy]').forEach(button => {
+            button.addEventListener('click', async () => {
+                const uid = button.dataset.verifyPharmacy;
+                await cloud.updateDoc(cloud.doc(cloud.db, 'pharmacyProfiles', uid), { verificationStatus: 'verified', active: true });
+                await cloud.updateDoc(cloud.doc(cloud.db, 'users', uid), { accountStatus: 'active' });
+                await adminFlow();
+            });
+        });
+    }
+
+    async function getBy(collectionName, field, value) {
+        const snapshot = await cloud.getDocs(cloud.query(
+            cloud.collection(cloud.db, collectionName),
+            cloud.where(field, '==', value),
+            cloud.limit(100)
+        ));
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+
+    async function getVerified(collectionName) {
+        const snapshot = await cloud.getDocs(cloud.query(
+            cloud.collection(cloud.db, collectionName),
+            cloud.where('active', '==', true),
+            cloud.where('verificationStatus', '==', 'verified'),
+            cloud.limit(50)
+        ));
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+});
+</script>
+</body>
+</html>

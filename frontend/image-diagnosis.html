@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Image Diagnosis | MediCare Pro</title>
+  <meta name="description" content="Upload or capture a health image and get AI-powered medical observations powered by Google Vertex AI Gemini." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #15803d;
+      --green-light:  #ecfdf5;
+      --green-mid:    #d1fae5;
+      --green-border: #a7f3d0;
+      --teal:         #0f766e;
+      --teal-light:   #f0fdfa;
+      --red:          #ef4444;
+      --red-light:    #fef2f2;
+      --purple:       #7c3aed;
+      --purple-light: #f5f3ff;
+      --blue:         #2563eb;
+      --blue-light:   #eff6ff;
+      --gray-50:      #f8fafc;
+      --gray-100:     #f1f5f9;
+      --gray-200:     #e2e8f0;
+      --gray-300:     #cbd5e1;
+      --gray-400:     #94a3b8;
+      --gray-500:     #64748b;
+      --gray-700:     #334155;
+      --gray-900:     #0f172a;
+      --white:        #ffffff;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:    0 10px 30px rgba(0,0,0,.1);
+      --radius-sm:    8px;
+      --radius-md:    12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 28px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #15803d, #0f766e);
+      color: #fff; font-weight: 800; font-size: 17px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(15,118,110,.25);
+    }
+    .brand-name { font-size: 18px; font-weight: 700; color: var(--gray-900); }
+    .brand-name span { color: var(--red); }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      color: var(--gray-500); padding: 8px 16px;
+      border-radius: var(--radius-sm); font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: all .2s;
+    }
+    .back-btn:hover { background: var(--green-light); color: var(--green); border-color: var(--green-border); }
+
+    /* ===== MAIN ===== */
+    .main { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* ===== HERO ===== */
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple-light); border: 1px solid #ddd6fe;
+      color: var(--purple); border-radius: 50px;
+      padding: 6px 18px; font-size: 13px; font-weight: 600; margin-bottom: 18px;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--purple);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: 38px; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; line-height: 1.2; }
+    .hero h1 span { color: var(--green); }
+    .hero p { font-size: 15px; color: var(--gray-500); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+    /* ===== USE CASE PILLS ===== */
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
+    .pill {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: 50px; padding: 7px 16px;
+      font-size: 13px; color: var(--gray-500); font-weight: 500;
+      box-shadow: var(--shadow-sm); transition: all .2s; cursor: default;
+    }
+    .pill:hover { border-color: var(--green-border); color: var(--green); background: var(--green-light); }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 28px; margin-bottom: 24px;
+    }
+    .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .card-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      flex-shrink: 0;
+    }
+    .icon-green  { background: var(--green-light); }
+    .icon-purple { background: var(--purple-light); }
+    .card-title { font-size: 17px; font-weight: 700; color: var(--gray-900); }
+    .card-sub   { font-size: 13px; color: var(--gray-400); margin-top: 2px; }
+
+    /* ===== TABS ===== */
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; background: var(--gray-100); padding: 5px; border-radius: var(--radius-sm); }
+    .tab {
+      flex: 1; padding: 9px; border-radius: 7px; border: none;
+      background: transparent; color: var(--gray-500); font-size: 14px;
+      font-weight: 500; cursor: pointer; transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .tab.active { background: var(--white); color: var(--green); box-shadow: var(--shadow-sm); font-weight: 600; }
+    .tab:hover:not(.active) { color: var(--gray-700); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ===== UPLOAD ZONE ===== */
+    .upload-zone {
+      border: 2px dashed var(--gray-300);
+      border-radius: var(--radius-md);
+      padding: 52px 24px; text-align: center; cursor: pointer;
+      transition: all .25s; background: var(--gray-50);
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+    .upload-zone .uz-icon { font-size: 48px; margin-bottom: 14px; display: block; }
+    .upload-zone .uz-title { font-size: 15px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+    .upload-zone .uz-hint { font-size: 13px; color: var(--gray-400); }
+    #fileInput { display: none; }
+
+    /* ===== PREVIEW ===== */
+    #previewImg {
+      width: 100%; max-height: 380px; object-fit: contain;
+      border-radius: var(--radius-md); border: 1px solid var(--gray-200);
+      display: none; margin-bottom: 14px; box-shadow: var(--shadow-sm);
+    }
+    #previewImg.visible { display: block; }
+
+    /* ===== CAMERA ===== */
+    .camera-area {
+      background: #111; border-radius: var(--radius-md);
+      overflow: hidden; position: relative; aspect-ratio: 16/9;
+      border: 1px solid var(--gray-200);
+    }
+    #cameraVideo, #cameraCanvas {
+      width: 100%; height: 100%; object-fit: cover; display: none;
+    }
+    .cam-placeholder {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100%; gap: 10px; color: var(--gray-400);
+    }
+    .cam-placeholder .cam-emoji { font-size: 46px; }
+    .cam-placeholder span { font-size: 14px; }
+    .scan-line {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      display: none; animation: scanMove 2s linear infinite;
+    }
+    .camera-area.scanning .scan-line { display: block; }
+    @keyframes scanMove { 0%{top:0%} 100%{top:100%} }
+
+    /* ===== BUTTONS ===== */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 600; border: none; cursor: pointer;
+      transition: all .2s; font-family: 'Inter', sans-serif;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      color: #fff; box-shadow: 0 4px 12px rgba(15,118,110,.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(15,118,110,.3); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-outline {
+      background: var(--white); border: 1px solid var(--gray-200);
+      color: var(--gray-500);
+    }
+    .btn-outline:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+    .btn-danger {
+      background: var(--red-light); border: 1px solid #fecaca;
+      color: var(--red);
+    }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ===== LOADING ===== */
+    .loading-bar {
+      display: none; align-items: center; gap: 14px;
+      padding: 16px 20px; border-radius: var(--radius-md);
+      background: var(--teal-light); border: 1px solid #99f6e4;
+      margin-top: 16px;
+    }
+    .loading-bar.active { display: flex; }
+    .spinner {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 3px solid var(--green-border); border-top-color: var(--green);
+      animation: spin .8s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-txt { font-size: 14px; font-weight: 600; color: var(--teal); }
+
+    /* ===== STATUS ===== */
+    .status {
+      display: none; padding: 12px 16px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500; margin-top: 14px;
+    }
+    .status.visible { display: block; }
+    .status.success { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+    .status.error   { background: var(--red-light); color: var(--red); border: 1px solid #fecaca; }
+
+    /* ===== RESULT BOX ===== */
+    .result-box {
+      display: none; background: var(--white);
+      border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 24px;
+    }
+    .result-box.visible { display: block; }
+    .result-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, var(--purple-light), var(--green-light));
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .result-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+    .result-badge {
+      margin-left: auto;
+      background: var(--green-light); color: var(--green);
+      border: 1px solid var(--green-border);
+      border-radius: 50px; padding: 3px 14px;
+      font-size: 12px; font-weight: 600;
+    }
+    .result-body {
+      padding: 22px; line-height: 1.85; font-size: 15px; color: var(--gray-700);
+    }
+    .result-disclaimer {
+      margin: 0 22px 22px; padding: 14px 16px;
+      background: var(--red-light); border: 1px solid #fecaca;
+      border-radius: var(--radius-sm); font-size: 12px; color: var(--red); line-height: 1.7;
+    }
+
+    /* ===== HISTORY ===== */
+    .history-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: var(--radius-md);
+      margin-bottom: 10px; cursor: pointer; transition: all .2s;
+    }
+    .history-item:hover { border-color: var(--green-border); background: var(--green-light); }
+    .history-thumb {
+      width: 50px; height: 50px; border-radius: var(--radius-sm);
+      overflow: hidden; flex-shrink: 0;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .history-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .history-info { flex: 1; min-width: 0; }
+    .history-name { font-size: 14px; font-weight: 600; color: var(--gray-900); }
+    .history-time { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+    .history-empty { text-align: center; padding: 32px 16px; color: var(--gray-400); font-size: 14px; }
+
+    /* ===== SECTION DIVIDER ===== */
+    .section-label {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--gray-400); margin-bottom: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 26px; }
+      .header-inner { padding: 12px 16px; }
+      .main { padding: 24px 16px 60px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="dashboard/dashboard.html">
+        <div class="brand-icon">M</div>
+        <span class="brand-name">Medi<span>Care</span> Pro</span>
+      </a>
+      <a class="back-btn" href="dashboard/dashboard.html">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        🤖 Powered by Google Vertex AI Gemini
+      </div>
+      <h1>AI <span>Image Diagnosis</span></h1>
+      <p>Upload or capture a health image — skin conditions, prescriptions, lab reports, X-rays — and get instant AI-powered medical observations.</p>
+    </div>
+
+    <!-- USE CASE PILLS -->
+    <div class="pills">
+      <div class="pill">🩺 Skin Conditions</div>
+      <div class="pill">📋 Prescriptions</div>
+      <div class="pill">🔬 Lab Reports</div>
+      <div class="pill">🦴 X-Rays &amp; Scans</div>
+      <div class="pill">🤕 Injuries &amp; Wounds</div>
+    </div>
+
+    <!-- UPLOAD / CAMERA CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-green">📸</div>
+        <div>
+          <div class="card-title">Upload or Capture Image</div>
+          <div class="card-sub">JPG, PNG, WEBP supported — Max 10MB</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab active" data-tab="upload">📁 Upload Image</button>
+        <button class="tab" data-tab="camera">📷 Use Camera</button>
+      </div>
+
+      <!-- UPLOAD PANEL -->
+      <div class="tab-panel active" id="panelUpload">
+        <div class="upload-zone" id="uploadZone">
+          <span class="uz-icon">📤</span>
+          <div class="uz-title">Click to upload or drag &amp; drop</div>
+          <div class="uz-hint">Supports JPG, PNG, WEBP — Max 10MB</div>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" />
+        <img id="previewImg" alt="Uploaded image preview" />
+        <div class="btn-row" id="uploadActions" style="display:none">
+          <button class="btn btn-primary btn-full" id="btnAnalyzeUpload">🤖 Analyze with Vertex AI</button>
+          <button class="btn btn-outline" id="btnClearUpload">🗑️ Clear</button>
+        </div>
+      </div>
+
+      <!-- CAMERA PANEL -->
+      <div class="tab-panel" id="panelCamera">
+        <div class="camera-area" id="cameraArea">
+          <div class="scan-line"></div>
+          <video id="cameraVideo" autoplay playsinline></video>
+          <canvas id="cameraCanvas"></canvas>
+          <div class="cam-placeholder" id="camPlaceholder">
+            <span class="cam-emoji">📷</span>
+            <span>Tap "Open Camera" to start</span>
+            <span style="font-size:12px;">Position the image clearly in the frame</span>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btnOpenCamera">📷 Open Camera</button>
+          <button class="btn btn-outline" id="btnCapture" disabled>📸 Capture &amp; Analyze</button>
+          <button class="btn btn-danger" id="btnStopCamera" style="display:none">⏹ Stop</button>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-bar" id="loadingBox">
+        <div class="spinner"></div>
+        <span class="loading-txt" id="loadingText">Sending to Vertex AI Gemini...</span>
+      </div>
+
+      <!-- STATUS -->
+      <div class="status" id="scanStatus"></div>
+    </div>
+
+    <!-- AI RESULT -->
+    <div class="result-box" id="resultBox">
+      <div class="result-header">
+        <span style="font-size:22px">🤖</span>
+        <span class="result-title">Vertex AI Gemini — Medical Observation</span>
+        <span class="result-badge">✅ Analysis Complete</span>
+      </div>
+      <div class="result-body" id="resultContent"></div>
+      <div class="result-disclaimer">
+        ⚠️ <strong>Disclaimer:</strong> This AI analysis is for informational purposes only and is NOT a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for any medical concerns.
+      </div>
+    </div>
+
+    <!-- HISTORY CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-purple">🕐</div>
+        <div>
+          <div class="card-title">Recent Analyses</div>
+          <div class="card-sub">Your last 5 image diagnoses (saved locally)</div>
+        </div>
+        <button class="btn btn-outline" id="btnClearHistory" style="margin-left:auto; padding:7px 14px; font-size:13px;">Clear All</button>
+      </div>
+      <div id="historyList">
+        <div class="history-empty">🔍 No analyses yet. Upload an image to get started!</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+
+    const uploadZone      = $('uploadZone');
+    const fileInput       = $('fileInput');
+    const previewImg      = $('previewImg');
+    const uploadActions   = $('uploadActions');
+    const btnAnalyzeUpload= $('btnAnalyzeUpload');
+    const btnClearUpload  = $('btnClearUpload');
+    const cameraArea      = $('cameraArea');
+    const cameraVideo     = $('cameraVideo');
+    const cameraCanvas    = $('cameraCanvas');
+    const camPlaceholder  = $('camPlaceholder');
+    const btnOpenCamera   = $('btnOpenCamera');
+    const btnCapture      = $('btnCapture');
+    const btnStopCamera   = $('btnStopCamera');
+    const loadingBox      = $('loadingBox');
+    const loadingText     = $('loadingText');
+    const scanStatus      = $('scanStatus');
+    const resultBox       = $('resultBox');
+    const resultContent   = $('resultContent');
+    const historyList     = $('historyList');
+    const btnClearHistory = $('btnClearHistory');
+
+    let cameraStream = null;
+    let history = [];
+    try { history = JSON.parse(localStorage.getItem('img_diag_history') || '[]'); } catch(e){}
+
+    /* ---- TABS ---- */
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        $('panel' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active');
+      });
+    });
+
+    /* ---- UPLOAD ---- */
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault(); uploadZone.classList.remove('dragover');
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFile(fileInput.files[0]); });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) { showStatus('Please select a valid image file (JPG, PNG, WEBP)', 'error'); return; }
+      if (file.size > 10 * 1024 * 1024) { showStatus('File too large. Max 10MB allowed.', 'error'); return; }
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImg.src = e.target.result;
+        previewImg.classList.add('visible');
+        uploadZone.style.display = 'none';
+        uploadActions.style.display = 'flex';
+        resultBox.classList.remove('visible');
+        showStatus('', '');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    btnClearUpload.addEventListener('click', () => {
+      previewImg.src = ''; previewImg.classList.remove('visible');
+      uploadZone.style.display = ''; uploadActions.style.display = 'none';
+      fileInput.value = ''; resultBox.classList.remove('visible');
+      showStatus('', '');
+    });
+
+    btnAnalyzeUpload.addEventListener('click', () => analyzeImage(previewImg.src, 'Uploaded Image'));
+
+    /* ---- CAMERA ---- */
+    btnOpenCamera.addEventListener('click', async () => {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
+        });
+        cameraVideo.srcObject = cameraStream;
+        cameraVideo.style.display = 'block';
+        camPlaceholder.style.display = 'none';
+        btnCapture.disabled = false;
+        btnOpenCamera.style.display = 'none';
+        btnStopCamera.style.display = 'inline-flex';
+      } catch (e) {
+        showStatus('Camera access denied. Please allow camera permission or use Upload tab.', 'error');
+      }
+    });
+
+    btnCapture.addEventListener('click', () => {
+      if (!cameraStream) return;
+      const ctx = cameraCanvas.getContext('2d');
+      cameraCanvas.width = cameraVideo.videoWidth;
+      cameraCanvas.height = cameraVideo.videoHeight;
+      ctx.drawImage(cameraVideo, 0, 0);
+      cameraCanvas.style.display = 'block';
+      cameraVideo.style.display = 'none';
+      cameraArea.classList.add('scanning');
+      stopCamera();
+      analyzeImage(cameraCanvas.toDataURL('image/jpeg', 0.9), 'Camera Capture');
+    });
+
+    btnStopCamera.addEventListener('click', () => {
+      stopCamera();
+      cameraVideo.style.display = 'none'; cameraCanvas.style.display = 'none';
+      camPlaceholder.style.display = 'flex'; cameraArea.classList.remove('scanning');
+    });
+
+    function stopCamera() {
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+      btnCapture.disabled = true;
+      btnOpenCamera.style.display = 'inline-flex'; btnStopCamera.style.display = 'none';
+    }
+
+    /* ---- ANALYZE ---- */
+    async function analyzeImage(imageBase64, source) {
+      loadingBox.classList.add('active');
+      loadingText.textContent = 'Sending to Vertex AI Gemini...';
+      resultBox.classList.remove('visible');
+      showStatus('', '');
+
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/image/diagnose', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image_base64: imageBase64 })
+        });
+        const data = await response.json();
+        loadingBox.classList.remove('active');
+
+        if (response.ok && data.diagnosis) {
+          resultContent.innerHTML = data.diagnosis.replace(/\n/g, '<br>');
+          resultBox.classList.add('visible');
+          resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          showStatus('✅ Vertex AI Analysis Complete!', 'success');
+          saveHistory(source, data.diagnosis, imageBase64);
+        } else {
+          showStatus('⚠️ AI Error: ' + (data.message || 'Unknown error'), 'error');
+        }
+      } catch (err) {
+        loadingBox.classList.remove('active');
+        showStatus('⚠️ Cannot connect to server. Make sure dev-server.py is running on port 3000.', 'error');
+      }
+    }
+
+    /* ---- HISTORY ---- */
+    function saveHistory(source, diagnosis, thumb) {
+      history.unshift({ source, diagnosis, thumb, time: new Date().toLocaleString() });
+      if (history.length > 5) history = history.slice(0, 5);
+      localStorage.setItem('img_diag_history', JSON.stringify(history));
+      renderHistory();
+    }
+
+    function renderHistory() {
+      if (!history.length) {
+        historyList.innerHTML = '<div class="history-empty">🔍 No analyses yet. Upload an image to get started!</div>';
+        return;
+      }
+      historyList.innerHTML = history.map((h, i) => `
+        <div class="history-item" data-idx="${i}">
+          <div class="history-thumb">
+            ${h.thumb ? `<img src="${h.thumb}" alt="thumb" />` : '🖼️'}
+          </div>
+          <div class="history-info">
+            <div class="history-name">${esc(h.source)}</div>
+            <div class="history-time">🕐 ${esc(h.time)}</div>
+          </div>
+          <span style="color:#15803d; font-size:18px; flex-shrink:0">→</span>
+        </div>`).join('');
+
+      historyList.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const h = history[parseInt(item.dataset.idx)];
+          resultContent.innerHTML = h.diagnosis.replace(/\n/g, '<br>');
+          resultBox.classList.add('visible');
+          resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    btnClearHistory.addEventListener('click', () => {
+      if (confirm('Clear all diagnosis history?')) {
+        history = []; localStorage.removeItem('img_diag_history'); renderHistory();
+      }
+    });
+
+    function showStatus(msg, type) {
+      if (!msg) { scanStatus.classList.remove('visible'); return; }
+      scanStatus.textContent = msg;
+      scanStatus.className = 'status visible ' + (type || '');
+    }
+    function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+
+    renderHistory();
+  })();
+  </script>
+
+</body>
+</html>

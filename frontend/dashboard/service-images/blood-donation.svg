@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Blood donation">
+  <defs>
+    <linearGradient id="bg9" x1="0" x2="1">
+      <stop offset="0%" stop-color="#eef5ff"/>
+      <stop offset="100%" stop-color="#e4effd"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg9)"/>
+  <g transform="translate(88 48)">
+    <rect x="0" y="0" width="220" height="210" rx="22" fill="#f7fbff" stroke="#b6d0eb" stroke-width="2"/>
+    <rect x="24" y="32" width="172" height="154" rx="18" fill="#f1f9ff" stroke="#9fc4e2" stroke-width="2"/>
+    <rect x="78" y="62" width="62" height="90" rx="18" fill="#d73943"/>
+    <path d="M96 95h28v40H96z" fill="#f7b7ba" opacity="0.9"/>
+    <path d="M110 52v80" stroke="#f3dce0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M90 110c8-12 20-18 34-18s26 6 34 18" fill="none" stroke="#f5c6ca" stroke-width="4" stroke-linecap="round"/>
+    <rect x="74" y="154" width="70" height="14" rx="7" fill="#cce4f7"/>
+  </g>
+  <g transform="translate(260 112)">
+    <path d="M28 0h56v110H28z" fill="#dfeaf7" stroke="#9ebed8" stroke-width="2"/>
+    <path d="M48 18h16v60H48z" fill="#d43846"/>
+    <path d="M36 58c22-28 40-28 62 0" fill="none" stroke="#d43846" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(244 210)">
+    <path d="M0 0h12v54H0z" fill="#a0c8ec"/>
+    <path d="M12 18h42v18H12z" fill="#84b5df"/>
+  </g>
+</svg>
