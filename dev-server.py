@@ -17,8 +17,14 @@ import json
 import os
 import sys
 import base64
-from google import genai
-from google.genai import types
+try:
+    from google import genai  # type: ignore
+    from google.genai import types  # type: ignore
+    HAS_GENAI = True
+except Exception:
+    genai = None
+    types = None
+    HAS_GENAI = False
 
 # ---- Paste your Gemini API Key here ----
 # Get it free from: https://aistudio.google.com/apikey
@@ -619,66 +625,6 @@ class MediCareHandler(http.server.SimpleHTTPRequestHandler):
         except Exception as e:
             print(f"[Blood Availability Error]: {e}", file=sys.stderr)
             self.send_json(500, {"message": str(e)})
-
-    def handle_places_nearby(self):
-        try:
-            parsed = urlparse(self.path)
-            params = parse_qs(parsed.query)
-            lat = float(params.get("lat", [13.0827])[0])
-            lng = float(params.get("lng", [80.2707])[0])
-            radius = float(params.get("radius", [8000.0])[0])
-
-            url = "https://places.googleapis.com/v1/places:searchNearby"
-            headers = {
-                "Content-Type": "application/json",
-                "X-Goog-Api-Key": GOOGLE_MAPS_API_KEY,
-                "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.googleMapsUri,places.nationalPhoneNumber,places.regularOpeningHours,places.primaryTypeDisplayName"
-            }
-            data = {
-                "includedTypes": ["doctor", "hospital"],
-                "maxResultCount": 15,
-                "locationRestriction": {
-                    "circle": {
-                        "center": {"latitude": lat, "longitude": lng},
-                        "radius": radius
-                    }
-                }
-            }
-            req = urllib.request.Request(url, data=json.dumps(data).encode("utf-8"), headers=headers, method="POST")
-            with urllib.request.urlopen(req, timeout=12) as resp:
-                result = json.loads(resp.read().decode("utf-8"))
-            places = result.get("places", [])
-            self.send_json(200, {"results": places})
-        except Exception as e:
-            print(f"[Places Nearby Error]: {e}", file=sys.stderr)
-            self.send_json(500, {"message": str(e), "results": []})
-
-    def handle_places_search(self):
-        try:
-            parsed = urlparse(self.path)
-            params = parse_qs(parsed.query)
-            q = params.get("q", ["Doctor in Chennai"])[0].strip()
-            if not q:
-                q = "Doctor in Chennai"
-
-            url = "https://places.googleapis.com/v1/places:searchText"
-            headers = {
-                "Content-Type": "application/json",
-                "X-Goog-Api-Key": GOOGLE_MAPS_API_KEY,
-                "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.googleMapsUri,places.nationalPhoneNumber,places.regularOpeningHours,places.primaryTypeDisplayName"
-            }
-            data = {
-                "textQuery": q,
-                "maxResultCount": 15
-            }
-            req = urllib.request.Request(url, data=json.dumps(data).encode("utf-8"), headers=headers, method="POST")
-            with urllib.request.urlopen(req, timeout=12) as resp:
-                result = json.loads(resp.read().decode("utf-8"))
-            places = result.get("places", [])
-            self.send_json(200, {"results": places})
-        except Exception as e:
-            print(f"[Places Search Error]: {e}", file=sys.stderr)
-            self.send_json(500, {"message": str(e), "results": []})
 
     def send_json(self, status, obj):
         body = json.dumps(obj).encode("utf-8")
