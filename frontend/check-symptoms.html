@@ -3,242 +3,344 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check Symptoms | MediSphere</title>
-  <link rel="stylesheet" href="check-symptoms.css?v=20261004_1" />
+  <title>AI Symptom Checker & Action Plan | MediCare Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="check-symptoms.css?v=20261004_2" />
 </head>
 <body>
-  <main class="symptom-shell">
-    <header class="page-header">
-      <div class="brand-row">
-        <div class="brand-mark">M</div>
-        <div class="brand-name">MediSphere</div>
-      </div>
+  <div class="app-layout">
+    <!-- Top Modern Navigation Header -->
+    <header class="app-header">
+      <div class="header-container">
+        <a href="dashboard/dashboard.html" class="brand-group">
+          <div class="brand-logo">
+            <span>➕</span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">MediCare Pro</span>
+            <span class="brand-sub">AI Clinical Guidance</span>
+          </div>
+        </a>
 
-      <div class="back-row">
-        <a class="back-link" href="dashboard/dashboard.html">← Back to Dashboard</a>
+        <div class="header-right">
+          <span class="triage-status-pill">
+            <span class="live-dot"></span>
+            Live Medical AI
+          </span>
+          <a class="nav-back-btn" href="dashboard/dashboard.html">
+            ← Dashboard
+          </a>
+        </div>
       </div>
     </header>
 
-    <section class="page-title-wrap">
-      <div class="step-indicator">
-        <span class="step-pill">Symptom Check</span>
-        <span class="step-separator">›</span>
-        <span class="step-pill current">Start Check</span>
-      </div>
-      <h1>Check Symptoms</h1>
-      <p>AI-assisted preliminary guidance designed for demo use only.</p>
-    </section>
-
-    <div class="content-grid">
-      <section class="form-panel">
-        <div class="panel-kicker">Step 1</div>
-        <h2>Tell us what you're experiencing</h2>
-        <p class="subtext">Add your symptoms, note how long they've been happening, and review preliminary guidance.</p>
-
-        <div class="patient-meta-grid">
-          <div>
-            <label class="field-label" for="ageInput">Age</label>
-            <input id="ageInput" class="text-input" type="number" min="1" max="120" value="30" />
-          </div>
-          <div>
-            <label class="field-label" for="sexInput">Biological sex</label>
-            <select id="sexInput" class="text-input">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-        </div>
-
-        <label class="field-label" for="symptomText">Symptoms</label>
-        <div class="symptom-input-row">
-          <textarea id="symptomText" class="symptom-textarea" placeholder="Example: fever, cough, headache"></textarea>
-          <button id="addSymptomsBtn" class="add-btn" type="button">Add Symptom</button>
-        </div>
-
-        <div class="selected-block">
-          <div class="selected-label">
-            <span>Selected symptoms</span>
-          </div>
-          <div id="selectedSymptoms" class="selected-chip-list" aria-live="polite"></div>
-        </div>
-
-        <div class="option-group">
-          <div class="selected-label">
-            <span>Quick picks</span>
-          </div>
-          <div id="quickSymptoms" class="quick-chip-list" aria-live="polite"></div>
-        </div>
-
-        <div class="option-group">
-          <label class="field-label">How long have these symptoms been happening?</label>
-          <div class="option-grid">
-            <label class="option-card">
-              <input type="radio" name="duration" value="Less than 24 hours" />
-              <span>Less than 24 hours</span>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="duration" value="1-3 days" checked />
-              <span>1–3 days</span>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="duration" value="4-7 days" />
-              <span>4–7 days</span>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="duration" value="More than 1 week" />
-              <span>More than 1 week</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="option-group">
-          <label class="field-label">Severity level</label>
-          <div class="option-grid">
-            <label class="option-card">
-              <input type="radio" name="severity" value="Mild" />
-              <span>Mild</span>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="severity" value="Moderate" checked />
-              <span>Moderate</span>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="severity" value="Severe" />
-              <span>Severe</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="optional-group">
-          <label class="field-label" for="notes">Additional context</label>
-          <textarea id="notes" class="optional-textarea" placeholder="Tell us anything else that might help, such as triggers, recent travel, or injury."></textarea>
-        </div>
-
-        <div id="symptomError" class="error-box" aria-live="polite"></div>
-
-        <div id="loadingState" class="loading-state" aria-live="polite">
-          <span class="spinner" aria-hidden="true"></span>
-          <span>Analyzing symptoms...</span>
-        </div>
-
-        <button id="analyzeSymptomsBtn" class="primary-btn" type="button">Analyze Symptoms</button>
+    <!-- Main Content Container -->
+    <main class="main-content-flow">
+      <!-- Hero Guidance Card -->
+      <section class="hero-guidance-card">
+        <div class="hero-badge">🩺 Certified Medical Triage</div>
+        <h1>Check Symptoms &amp; Get Action Plan</h1>
+        <p>Tell us what you are experiencing. Our clinical intelligence system explains <strong>why it happened</strong> and provides a <strong>step-by-step recovery plan</strong> in plain, easy-to-understand points.</p>
       </section>
 
-      <aside id="resultsPanel" class="result-panel" hidden>
-        <div class="result-header">
-          <div>
-            <div class="panel-kicker">Analysis</div>
-            <h2>Symptom Analysis</h2>
+      <!-- Step 1: Symptoms Selection Card -->
+      <section class="flow-card" id="symptomInputSection">
+        <div class="card-step-badge">Step 1</div>
+        <h2 class="card-title">What symptoms are you experiencing?</h2>
+        <p class="card-desc">Click any of the common symptoms below, or type your own symptoms.</p>
+
+        <!-- 1-Tap Quick Symptom Grid -->
+        <div class="symptom-quick-grid" id="quickSymptoms">
+          <!-- Dynamically populated or rendered buttons -->
+          <button type="button" class="quick-chip-btn" data-symptom="fever">
+            <span class="chip-icon">🤒</span>
+            <span class="chip-title">Fever</span>
+            <span class="chip-ta">காய்ச்சல்</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="cough">
+            <span class="chip-icon">🤧</span>
+            <span class="chip-title">Cough &amp; Cold</span>
+            <span class="chip-ta">சளி / இருமல்</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="headache">
+            <span class="chip-icon">🤕</span>
+            <span class="chip-title">Headache</span>
+            <span class="chip-ta">தலைவலி</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="sore throat">
+            <span class="chip-icon">😷</span>
+            <span class="chip-title">Sore Throat</span>
+            <span class="chip-ta">தொண்டை வலி</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="stomach pain">
+            <span class="chip-icon">🤢</span>
+            <span class="chip-title">Stomach Pain</span>
+            <span class="chip-ta">வயிற்று வலி</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="vomiting">
+            <span class="chip-icon">🤮</span>
+            <span class="chip-title">Vomiting / Nausea</span>
+            <span class="chip-ta">வாந்தி / குமட்டல்</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="fatigue">
+            <span class="chip-icon">🥱</span>
+            <span class="chip-title">Extreme Fatigue</span>
+            <span class="chip-ta">உடல் சோர்வு</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="body ache">
+            <span class="chip-icon">⚡</span>
+            <span class="chip-title">Body Ache &amp; Chills</span>
+            <span class="chip-ta">உடல் வலி</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="breathing difficulty">
+            <span class="chip-icon">🫁</span>
+            <span class="chip-title">Breathing Trouble</span>
+            <span class="chip-ta">மூச்சுத் திணறல்</span>
+          </button>
+          <button type="button" class="quick-chip-btn" data-symptom="acidity">
+            <span class="chip-icon">🍋</span>
+            <span class="chip-title">Acidity &amp; Gas</span>
+            <span class="chip-ta">நெஞ்செரிச்சல்</span>
+          </button>
+        </div>
+
+        <!-- Custom Symptom Search/Input Bar -->
+        <div class="search-input-wrap">
+          <div class="search-field-box">
+            <span class="search-lens-icon">🔍</span>
+            <input type="text" id="symptomText" class="symptom-input-field" placeholder="Or type other symptoms (e.g. chest pain, dizziness, rash)..." autocomplete="off" />
+            <button id="addSymptomsBtn" class="btn-add-chip" type="button">
+              + Add
+            </button>
           </div>
-          <span id="riskValue" class="risk-pill">Preliminary</span>
+        </div>
+
+        <!-- Selected Symptoms Bar -->
+        <div class="selected-symptoms-wrap">
+          <div class="selected-header-label">Selected Symptoms:</div>
+          <div id="selectedSymptoms" class="selected-chips-container" aria-live="polite">
+            <span class="no-selection-hint">Tap a symptom above or type to add.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2: Patient Context & Duration Card -->
+      <section class="flow-card">
+        <div class="card-step-badge">Step 2</div>
+        <h2 class="card-title">Duration &amp; Personal Details</h2>
+        <p class="card-desc">Helps our AI assess clinical severity accurately.</p>
+
+        <div class="meta-inputs-grid">
+          <!-- Age & Sex Row -->
+          <div class="field-item">
+            <label class="field-label" for="ageInput">Age (Years)</label>
+            <input id="ageInput" class="custom-select-input" type="number" min="1" max="120" value="24" />
+          </div>
+
+          <div class="field-item">
+            <label class="field-label" for="sexInput">Biological Sex</label>
+            <select id="sexInput" class="custom-select-input">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Duration Segmented Selector -->
+          <div class="field-item full-width">
+            <label class="field-label">How long have you had these symptoms?</label>
+            <div class="pill-segmented-group" id="durationGroup">
+              <label class="segmented-pill">
+                <input type="radio" name="duration" value="Less than 24 hours" />
+                <span class="pill-label">⚡ &lt; 24 Hours</span>
+              </label>
+              <label class="segmented-pill">
+                <input type="radio" name="duration" value="1-3 days" checked />
+                <span class="pill-label">📅 1–3 Days</span>
+              </label>
+              <label class="segmented-pill">
+                <input type="radio" name="duration" value="4-7 days" />
+                <span class="pill-label">🗓️ 4–7 Days</span>
+              </label>
+              <label class="segmented-pill">
+                <input type="radio" name="duration" value="More than 1 week" />
+                <span class="pill-label">⏳ &gt; 1 Week</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Severity Segmented Selector -->
+          <div class="field-item full-width">
+            <label class="field-label">How severe does it feel?</label>
+            <div class="pill-segmented-group" id="severityGroup">
+              <label class="segmented-pill">
+                <input type="radio" name="severity" value="Mild" />
+                <span class="pill-label">🟢 Mild (Manageable)</span>
+              </label>
+              <label class="segmented-pill">
+                <input type="radio" name="severity" value="Moderate" checked />
+                <span class="pill-label">🟡 Moderate (Uncomfortable)</span>
+              </label>
+              <label class="segmented-pill">
+                <input type="radio" name="severity" value="Severe" />
+                <span class="pill-label">🔴 Severe (Intense Pain)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Additional Notes / Context -->
+          <div class="field-item full-width">
+            <label class="field-label" for="notes">Additional notes or medical history (Optional)</label>
+            <textarea id="notes" class="custom-textarea" rows="2" placeholder="Mention any details like recent travel, current medications, or pre-existing conditions..."></textarea>
+          </div>
+        </div>
+
+        <!-- Error & Loading States -->
+        <div id="symptomError" class="error-notification-box" aria-live="polite"></div>
+
+        <div id="loadingState" class="loading-animation-box" aria-live="polite">
+          <span class="spinner-ring" aria-hidden="true"></span>
+          <span>Analyzing symptoms with clinical knowledge base...</span>
+        </div>
+
+        <!-- Analyze Primary Button -->
+        <div class="cta-action-wrap">
+          <button id="analyzeSymptomsBtn" class="btn-main-analyze" type="button">
+            <span>✨ Analyze My Symptoms Now (ஆய்வு செய்க)</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- RESULTS PANEL (Full-Width, Centered, Comfortable) -->
+      <section id="resultsPanel" class="results-dashboard-panel" hidden>
+        <!-- Results Header Banner -->
+        <div class="results-top-banner">
+          <div class="results-header-text">
+            <span class="panel-eyebrow">Medical Triage Assessment</span>
+            <h2>Symptom Analysis Report</h2>
+            <p>Reviewed for: <strong id="symptomSummary">Fever</strong></p>
+          </div>
+          <div class="results-meta-pill-wrap">
+            <span id="riskValue" class="risk-pill-badge">Preliminary</span>
+            <span id="careSummary" class="status-pill-badge">Assessment Complete</span>
+          </div>
         </div>
 
         <div id="questionContainer"></div>
 
-        <div class="result-grid">
-          <div class="detail-card">
-            <h3>Symptoms reviewed</h3>
-            <p id="symptomSummary">No symptoms submitted yet.</p>
+        <!-- 1. Possible Health Conditions -->
+        <div class="result-block-card">
+          <h3 class="block-card-title">🩺 Likely Health Conditions Identified</h3>
+          <ul id="categoriesList" class="conditions-chip-list"></ul>
+        </div>
+
+        <!-- OPTION 1: WHY DID THIS HAPPEN (ஏன் வந்திருக்கும்?) -->
+        <div class="result-block-card causes-accent-card" id="whyCausesCard">
+          <div class="block-card-header">
+            <span class="section-tag-pill tag-causes">🔍 Section 1: Possible Causes / காரணங்கள்</span>
+            <h3>Why Did This Happen? (ஏன் வந்திருக்கும்?)</h3>
+            <p class="section-subtext">Clinical reasons and bodily reactions explained in simple points that anyone can understand:</p>
           </div>
-
-          <div class="detail-card">
-            <h3>Possible health conditions</h3>
-            <ul id="categoriesList" class="category-list"></ul>
-          </div>
-
-          <div class="detail-card">
-            <h3>Preliminary guidance</h3>
-            <p id="guidanceText">Please provide the symptoms and age information to begin your assessment.</p>
-          </div>
-
-          <!-- OPTION 1: WHY DID THIS HAPPEN (ஏன் வந்திருக்கும்?) -->
-          <div class="detail-card symptom-breakdown-card causes-theme" id="whyCausesCard">
-            <div class="breakdown-header">
-              <span class="breakdown-badge badge-why">🔍 Why Did This Happen? / காரணம்</span>
-              <h3>Possible Causes &amp; Triggers (ஏன் வந்திருக்கும்?)</h3>
-              <p class="breakdown-subtext">Clinical reasons and common biological causes behind your symptoms explained simply:</p>
-            </div>
-            <div id="whyCausesList" class="breakdown-points-list">
-              <!-- Populated dynamically via JS -->
-            </div>
-          </div>
-
-          <!-- OPTION 2: WHAT TO DO NEXT (அடுத்து என்ன செய்ய வேண்டும்?) -->
-          <div class="detail-card symptom-breakdown-card action-theme" id="whatNextCard">
-            <div class="breakdown-header">
-              <span class="breakdown-badge badge-next">📋 Action Plan / செய்ய வேண்டியவை</span>
-              <h3>What Should You Do Next? (அடுத்து என்ன செய்ய வேண்டும்?)</h3>
-              <p class="breakdown-subtext">Step-by-step practical home recovery guide and when to consult a doctor:</p>
-            </div>
-            <div id="whatNextList" class="breakdown-points-list">
-              <!-- Populated dynamically via JS -->
-            </div>
-
-            <!-- Direct Action Shortcuts -->
-            <div class="breakdown-action-bar">
-              <a href="telemedicine.html" class="btn-action-tele">💬 Talk to Doctor Now (Telemedicine)</a>
-              <a href="appointments.html" class="btn-action-apt">📅 Book In-Person Appointment</a>
-            </div>
-          </div>
-
-          <div class="meta-boxes">
-            <div class="meta-box">
-              <span class="meta-label">Severity</span>
-              <strong id="careSummary">Awaiting assessment</strong>
-            </div>
-            <div class="meta-box">
-              <span class="meta-label">Priority</span>
-              <strong id="urgencyText">Monitor symptoms and consult a healthcare professional if needed</strong>
-            </div>
-          </div>
-
-          <div class="notice-box">
-            <p id="alertText">This tool provides AI-assisted preliminary health guidance and does not replace professional medical diagnosis or treatment.</p>
-            <button class="urgent-btn" type="button">Seek Medical Care</button>
+          <div id="whyCausesList" class="breakdown-cards-list">
+            <!-- Populated dynamically via JS -->
           </div>
         </div>
-      </aside>
-    </div>
 
-    <div class="next-step-grid">
-      <button type="button" class="action-card">
-        <div class="action-icon green">🩺</div>
-        <div>
-          <h4>Find a Doctor</h4>
-          <small>Explore healthcare providers</small>
+        <!-- OPTION 2: WHAT TO DO NEXT (அடுத்து என்ன செய்ய வேண்டும்?) -->
+        <div class="result-block-card action-accent-card" id="whatNextCard">
+          <div class="block-card-header">
+            <span class="section-tag-pill tag-action">📋 Section 2: Action Plan / செய்ய வேண்டியவை</span>
+            <h3>What Should You Do Next? (அடுத்து என்ன செய்ய வேண்டும்?)</h3>
+            <p class="section-subtext">Practical home care steps, hydration advice, diet tips, and when to consult a doctor:</p>
+          </div>
+          <div id="whatNextList" class="breakdown-cards-list">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Direct Healthcare Shortcuts -->
+          <div class="consultation-action-bar">
+            <a href="telemedicine.html" class="btn-cta-tele">
+              <span class="cta-icon">💬</span>
+              <div>
+                <strong>Talk to Doctor Now (Telemedicine)</strong>
+                <small>Connect with verified clinicians online</small>
+              </div>
+            </a>
+            <a href="appointments.html" class="btn-cta-apt">
+              <span class="cta-icon">📅</span>
+              <div>
+                <strong>Book In-Person Appointment</strong>
+                <small>Schedule clinic or hospital visit</small>
+              </div>
+            </a>
+          </div>
         </div>
-      </button>
 
-      <button type="button" class="action-card">
-        <div class="action-icon blue">📅</div>
-        <div>
-          <h4>Book Appointment</h4>
-          <small>Schedule a consultation</small>
+        <!-- Priority / Urgency Advice Box -->
+        <div class="urgency-notice-card">
+          <div class="urgency-icon-circle">ℹ️</div>
+          <div class="urgency-text-block">
+            <h4>Clinical Care Recommendation</h4>
+            <p id="guidanceText">Stay hydrated, rest, and monitor your symptoms closely.</p>
+            <p id="urgencyText" class="urgency-secondary-text">Consult a doctor if symptoms persist or worsen.</p>
+          </div>
         </div>
-      </button>
 
-      <button type="button" class="action-card">
-        <div class="action-icon teal">💬</div>
-        <div>
-          <h4>Telemedicine</h4>
-          <small>Consult a doctor online</small>
+        <!-- Medical Warning Notice -->
+        <div class="medical-notice-bar">
+          <p id="alertText">⚠️ <strong>Clinical Notice:</strong> This AI tool provides preliminary health awareness and triage guidance. It is not an official medical prescription. If experiencing chest pain, severe bleeding, or acute trauma, call Emergency 108 immediately.</p>
         </div>
-      </button>
-    </div>
 
-    <div class="footer-actions">
-      <button class="secondary-btn" type="button" onclick="window.location.href='dashboard/dashboard.html'">Return to Dashboard</button>
-    </div>
+        <!-- Reset Button -->
+        <div class="recheck-wrap">
+          <button type="button" class="btn-recheck-symptoms" onclick="resetSymptomChecker()">
+            🔄 Check Different Symptoms
+          </button>
+        </div>
+      </section>
 
-    <div class="disclaimer">
-      This tool provides AI-assisted preliminary health guidance and does not replace professional medical diagnosis or treatment.
-    </div>
-  </main>
+      <!-- Bottom Quick Navigation Cards -->
+      <section class="bottom-shortcuts-grid">
+        <a href="appointments.html" class="bottom-action-card">
+          <div class="shortcut-icon icon-emerald">👨‍⚕️</div>
+          <div class="shortcut-text">
+            <h4>Find a Doctor</h4>
+            <small>Browse verified medical specialists</small>
+          </div>
+          <span class="shortcut-arrow">→</span>
+        </a>
 
-  <script src="check-symptoms.js?v=20261004_1"></script>
-    <script src="js/firebase-config.js"></script>
-    <script type="module" src="js/firebase-client.js"></script>
-    <script src="js/cloud-auth.js"></script>
+        <a href="telemedicine.html" class="bottom-action-card">
+          <div class="shortcut-icon icon-blue">🎥</div>
+          <div class="shortcut-text">
+            <h4>Live Video Telemedicine</h4>
+            <small>Instant consult with General Physicians</small>
+          </div>
+          <span class="shortcut-arrow">→</span>
+        </a>
+
+        <a href="medicines.html" class="bottom-action-card">
+          <div class="shortcut-icon icon-indigo">💊</div>
+          <div class="shortcut-text">
+            <h4>Pharmacy &amp; Medicines</h4>
+            <small>Order verified medicines with home delivery</small>
+          </div>
+          <span class="shortcut-arrow">→</span>
+        </a>
+      </section>
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <p>MediCare Pro Clinical Intelligence &bull; Designed for seamless healthcare accessibility &bull; Government &amp; ABHA Linked</p>
+    </footer>
+  </div>
+
+  <script src="check-symptoms.js?v=20261004_2"></script>
+  <script src="js/firebase-config.js"></script>
+  <script type="module" src="js/firebase-client.js"></script>
+  <script src="js/cloud-auth.js"></script>
 </body>
 </html>
-

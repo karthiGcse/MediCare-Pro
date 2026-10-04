@@ -1,36 +1,78 @@
 (function () {
     const selectedSymptoms = new Set();
-    const quickSymptoms = ['fever', 'cough', 'headache', 'sore throat', 'fatigue', 'nausea'];
     const $ = id => document.getElementById(id);
-
-    function renderSelected() {
-        const box = $('selectedSymptoms');
-        if (!box) return;
-        box.innerHTML = [...selectedSymptoms].map(symptom => `<button type="button" class="symptom-chip" data-remove="${escapeHtml(symptom)}">${escapeHtml(symptom)} ×</button>`).join('');
-        box.querySelectorAll('[data-remove]').forEach(button => button.addEventListener('click', () => {
-            selectedSymptoms.delete(button.dataset.remove);
-            renderSelected();
-        }));
-    }
 
     function escapeHtml(value) {
         return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
     }
 
-    function setupQuickPicks() {
-        const box = $('quickSymptoms');
+    function syncQuickChips() {
+        document.querySelectorAll('.quick-chip-btn').forEach(button => {
+            const sym = (button.dataset.symptom || '').toLowerCase();
+            const isSelected = [...selectedSymptoms].some(s => s.toLowerCase() === sym);
+            button.classList.toggle('active', isSelected);
+        });
+    }
+
+    function renderSelected() {
+        const box = $('selectedSymptoms');
         if (!box) return;
-        box.innerHTML = quickSymptoms.map(s => `<button type="button" class="quick-chip" data-symptom="${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('');
-        box.querySelectorAll('[data-symptom]').forEach(button => button.addEventListener('click', () => {
-            selectedSymptoms.add(button.dataset.symptom);
+        if (selectedSymptoms.size === 0) {
+            box.innerHTML = '<span class="no-selection-hint">Tap a symptom above or type to add.</span>';
+            syncQuickChips();
+            return;
+        }
+        box.innerHTML = [...selectedSymptoms].map(symptom => `
+            <button type="button" class="symptom-chip" data-remove="${escapeHtml(symptom)}" title="Click to remove">
+                <span>${escapeHtml(symptom)}</span>
+                <span style="font-size:14px; margin-left:4px; opacity:0.8;">&times;</span>
+            </button>
+        `).join('');
+        box.querySelectorAll('[data-remove]').forEach(button => button.addEventListener('click', () => {
+            selectedSymptoms.delete(button.dataset.remove);
             renderSelected();
         }));
+        syncQuickChips();
+    }
+
+    function setupQuickPicks() {
+        document.querySelectorAll('.quick-chip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const symptom = btn.dataset.symptom;
+                if (!symptom) return;
+                const existing = [...selectedSymptoms].find(s => s.toLowerCase() === symptom.toLowerCase());
+                if (existing) {
+                    selectedSymptoms.delete(existing);
+                } else {
+                    selectedSymptoms.add(symptom);
+                }
+                renderSelected();
+            });
+        });
     }
 
     function showError(message) {
         const box = $('symptomError');
-        if (box) box.textContent = message || '';
+        if (box) {
+            if (message) {
+                box.style.display = 'block';
+                box.textContent = message;
+                box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                box.style.display = 'none';
+                box.textContent = '';
+            }
+        }
     }
+
+    window.resetSymptomChecker = function () {
+        selectedSymptoms.clear();
+        renderSelected();
+        if ($('symptomText')) $('symptomText').value = '';
+        if ($('notes')) $('notes').value = '';
+        if ($('resultsPanel')) $('resultsPanel').hidden = true;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     async function getToken() {
         for (let i = 0; i < 100 && !window.MediCareCloud; i++) await new Promise(r => setTimeout(r, 50));
@@ -486,25 +528,37 @@
             `).join('');
         }
 
-        panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+        setTimeout(() => {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         setupQuickPicks();
         renderSelected();
-        $('addSymptomsBtn')?.addEventListener('click', () => {
-            const text = $('symptomText').value;
+
+        function addTypedSymptom() {
+            const input = $('symptomText');
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
             text.split(',').map(x => x.trim()).filter(Boolean).forEach(x => selectedSymptoms.add(x));
-            $('symptomText').value = '';
+            input.value = '';
+            showError('');
             renderSelected();
+        }
+
+        $('addSymptomsBtn')?.addEventListener('click', addTypedSymptom);
+
+        $('symptomText')?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTypedSymptom();
+            }
         });
+
         $('analyzeSymptomsBtn')?.addEventListener('click', analyze);
+
         document.querySelectorAll('.urgent-btn').forEach(button => button.addEventListener('click', () => { window.location.href = 'feature-center.html?feature=emergency'; }));
-        document.querySelectorAll('.action-card').forEach(button => button.addEventListener('click', () => {
-            const title = button.querySelector('h4')?.textContent || '';
-            if (title.includes('Doctor')) window.location.href='appointments.html';
-            else if (title.includes('Appointment')) window.location.href='appointments.html';
-            else if (title.includes('Telemedicine')) window.location.href='telemedicine.html';
-        }));
     });
 })();
