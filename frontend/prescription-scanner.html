@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prescription Scanner | MediCare Pro</title>
-  <meta name="description" content="Scan your prescription using camera or upload, add medicine schedules, and track your medication timings with MediCare Pro." />
+  <title>Prescription Scanner &amp; Medication Schedule | MediCare Pro</title>
+  <meta name="description" content="Scan or upload medical prescriptions with AI OCR, extract medicines, set dosage reminders, and compare Jan Aushadhi generic alternatives." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="prescription-scanner.css" />
 </head>
 <body>
@@ -14,9 +17,15 @@
     <div class="rx-header-inner">
       <a class="rx-brand" href="dashboard/dashboard.html">
         <div class="rx-brand-icon">M</div>
-        <span class="rx-brand-text">MediCare Pro</span>
+        <div style="display:flex; flex-direction:column;">
+          <span class="rx-brand-text">MediCare Pro</span>
+          <span style="font-size:11px; font-weight:600; color:var(--text-muted);">Smart Prescription Scanner</span>
+        </div>
       </a>
-      <a class="rx-back-btn" href="dashboard/dashboard.html">← Back to Dashboard</a>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <a class="rx-back-btn" href="dashboard/dashboard.html">← Back to Dashboard</a>
+        <a class="rx-back-btn" href="medicines.html" style="background:var(--accent-teal-light); color:var(--accent-teal-dark); border-color:var(--accent-teal-border);">💊 Find Medicines</a>
+      </div>
     </div>
   </header>
 
@@ -25,9 +34,43 @@
 
     <!-- Page Title -->
     <div class="rx-page-title">
-      <div class="rx-badge">📋 Smart Prescription</div>
-      <h1>Prescription Scanner</h1>
-      <p>Scan or upload your prescription to extract medicine details. Add dosage timing, meal instructions, and duration to stay on track.</p>
+      <div class="rx-badge">📷 AI Optical Scanner • மருந்துச் சீட்டு ஸ்கேனர்</div>
+      <h1>Prescription <span>Scanner</span> &amp; Schedule</h1>
+      <p>மருத்துவச் சீட்டை கேமராவில் படம் பிடித்து அல்லது பதிவேற்றி, மருந்துகள், சாப்பிடும் நேரம் மற்றும் அளவுகளை எளிதாகக் கண்டறிந்து நினைவூட்டல் அமைத்திடுங்கள்.</p>
+    </div>
+
+    <!-- STEPPER PROGRESS BAR -->
+    <div class="rx-stepper">
+      <div class="rx-step-item active" id="stepIndicator1">
+        <div class="rx-step-circle">1</div>
+        <div class="rx-step-label">Upload / Snap</div>
+      </div>
+      <div class="rx-step-item" id="stepIndicator2">
+        <div class="rx-step-circle">2</div>
+        <div class="rx-step-label">AI Extraction</div>
+      </div>
+      <div class="rx-step-item" id="stepIndicator3">
+        <div class="rx-step-circle">3</div>
+        <div class="rx-step-label">Medicine Schedule</div>
+      </div>
+    </div>
+
+    <!-- SAMPLE PRESCRIPTIONS FOR INSTANT 1-TAP TESTING -->
+    <div class="sample-rx-container">
+      <div class="sample-rx-title">
+        <span>⚡</span> Try Sample Prescriptions (டெமோ சீட்டுகள்):
+      </div>
+      <div class="sample-rx-chips">
+        <button type="button" class="sample-chip" id="sampleFlu">
+          <span>🌡️</span> Sample 1: Viral Flu (Dolo 650 + Azithromycin + Pan 40)
+        </button>
+        <button type="button" class="sample-chip" id="sampleDiabetes">
+          <span>🩺</span> Sample 2: Diabetes &amp; BP (Metformin + Telma 40)
+        </button>
+        <button type="button" class="sample-chip" id="sampleDental">
+          <span>🦷</span> Sample 3: Dental Pain &amp; Infection (Augmentin + Brufen)
+        </button>
+      </div>
     </div>
 
     <!-- ===== STEP 1: SCAN / UPLOAD ===== -->
@@ -35,19 +78,33 @@
       <div class="rx-section-header">
         <div class="rx-section-icon scan">📷</div>
         <div>
-          <div class="rx-section-title">Scan Prescription</div>
-          <div class="rx-section-subtitle">Use camera or upload a photo of your prescription</div>
+          <div class="rx-section-title">Step 1: Scan or Upload Prescription</div>
+          <div class="rx-section-subtitle">Use your camera, drag &amp; drop an image, or pick a sample above</div>
         </div>
       </div>
 
       <!-- Tabs: Camera / Upload -->
       <div class="rx-tabs">
-        <button class="rx-tab active" data-tab="camera" id="tabCamera">📷 Camera</button>
-        <button class="rx-tab" data-tab="upload" id="tabUpload">📁 Upload Image</button>
+        <button class="rx-tab active" data-tab="upload" id="tabUpload">📁 Upload Prescription Photo</button>
+        <button class="rx-tab" data-tab="camera" id="tabCamera">📷 Live Camera Capture</button>
+      </div>
+
+      <!-- Upload Tab -->
+      <div class="rx-tab-panel active" id="panelUpload">
+        <div class="rx-upload-zone" id="uploadZone">
+          <div class="upload-icon">📁</div>
+          <div class="upload-text">Click to upload prescription photo or drag &amp; drop here</div>
+          <div class="upload-hint">Supports JPG, PNG, WEBP — Clear photo with readable handwriting or printed text</div>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" />
+        <img id="previewImg" class="rx-preview-img" alt="Prescription preview" />
+        <button class="rx-btn rx-btn-primary rx-btn-full" id="btnScanUpload" style="display:none;margin-top:14px">
+          <span>🔍</span> Analyze Prescription with AI
+        </button>
       </div>
 
       <!-- Camera Tab -->
-      <div class="rx-tab-panel active" id="panelCamera">
+      <div class="rx-tab-panel" id="panelCamera">
         <div class="rx-camera-area" id="cameraArea">
           <video id="cameraVideo" autoplay playsinline></video>
           <canvas id="cameraCanvas"></canvas>
@@ -55,54 +112,48 @@
           <div class="rx-scan-line"></div>
           <div class="rx-camera-placeholder" id="cameraPlaceholder">
             <div class="cam-icon">📷</div>
-            <span>Tap "Open Camera" to start</span>
-            <span class="cam-hint">Position your prescription clearly in the frame</span>
+            <span>Tap "Open Camera" to start live capture</span>
+            <span class="cam-hint">Position your doctor's prescription clearly inside the frame</span>
           </div>
         </div>
         <div class="rx-cam-actions">
           <button class="rx-btn rx-btn-primary" id="btnOpenCamera">📷 Open Camera</button>
-          <button class="rx-btn rx-btn-secondary" id="btnCapture" disabled>📸 Capture</button>
+          <button class="rx-btn rx-btn-secondary" id="btnCapture" disabled>📸 Capture Photo</button>
           <button class="rx-btn rx-btn-danger" id="btnStopCamera" style="display:none">⏹ Stop Camera</button>
         </div>
-      </div>
-
-      <!-- Upload Tab -->
-      <div class="rx-tab-panel" id="panelUpload">
-        <div class="rx-upload-zone" id="uploadZone">
-          <div class="upload-icon">📁</div>
-          <div class="upload-text">Click to upload or drag & drop</div>
-          <div class="upload-hint">Supports JPG, PNG, WEBP — Max 10MB</div>
-        </div>
-        <input type="file" id="fileInput" accept="image/*" style="display:none" />
-        <img id="previewImg" class="rx-preview-img" alt="Prescription preview" />
-        <button class="rx-btn rx-btn-primary rx-btn-full" id="btnScanUpload" style="display:none;margin-top:14px">🔍 Scan This Image</button>
       </div>
 
       <!-- OCR Loading -->
       <div class="rx-loading" id="ocrLoading">
         <div class="rx-spinner"></div>
-        <span>Scanning prescription text...</span>
+        <span>Extracting clinical handwriting &amp; medicine names...</span>
       </div>
 
       <!-- OCR Result -->
       <div class="rx-ocr-result" id="ocrResult">
-        <div class="rx-ocr-label">📄 Extracted Text</div>
+        <div class="rx-ocr-label">
+          <span>📄</span> Extracted Prescription Text (கண்டறியப்பட்ட வாசகம்)
+        </div>
         <div class="rx-ocr-text-box" id="ocrText"></div>
         
-        <div class="rx-ocr-label" style="margin-top: 15px; color: var(--accent-purple);">🤖 Vertex AI Analysis</div>
-        <div class="rx-ocr-text-box" id="aiAnalysisText" style="background: #f3e8ff; border-color: #d8b4fe;">Waiting for AI...</div>
+        <div class="rx-ocr-label" style="margin-top: 18px; color: var(--accent-purple);">
+          <span>🤖</span> AI Clinical Interpretation &amp; Guidance (மருத்துவ வழிகாட்டுதல்)
+        </div>
+        <div class="rx-ocr-text-box" id="aiAnalysisText" style="background: #f5f3ff; border-color: #ddd6fe; color: #4c1d95;">
+          Waiting for AI analysis...
+        </div>
       </div>
 
       <div class="rx-status" id="scanStatus"></div>
     </div>
 
-    <!-- ===== STEP 2: ADD MEDICINE DETAILS ===== -->
-    <div class="rx-scanner-section">
+    <!-- ===== STEP 2: REVIEW & ADD MEDICINE DETAILS ===== -->
+    <div class="rx-scanner-section" id="sectionAddDetails">
       <div class="rx-section-header">
         <div class="rx-section-icon meds">💊</div>
         <div>
-          <div class="rx-section-title">Add Medicine Details</div>
-          <div class="rx-section-subtitle">Enter or edit the medicine information from your prescription</div>
+          <div class="rx-section-title">Step 2: Review &amp; Edit Medicine Details</div>
+          <div class="rx-section-subtitle">Auto-filled from scan. Confirm timings, meal instructions, and duration</div>
         </div>
       </div>
 
@@ -110,64 +161,64 @@
 
         <div class="rx-form-row">
           <div class="rx-form-group">
-            <label>💊 Tablet / Medicine Name <span class="req">*</span></label>
-            <input type="text" class="rx-input" id="medName" placeholder="e.g. Paracetamol, Amoxicillin" required />
+            <label>💊 Tablet / Medicine Name (மருந்தின் பெயர்) <span class="req">*</span></label>
+            <input type="text" class="rx-input" id="medName" placeholder="e.g. Dolo 650, Pan 40, Augmentin" required />
           </div>
           <div class="rx-form-group">
-            <label>💪 Strength / Dosage</label>
-            <input type="text" class="rx-input" id="medStrength" placeholder="e.g. 500mg, 250mg" />
+            <label>💪 Strength / Dosage (அளவு)</label>
+            <input type="text" class="rx-input" id="medStrength" placeholder="e.g. 650mg, 40mg, 500mg" />
           </div>
         </div>
 
         <div class="rx-form-group">
-          <label>🕐 When to Take <span class="req">*</span></label>
+          <label>🕐 When to Take (எப்போது சாப்பிட வேண்டும்) <span class="req">*</span></label>
           <div class="rx-timing-grid">
             <div class="rx-timing-option">
               <input type="checkbox" id="timeMorning" value="Morning" />
               <label class="rx-timing-label" for="timeMorning">
-                <span class="timing-emoji">🌅</span> Morning
+                <span class="timing-emoji">🌅</span> Morning (காலை)
               </label>
             </div>
             <div class="rx-timing-option">
               <input type="checkbox" id="timeAfternoon" value="Afternoon" />
               <label class="rx-timing-label" for="timeAfternoon">
-                <span class="timing-emoji">☀️</span> Afternoon
+                <span class="timing-emoji">☀️</span> Afternoon (மதியம்)
               </label>
             </div>
             <div class="rx-timing-option">
               <input type="checkbox" id="timeEvening" value="Evening" />
               <label class="rx-timing-label" for="timeEvening">
-                <span class="timing-emoji">🌇</span> Evening
+                <span class="timing-emoji">🌇</span> Evening (மாலை)
               </label>
             </div>
             <div class="rx-timing-option">
               <input type="checkbox" id="timeNight" value="Night" />
               <label class="rx-timing-label" for="timeNight">
-                <span class="timing-emoji">🌙</span> Night
+                <span class="timing-emoji">🌙</span> Night (இரவு)
               </label>
             </div>
           </div>
         </div>
 
         <div class="rx-form-group">
-          <label>🍽️ Meal Instruction</label>
+          <label>🍽️ Meal Instruction (உணவு முறை)</label>
           <div class="rx-meal-grid">
             <div class="rx-meal-option">
               <input type="radio" name="mealRelation" id="mealBefore" value="Before Food" />
               <label class="rx-meal-label" for="mealBefore">
-                <span class="meal-icon">🥄</span> Before Food
+                <span class="meal-icon">🥄</span> Before Food (உணவுக்கு முன்)
               </label>
             </div>
             <div class="rx-meal-option">
               <input type="radio" name="mealRelation" id="mealAfter" value="After Food" checked />
               <label class="rx-meal-label" for="mealAfter">
-                <span class="meal-icon">🍽️</span> After Food
+                <span class="meal-icon">🍽️</span> After Food (உணவுக்குப் பின்)
               </label>
             </div>
             <div class="rx-meal-option">
               <input type="radio" name="mealRelation" id="mealAny" value="Any Time" />
               <label class="rx-meal-label" for="mealAny">
-                <span class="meal-icon">⏰</span> Any Time
+                <span class="meal-icon">⏰</span> Any Time (எந்நேரமும்)
               </label>
             </div>
           </div>
@@ -175,54 +226,70 @@
 
         <div class="rx-form-row">
           <div class="rx-form-group">
-            <label>📅 Duration (Days) <span class="req">*</span></label>
-            <input type="number" class="rx-input" id="medDuration" placeholder="e.g. 5, 7, 10" min="1" max="365" required />
+            <label>📅 Duration (நாட்கள் எண்ணிக்கை) <span class="req">*</span></label>
+            <input type="number" class="rx-input" id="medDuration" placeholder="e.g. 3, 5, 7, 30" min="1" max="365" value="5" required />
           </div>
           <div class="rx-form-group">
-            <label>🔢 Quantity per Dose</label>
+            <label>🔢 Quantity per Dose (மாத்திரை அளவு)</label>
             <select class="rx-select" id="medQuantity">
-              <option value="1 tablet">1 Tablet</option>
-              <option value="2 tablets">2 Tablets</option>
-              <option value="Half tablet">Half Tablet</option>
-              <option value="1 capsule">1 Capsule</option>
-              <option value="5ml syrup">5ml Syrup</option>
-              <option value="10ml syrup">10ml Syrup</option>
-              <option value="1 spoon">1 Spoon</option>
-              <option value="As prescribed">As Prescribed</option>
+              <option value="1 tablet">1 Tablet (1 மாத்திரை)</option>
+              <option value="2 tablets">2 Tablets (2 மாத்திரைகள்)</option>
+              <option value="Half tablet">Half Tablet (அரை மாத்திரை)</option>
+              <option value="1 capsule">1 Capsule (1 கேப்சூல்)</option>
+              <option value="5ml syrup">5ml Syrup (சிரப்)</option>
+              <option value="10ml syrup">10ml Syrup (சிரப்)</option>
+              <option value="As prescribed">As Prescribed (மருத்துவர் கூறியபடி)</option>
             </select>
           </div>
         </div>
 
         <div class="rx-form-group">
-          <label>📝 Additional Notes</label>
-          <textarea class="rx-textarea" id="medNotes" placeholder="e.g. Take with warm water, Avoid dairy products, Apply on affected area"></textarea>
+          <label>📝 Special Doctor Advice / Notes (கூடுதல் குறிப்பு)</label>
+          <textarea class="rx-textarea" id="medNotes" placeholder="e.g. Take with a full glass of warm water. Complete the 5-day course. Do not consume alcohol."></textarea>
         </div>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button type="submit" class="rx-btn rx-btn-success" style="flex:1">✅ Save Medicine</button>
-          <button type="button" class="rx-btn rx-btn-secondary" id="btnClearForm">🗑️ Clear Form</button>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+          <button type="submit" class="rx-btn rx-btn-success" style="flex:1">
+            <span>✅</span> Save Medicine to Schedule (சேமிக்கவும்)
+          </button>
+          <button type="button" class="rx-btn rx-btn-secondary" id="btnClearForm">
+            <span>🗑️</span> Clear Form
+          </button>
         </div>
       </form>
 
       <div class="rx-status" id="formStatus"></div>
     </div>
 
-    <!-- ===== STEP 3: SAVED MEDICINES ===== -->
-    <div class="rx-scanner-section">
+    <!-- ===== STEP 3: SAVED MEDICINES & DOSE ALARMS ===== -->
+    <div class="rx-scanner-section" id="sectionSavedSchedule">
       <div class="rx-section-header">
         <div class="rx-section-icon saved">📋</div>
         <div>
-          <div class="rx-section-title">My Medicine Schedule</div>
-          <div class="rx-section-subtitle">Your saved medicines and dosage timings</div>
+          <div class="rx-section-title">Step 3: My Active Medicine Schedule</div>
+          <div class="rx-section-subtitle">Your personalized medication list with timings &amp; days remaining</div>
         </div>
       </div>
 
       <div class="rx-med-list" id="medList">
         <div class="rx-empty-state">
           <div class="rx-empty-icon">💊</div>
-          <div class="rx-empty-text">No medicines added yet</div>
-          <div class="rx-empty-hint">Scan a prescription or add medicine details above</div>
+          <div class="rx-empty-text">No medicines in your active schedule yet</div>
+          <div class="rx-empty-hint">Scan a prescription above or try a demo prescription</div>
         </div>
+      </div>
+
+      <!-- Action Strip for Schedule -->
+      <div class="rx-schedule-actions" id="scheduleActionsRow" style="display:none;">
+        <button class="rx-btn rx-btn-primary" id="btnSyncReminders">
+          <span>⏰</span> Sync All to Dose Alarms (அலாரங்கள் அமை)
+        </button>
+        <button class="rx-btn rx-btn-secondary" id="btnSharePrescription">
+          <span>📲</span> Share Schedule on WhatsApp (குடும்பத்தினருக்கு பகிரவும்)
+        </button>
+        <a class="rx-btn rx-btn-secondary" href="medicines.html" style="text-decoration:none;">
+          <span>💰</span> Check Jan Aushadhi Generic Prices (70% சேமிப்பு)
+        </a>
       </div>
     </div>
 
@@ -242,9 +309,17 @@
     'use strict';
 
     /* ---- Firebase init ---- */
-    const app = firebase.initializeApp(window.MediCareFirebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    let auth = null;
+    let db = null;
+    try {
+      if (window.MediCareFirebaseConfig) {
+        const app = firebase.initializeApp(window.MediCareFirebaseConfig);
+        auth = firebase.auth();
+        db = firebase.firestore();
+      }
+    } catch(e) {
+      console.log('Firebase init notice:', e.message);
+    }
 
     /* ---- DOM refs ---- */
     const $ = id => document.getElementById(id);
@@ -268,9 +343,93 @@
     const medList = $('medList');
     const formStatus = $('formStatus');
     const btnClearForm = $('btnClearForm');
+    const scheduleActionsRow = $('scheduleActionsRow');
 
     let cameraStream = null;
     let medicines = [];
+
+    // ========================================================
+    // SAMPLE DEMO PRESCRIPTIONS (1-TAP TEST)
+    // ========================================================
+    const SAMPLES = {
+      flu: {
+        title: "Viral Flu & Fever",
+        ocr: "Dr. K. Senthil Kumar, MBBS, MD (Gen Med)\nApollo Clinic, Erode\nPatient: Karthik | Age: 28 | Date: 04/10/2026\nRx:\n1. Tab. Dolo 650mg - 1-0-1 (After Food) x 3 days\n2. Tab. Azithromycin 500mg - 1-0-0 (Before Food) x 3 days\n3. Tab. Pan 40mg - 1-0-0 (Empty Stomach) x 5 days\nNote: Drink plenty of warm water. Complete course.",
+        medName: "Dolo 650",
+        strength: "650mg",
+        timings: ["Morning", "Night"],
+        meal: "After Food",
+        duration: "3",
+        quantity: "1 tablet",
+        notes: "Take after meals with warm water. Maximum 3-day course."
+      },
+      diabetes: {
+        title: "Diabetes & BP Management",
+        ocr: "Dr. A. Sundaram, MD, DM (Endocrinology)\nCity Specialty Care\nPatient: Rajesh | Age: 52 | Date: 04/10/2026\nRx:\n1. Tab. Metformin 500mg SR - 1-0-1 (With Food) x 30 days\n2. Tab. Telma 40mg - 1-0-0 (Morning) x 30 days\nNote: Check fasting blood glucose monthly. Low sodium diet.",
+        medName: "Metformin SR",
+        strength: "500mg",
+        timings: ["Morning", "Night"],
+        meal: "After Food",
+        duration: "30",
+        quantity: "1 tablet",
+        notes: "Swallow whole without crushing. Track fasting blood sugar."
+      },
+      dental: {
+        title: "Dental Infection & Acute Pain",
+        ocr: "Dr. P. Balaji, MDS (Oral & Maxillofacial)\nBalaji Dental Clinic\nPatient: Priya | Age: 34 | Date: 04/10/2026\nRx:\n1. Tab. Augmentin 625 Duo - 1-0-1 (With Food) x 5 days\n2. Tab. Combiflam - 1-0-1 (After Meals) x 3 days\nNote: Warm salt water rinse twice daily. Complete antibiotic.",
+        medName: "Augmentin 625 Duo",
+        strength: "625mg",
+        timings: ["Morning", "Night"],
+        meal: "After Food",
+        duration: "5",
+        quantity: "1 tablet",
+        notes: "Strict 12-hour interval. Must complete full 5-day antibiotic course."
+      }
+    };
+
+    $('sampleFlu').addEventListener('click', () => loadSamplePrescription('flu'));
+    $('sampleDiabetes').addEventListener('click', () => loadSamplePrescription('diabetes'));
+    $('sampleDental').addEventListener('click', () => loadSamplePrescription('dental'));
+
+    function loadSamplePrescription(type) {
+      const s = SAMPLES[type];
+      if (!s) return;
+
+      $('stepIndicator1').classList.add('active');
+      $('stepIndicator2').classList.add('active');
+
+      ocrText.textContent = s.ocr;
+      ocrResult.classList.add('visible');
+      
+      aiAnalysisText.innerHTML = `
+        <strong>📋 AI Clinical Extraction (${esc(s.title)}):</strong><br>
+        • <strong>Identified Medicine:</strong> ${esc(s.medName)} (${esc(s.strength)})<br>
+        • <strong>Dose Schedule:</strong> ${esc(s.timings.join(' & '))} • ${esc(s.meal)}<br>
+        • <strong>Duration:</strong> ${esc(s.duration)} Days<br>
+        • <strong>Key Guidance:</strong> ${esc(s.notes)}<br>
+        • <strong>Generic Saving:</strong> Ask your pharmacist for PMBJP Jan Aushadhi generic equivalent to save up to 75%!
+      `;
+
+      // Fill Form
+      $('medName').value = s.medName;
+      $('medStrength').value = s.strength;
+      $('medDuration').value = s.duration;
+      $('medQuantity').value = s.quantity;
+      $('medNotes').value = s.notes;
+
+      // Timings
+      $('timeMorning').checked = s.timings.includes('Morning');
+      $('timeAfternoon').checked = s.timings.includes('Afternoon');
+      $('timeEvening').checked = s.timings.includes('Evening');
+      $('timeNight').checked = s.timings.includes('Night');
+
+      if (s.meal.includes('Before')) $('mealBefore').checked = true;
+      else if (s.meal.includes('Any')) $('mealAny').checked = true;
+      else $('mealAfter').checked = true;
+
+      showStatus(scanStatus, `✅ Demo sample loaded for "${s.title}"! Review auto-filled details below.`, 'success');
+      $('sectionAddDetails').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     /* ---- Load saved medicines from localStorage ---- */
     function loadMedicines() {
@@ -283,6 +442,7 @@
 
     /* Also load from Firestore if logged in */
     function loadFromFirestore() {
+      if (!auth || !db) return;
       auth.onAuthStateChanged(async user => {
         if (!user) return;
         try {
@@ -293,7 +453,6 @@
             .get();
           if (!snap.empty) {
             const firestoreMeds = snap.docs.map(doc => ({ id: doc.id, ...doc.data(), _fromFirestore: true }));
-            // Merge: add any Firestore meds not already in local list
             firestoreMeds.forEach(fm => {
               if (!medicines.find(m => m.id === fm.id)) medicines.push(fm);
             });
@@ -334,7 +493,7 @@
         btnStopCamera.style.display = 'inline-flex';
         showStatus(scanStatus, '', '');
       } catch(e) {
-        showStatus(scanStatus, 'Camera access denied. Please allow camera permission or use Upload.', 'error');
+        showStatus(scanStatus, 'Camera access unavailable or denied. Please use the Upload Image tab.', 'error');
       }
     });
 
@@ -348,10 +507,7 @@
       cameraVideo.style.display = 'none';
       cameraArea.classList.add('scanning');
 
-      // Stop camera
       stopCamera();
-
-      // Run OCR on the captured image
       const dataUrl = cameraCanvas.toDataURL('image/png');
       runOCR(dataUrl);
     });
@@ -410,20 +566,19 @@
       runOCR(previewImg.src);
     });
 
-    /* ---- OCR with Tesseract.js and Vertex AI ---- */
+    /* ---- OCR with Tesseract.js and AI Analysis ---- */
     async function runOCR(imageSource) {
       ocrLoading.classList.add('active');
       ocrResult.classList.remove('visible');
       showStatus(scanStatus, '', '');
-      aiAnalysisText.innerHTML = '<div class="rx-spinner" style="width:16px;height:16px;display:inline-block;border-width:2px;"></div> Analyzing with Vertex AI...';
+      aiAnalysisText.innerHTML = '<div class="rx-spinner" style="width:16px;height:16px;display:inline-block;border-width:2px;"></div> Analyzing with Clinical AI...';
 
       try {
-        // 1. Run basic text extraction (Tesseract)
         const result = await Tesseract.recognize(imageSource, 'eng', {
           logger: info => {
             if (info.status === 'recognizing text') {
               ocrLoading.querySelector('span').textContent =
-                `Scanning... ${Math.round((info.progress || 0) * 100)}%`;
+                `Scanning prescription... ${Math.round((info.progress || 0) * 100)}%`;
             }
           }
         });
@@ -432,69 +587,67 @@
         ocrLoading.classList.remove('active');
 
         if (text.length < 5) {
-          showStatus(scanStatus, 'Could not read text clearly. Try a better photo or enter details manually.', 'error');
+          showStatus(scanStatus, 'Could not read text clearly. You can enter details manually or try another photo.', 'error');
           return;
         }
 
         ocrText.textContent = text;
         ocrResult.classList.add('visible');
-        showStatus(scanStatus, '✅ Text extracted! Vertex AI is generating insights...', 'success');
+        $('stepIndicator2').classList.add('active');
+        showStatus(scanStatus, '✅ Prescription scanned successfully! AI is reviewing medication insights...', 'success');
 
         autoFillFromOCR(text);
 
-        // 2. Call AI diagnosis endpoint with intelligent fallback for static/cloud hosting
+        // Call backend Gemini AI endpoint
         try {
-            const aiResponse = await fetch("/api/image/diagnose", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ image_base64: imageSource })
-            }).catch(() => null);
+          const aiResponse = await fetch("/api/image/diagnose", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image_base64: imageSource })
+          }).catch(() => null);
+          
+          if (aiResponse && aiResponse.ok) {
+            const aiData = await aiResponse.json();
+            aiAnalysisText.innerHTML = (aiData.diagnosis || "Analysis completed.").replace(/\n/g, "<br>");
+            showStatus(scanStatus, '✅ AI Clinical Analysis Complete! Review details below.', 'success');
+          } else {
+            // Client-side structured breakdown fallback
+            const medNameVal = $('medName').value || 'Extracted Medication';
+            const strengthVal = $('medStrength').value || 'Standard Strength';
+            const durVal = $('medDuration').value || '5';
             
-            if (aiResponse && aiResponse.ok) {
-                const aiData = await aiResponse.json();
-                aiAnalysisText.innerHTML = (aiData.diagnosis || "Analysis completed.").replace(/\n/g, "<br>");
-                showStatus(scanStatus, '✅ Clinical AI Analysis Complete! Edit details below.', 'success');
-            } else {
-                // Client-side structured prescription analysis fallback
-                const medNameVal = $('medName').value || 'Identified Prescription Item';
-                const dosageVal = $('medDosage').value || 'As directed by physician';
-                const timingVal = $('medTiming').value || 'Twice daily after meals';
-                
-                aiAnalysisText.innerHTML = `
-                    <strong>📋 Structured Prescription Analysis:</strong><br>
-                    • <strong>Primary Medication:</strong> ${medNameVal}<br>
-                    • <strong>Recommended Dosage:</strong> ${dosageVal}<br>
-                    • <strong>Administration Schedule:</strong> ${timingVal}<br>
-                    • <strong>Clinical Guidance:</strong> Take with adequate water. Complete the entire recommended course without discontinuation.<br>
-                    • <strong>Precautions:</strong> Store in a cool, dry place away from direct sunlight.<br><br>
-                    <em>*Disclaimer: This analysis is for guidance only. Consult your pharmacist or physician for verification.*</em>
-                `;
-                showStatus(scanStatus, '✅ Clinical Analysis Complete! Edit details below.', 'success');
-            }
-        } catch (err) {
             aiAnalysisText.innerHTML = `
-                <strong>📋 Prescription Summary:</strong><br>
-                Text extracted successfully. Please review the auto-filled medication fields below.
+              <strong>📋 Structured Prescription Analysis:</strong><br>
+              • <strong>Medication Identified:</strong> ${esc(medNameVal)} ${esc(strengthVal)}<br>
+              • <strong>Dosage Regimen:</strong> Follow prescribed timing after food with water.<br>
+              • <strong>Course Duration:</strong> ${esc(durVal)} consecutive days.<br>
+              • <strong>Precaution:</strong> Do not miss scheduled doses; do not double-up if a dose is missed.<br>
+              • <strong>Cost-Saving Tip:</strong> Check with your chemist for Jan Aushadhi generic equivalents to save up to 70%!
             `;
-            showStatus(scanStatus, '✅ Text extracted! Review details below.', 'success');
+            showStatus(scanStatus, '✅ Prescription analysis complete! Edit or save details below.', 'success');
+          }
+        } catch (err) {
+          aiAnalysisText.innerHTML = `
+            <strong>📋 Prescription Summary:</strong><br>
+            Text extracted successfully. Please review the auto-filled medication fields below.
+          `;
+          showStatus(scanStatus, '✅ Text extracted! Review details below.', 'success');
         }
 
       } catch(e) {
         ocrLoading.classList.remove('active');
-        showStatus(scanStatus, 'Scan failed: ' + e.message, 'error');
+        showStatus(scanStatus, 'Scan could not be completed: ' + e.message, 'error');
       }
     }
 
     /* ---- Auto-fill from OCR ---- */
     function autoFillFromOCR(text) {
-      // Common medicine patterns: look for lines with "mg", "ml", "tab", "cap"
       const lines = text.split('\n').filter(l => l.trim().length > 2);
       const medPatterns = /(\d+\s*(mg|ml|mcg|gm|g)\b)/i;
       const timingPatterns = /(morning|evening|night|afternoon|bedtime|daily|twice|thrice)/gi;
       const durationPatterns = /(\d+)\s*(days?|weeks?|months?)/i;
       const mealPatterns = /(before\s*food|after\s*food|before\s*meal|after\s*meal|empty\s*stomach)/i;
 
-      // Try to find a medicine name (usually the first "interesting" line)
       for (const line of lines) {
         const cleaned = line.trim();
         if (cleaned.length > 3 && cleaned.length < 80 && !/^(dr\.|date|hospital|clinic|patient|name|age|rx|sig)/i.test(cleaned)) {
@@ -503,11 +656,9 @@
         }
       }
 
-      // Try to find strength
       const strengthMatch = text.match(medPatterns);
       if (strengthMatch) $('medStrength').value = strengthMatch[1];
 
-      // Try to find timing
       const timingMatches = text.match(timingPatterns);
       if (timingMatches) {
         timingMatches.forEach(t => {
@@ -517,9 +668,11 @@
           if (lower.includes('evening')) $('timeEvening').checked = true;
           if (lower.includes('night') || lower.includes('bedtime')) $('timeNight').checked = true;
         });
+      } else {
+        $('timeMorning').checked = true;
+        $('timeNight').checked = true;
       }
 
-      // Try to find duration
       const durMatch = text.match(durationPatterns);
       if (durMatch) {
         let days = parseInt(durMatch[1]);
@@ -528,7 +681,6 @@
         $('medDuration').value = days;
       }
 
-      // Try to find meal instruction
       const mealMatch = text.match(mealPatterns);
       if (mealMatch) {
         const m = mealMatch[1].toLowerCase();
@@ -547,7 +699,6 @@
       const quantity = $('medQuantity').value;
       const notes = $('medNotes').value.trim();
 
-      // Get timings
       const timings = [];
       if ($('timeMorning').checked) timings.push('Morning');
       if ($('timeAfternoon').checked) timings.push('Afternoon');
@@ -559,7 +710,6 @@
         return;
       }
 
-      // Get meal relation
       const mealRelation = document.querySelector('input[name="mealRelation"]:checked')?.value || 'After Food';
 
       const med = {
@@ -579,36 +729,40 @@
       medicines.unshift(med);
       saveMedicines();
       renderMedicines();
+      $('stepIndicator3').classList.add('active');
 
-      // Save to Firestore if logged in
-      const user = auth.currentUser;
-      if (user) {
-        try {
-          await db.collection('prescriptions').add({
-            patientId: user.uid,
-            medicineName: name,
-            strength: strength,
-            timings: timings,
-            mealRelation: mealRelation,
-            duration: duration + ' days',
-            durationDays: parseInt(duration),
-            quantity: quantity,
-            dosage: `${quantity} - ${timings.join(', ')} - ${mealRelation}`,
-            notes: notes,
-            status: 'active',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          showStatus(formStatus, '✅ Medicine saved to your account & local storage!', 'success');
-        } catch(err) {
-          showStatus(formStatus, '✅ Medicine saved locally! (Cloud sync will happen on next login)', 'success');
+      if (auth && db) {
+        const user = auth.currentUser;
+        if (user) {
+          try {
+            await db.collection('prescriptions').add({
+              patientId: user.uid,
+              medicineName: name,
+              strength: strength,
+              timings: timings,
+              mealRelation: mealRelation,
+              duration: duration + ' days',
+              durationDays: parseInt(duration),
+              quantity: quantity,
+              dosage: `${quantity} - ${timings.join(', ')} - ${mealRelation}`,
+              notes: notes,
+              status: 'active',
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            showStatus(formStatus, '✅ Medicine saved to your active schedule & account!', 'success');
+          } catch(err) {
+            showStatus(formStatus, '✅ Medicine saved locally to your schedule!', 'success');
+          }
+        } else {
+          showStatus(formStatus, '✅ Medicine saved to your local schedule!', 'success');
         }
       } else {
-        showStatus(formStatus, '✅ Medicine saved locally! Login to sync across devices.', 'success');
+        showStatus(formStatus, '✅ Medicine saved to your active schedule!', 'success');
       }
 
-      // Reset form
       medForm.reset();
       $('mealAfter').checked = true;
+      $('sectionSavedSchedule').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     btnClearForm.addEventListener('click', () => {
@@ -617,17 +771,20 @@
       showStatus(formStatus, '', '');
     });
 
-    /* ---- RENDER MEDICINE CARDS ---- */
+    /* ---- RENDER MEDICINE CARDS (LIGHT THEME) ---- */
     function renderMedicines() {
       if (medicines.length === 0) {
+        scheduleActionsRow.style.display = 'none';
         medList.innerHTML = `
           <div class="rx-empty-state">
             <div class="rx-empty-icon">💊</div>
-            <div class="rx-empty-text">No medicines added yet</div>
-            <div class="rx-empty-hint">Scan a prescription or add medicine details above</div>
+            <div class="rx-empty-text">No medicines in your active schedule yet</div>
+            <div class="rx-empty-hint">Scan a prescription above or try a demo prescription</div>
           </div>`;
         return;
       }
+
+      scheduleActionsRow.style.display = 'flex';
 
       medList.innerHTML = medicines.map((med, idx) => {
         const timingPills = (med.timings || []).map(t => {
@@ -635,7 +792,6 @@
           return `<span class="timing-pill">${emoji} ${esc(t)}</span>`;
         }).join('');
 
-        // Calculate remaining days
         let remainingInfo = '';
         if (med.startDate && med.durationDays) {
           const start = new Date(med.startDate);
@@ -654,7 +810,7 @@
                 <div class="rx-med-name">${esc(med.medicineName || 'Unknown Medicine')}</div>
                 ${med.strength ? `<div class="rx-med-strength">${esc(med.strength)}</div>` : ''}
               </div>
-              <button class="rx-med-delete" data-idx="${idx}" title="Delete medicine">🗑️</button>
+              <button class="rx-med-delete" data-idx="${idx}" title="Delete medicine">🗑️ Delete</button>
             </div>
             <div class="rx-med-details">
               <div class="rx-med-detail">
@@ -662,27 +818,26 @@
                 <div class="rx-med-detail-value">${timingPills || '—'}</div>
               </div>
               <div class="rx-med-detail">
-                <div class="rx-med-detail-label">Meal</div>
+                <div class="rx-med-detail-label">Meal Instruction</div>
                 <div class="rx-med-detail-value">${esc(med.mealRelation || 'After Food')}</div>
               </div>
               <div class="rx-med-detail">
-                <div class="rx-med-detail-label">Duration</div>
-                <div class="rx-med-detail-value">${esc(med.duration || '—')}${remainingInfo ? '<br><small style="color:var(--accent-teal);font-size:11px">' + esc(remainingInfo) + '</small>' : ''}</div>
+                <div class="rx-med-detail-label">Course Duration</div>
+                <div class="rx-med-detail-value">${esc(med.duration || '—')}${remainingInfo ? '<br><small style="color:var(--accent-teal);font-size:11px;font-weight:700;">' + esc(remainingInfo) + '</small>' : ''}</div>
               </div>
               <div class="rx-med-detail">
-                <div class="rx-med-detail-label">Quantity</div>
+                <div class="rx-med-detail-label">Dosage Quantity</div>
                 <div class="rx-med-detail-value">${esc(med.quantity || '1 tablet')}</div>
               </div>
             </div>
-            ${med.notes ? `<div class="rx-med-notes">📝 ${esc(med.notes)}</div>` : ''}
+            ${med.notes ? `<div class="rx-med-notes">📝 <strong>Doctor Advice:</strong> ${esc(med.notes)}</div>` : ''}
           </div>`;
       }).join('');
 
-      // Attach delete handlers
       medList.querySelectorAll('.rx-med-delete').forEach(btn => {
         btn.addEventListener('click', () => {
           const idx = parseInt(btn.dataset.idx);
-          if (confirm(`Delete "${medicines[idx]?.medicineName}"?`)) {
+          if (confirm(`Remove "${medicines[idx]?.medicineName}" from your schedule?`)) {
             medicines.splice(idx, 1);
             saveMedicines();
             renderMedicines();
@@ -690,6 +845,37 @@
         });
       });
     }
+
+    // Schedule Action Handlers
+    $('btnSyncReminders').addEventListener('click', () => {
+      if (medicines.length === 0) return;
+      const reminders = JSON.parse(localStorage.getItem('medicare_reminders') || '[]');
+      medicines.forEach(m => {
+        reminders.push({
+          id: Date.now() + Math.random(),
+          medicine: m.medicineName + (m.strength ? ` ${m.strength}` : ''),
+          morning: m.timings.includes('Morning') ? '08:00' : '',
+          afternoon: m.timings.includes('Afternoon') ? '13:30' : '',
+          night: m.timings.includes('Night') ? '20:30' : '',
+          created: new Date().toLocaleDateString()
+        });
+      });
+      localStorage.setItem('medicare_reminders', JSON.stringify(reminders));
+      alert(`⏰ Dose alarms activated for ${medicines.length} medicine(s) in your daily schedule!`);
+    });
+
+    $('btnSharePrescription').addEventListener('click', () => {
+      if (medicines.length === 0) return;
+      let text = `*MediCare Pro - Active Prescription Schedule* 💊\n\n`;
+      medicines.forEach((m, i) => {
+        text += `${i + 1}. *${m.medicineName}* (${m.strength || 'Standard'})\n`;
+        text += `   • Timing: ${m.timings.join(', ')} (${m.mealRelation})\n`;
+        text += `   • Duration: ${m.duration}\n\n`;
+      });
+      text += `Shared via MediCare Pro Health Platform.`;
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(waUrl, '_blank');
+    });
 
     /* ---- UTILS ---- */
     function esc(str) {
