@@ -670,3 +670,15 @@ if (analyzeBtn && resultCard) {
 }
 
 renderSymptoms();
+
+// --- Hash Navigation Handler (Routes #records or #medicines to live pages) ---
+function handleHashNavigation() {
+    const hash = (window.location.hash || '').toLowerCase();
+    if (hash === '#records' || hash === '#record') {
+        window.location.href = '../health-records.html';
+    } else if (hash === '#medicines' || hash === '#medicine') {
+        window.location.href = '../medicines.html';
+    }
+}
+handleHashNavigation();
+window.addEventListener('hashchange', handleHashNavigation);
