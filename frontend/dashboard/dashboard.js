@@ -467,13 +467,13 @@ document.addEventListener('click', function (e) {
 
 
 
-// Advertisement Sliding Carousel
-
+// ==========================================
+// ADVERTISEMENT AUTO-SCROLL CAROUSEL
+// ==========================================
 const adTrack = document.querySelector(".ad-track");
 const adItems = document.querySelectorAll(".ad-item");
-const adDots = document.querySelectorAll(".ad-dot");
-
-let adIndex = 0;
+let adCurrentIndex = 0;
+let adInterval = null;
 
 function getVisibleAdsCount() {
     if (window.innerWidth <= 767) return 1;
@@ -481,75 +481,170 @@ function getVisibleAdsCount() {
     return 3;
 }
 
-function getCarouselStep() {
+function getAdCarouselStep() {
     const visibleAds = getVisibleAdsCount();
     return visibleAds === 1 ? 1 : visibleAds === 2 ? 2 : 3;
+}
+
+function renderAdDots() {
+    const dotsContainer = document.querySelector(".ad-dots");
+    if (!dotsContainer) return;
+    const visibleAds = getVisibleAdsCount();
+    const step = getAdCarouselStep();
+    const maxIndex = Math.max(0, adItems.length - visibleAds);
+
+    dotsContainer.innerHTML = "";
+    for (let i = 0; i <= maxIndex; i += step) {
+        const dot = document.createElement("span");
+        dot.className = "ad-dot";
+        dot.dataset.index = String(i);
+        if (i === adCurrentIndex || (i === 0 && adCurrentIndex < step)) {
+            dot.classList.add("active");
+        }
+        dot.addEventListener("click", function () {
+            adCurrentIndex = i;
+            updateAdCarousel();
+            restartAdTimer();
+        });
+        dotsContainer.appendChild(dot);
+    }
 }
 
 function updateAdCarousel() {
     if (!adTrack || adItems.length === 0) return;
 
     const visibleAds = getVisibleAdsCount();
-    const step = getCarouselStep();
     const maxIndex = Math.max(0, adItems.length - visibleAds);
-    const boundedIndex = Math.min(adIndex, maxIndex);
+
+    if (adCurrentIndex > maxIndex) {
+        adCurrentIndex = 0;
+    } else if (adCurrentIndex < 0) {
+        adCurrentIndex = maxIndex;
+    }
 
     const firstItem = adItems[0];
     const trackGap = parseFloat(window.getComputedStyle(adTrack).gap) || 10;
-    const slideOffset = (firstItem.offsetWidth + trackGap) * boundedIndex;
+    const itemWidth = firstItem.getBoundingClientRect().width;
+    const slideOffset = (itemWidth + trackGap) * adCurrentIndex;
 
-    adTrack.style.transition = "transform 0.6s ease";
+    adTrack.style.transition = "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)";
     adTrack.style.transform = "translateX(-" + slideOffset + "px)";
 
-    adDots.forEach(function (dot) {
+    const dots = document.querySelectorAll(".ad-dot");
+    dots.forEach(function (dot) {
         const dotIndex = Number(dot.dataset.index || 0);
-        dot.classList.toggle("active", dotIndex === boundedIndex);
+        const isActive = (visibleAds === 3)
+            ? (dotIndex === 0 && adCurrentIndex < 3) || (dotIndex === 3 && adCurrentIndex >= 3)
+            : (dotIndex === adCurrentIndex);
+        dot.classList.toggle("active", isActive);
     });
-
-    adIndex = boundedIndex;
-    if (step > 1 && boundedIndex + step >= adItems.length) {
-        adIndex = 0;
-    }
 }
 
 function slideAds() {
     if (!adTrack || adItems.length === 0) return;
 
     const visibleAds = getVisibleAdsCount();
-    const step = getCarouselStep();
+    const step = getAdCarouselStep();
     const maxIndex = Math.max(0, adItems.length - visibleAds);
 
-    adIndex += step;
-    if (adIndex > maxIndex) {
-        adIndex = 0;
+    if (adCurrentIndex >= maxIndex) {
+        adCurrentIndex = 0;
+    } else {
+        adCurrentIndex = Math.min(adCurrentIndex + step, maxIndex);
     }
 
     updateAdCarousel();
 }
 
-if (adTrack && adItems.length > 0) {
-    let adInterval = setInterval(slideAds, 3500);
+function startAdTimer() {
+    if (adInterval) clearInterval(adInterval);
+    adInterval = setInterval(function () {
+        slideAds();
+    }, 3000);
+}
 
-    const banner = adTrack.closest(".health-banner");
-    if (banner) {
-        banner.addEventListener("mouseenter", function () {
-            clearInterval(adInterval);
-        });
-        banner.addEventListener("mouseleave", function () {
-            clearInterval(adInterval);
-            adInterval = setInterval(slideAds, 3500);
+function stopAdTimer() {
+    if (adInterval) {
+        clearInterval(adInterval);
+        adInterval = null;
+    }
+}
+
+function restartAdTimer() {
+    startAdTimer();
+}
+
+// Ensure auto-scroll starts immediately and resumes on tab visibility
+if (adTrack && adItems.length > 0) {
+    renderAdDots();
+    updateAdCarousel();
+    startAdTimer();
+
+    document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+            startAdTimer();
+        }
+    });
+
+    const prevBtn = document.getElementById("adPrevBtn");
+    const nextBtn = document.getElementById("adNextBtn");
+
+    if (prevBtn) {
+        prevBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const visibleAds = getVisibleAdsCount();
+            const step = getAdCarouselStep();
+            const maxIndex = Math.max(0, adItems.length - visibleAds);
+
+            if (adCurrentIndex <= 0) {
+                adCurrentIndex = maxIndex;
+            } else {
+                adCurrentIndex = Math.max(0, adCurrentIndex - step);
+            }
+            updateAdCarousel();
+            restartAdTimer();
         });
     }
 
-    window.addEventListener("resize", function () {
-        updateAdCarousel();
-    });
-
-    adDots.forEach(function (dot, i) {
-        dot.addEventListener("click", function () {
-            adIndex = i;
-            updateAdCarousel();
+    if (nextBtn) {
+        nextBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            slideAds();
+            restartAdTimer();
         });
+    }
+
+    // Touch swipe support for mobile/tablets
+    let touchStartX = 0;
+    let touchEndX = 0;
+    adTrack.addEventListener("touchstart", function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    adTrack.addEventListener("touchend", function (e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 40) {
+            if (diff < 0) {
+                slideAds();
+            } else {
+                const visibleAds = getVisibleAdsCount();
+                const step = getAdCarouselStep();
+                const maxIndex = Math.max(0, adItems.length - visibleAds);
+                if (adCurrentIndex <= 0) {
+                    adCurrentIndex = maxIndex;
+                } else {
+                    adCurrentIndex = Math.max(0, adCurrentIndex - step);
+                }
+                updateAdCarousel();
+            }
+            restartAdTimer();
+        }
+    }, { passive: true });
+
+    window.addEventListener("resize", function () {
+        renderAdDots();
+        updateAdCarousel();
     });
 }
 

@@ -850,6 +850,56 @@ body {
     border-radius: 10px;
 }
 
+.ad-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    backdrop-filter: blur(4px);
+}
+
+.health-banner:hover .ad-arrow {
+    opacity: 1;
+}
+
+.ad-arrow:hover {
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.22);
+}
+
+.ad-arrow-prev {
+    left: 12px;
+}
+
+.ad-arrow-next {
+    right: 12px;
+}
+
+@media (max-width: 768px) {
+    .ad-arrow {
+        opacity: 0.9;
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+}
+
 
 /* =========================
    SECTION
