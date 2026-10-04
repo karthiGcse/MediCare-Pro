@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Check Symptoms | MediSphere</title>
-  <link rel="stylesheet" href="check-symptoms.css" />
+  <link rel="stylesheet" href="check-symptoms.css?v=20261004_1" />
 </head>
 <body>
   <main class="symptom-shell">
@@ -151,6 +151,36 @@
             <p id="guidanceText">Please provide the symptoms and age information to begin your assessment.</p>
           </div>
 
+          <!-- OPTION 1: WHY DID THIS HAPPEN (ஏன் வந்திருக்கும்?) -->
+          <div class="detail-card symptom-breakdown-card causes-theme" id="whyCausesCard">
+            <div class="breakdown-header">
+              <span class="breakdown-badge badge-why">🔍 Why Did This Happen? / காரணம்</span>
+              <h3>Possible Causes &amp; Triggers (ஏன் வந்திருக்கும்?)</h3>
+              <p class="breakdown-subtext">Clinical reasons and common biological causes behind your symptoms explained simply:</p>
+            </div>
+            <div id="whyCausesList" class="breakdown-points-list">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+
+          <!-- OPTION 2: WHAT TO DO NEXT (அடுத்து என்ன செய்ய வேண்டும்?) -->
+          <div class="detail-card symptom-breakdown-card action-theme" id="whatNextCard">
+            <div class="breakdown-header">
+              <span class="breakdown-badge badge-next">📋 Action Plan / செய்ய வேண்டியவை</span>
+              <h3>What Should You Do Next? (அடுத்து என்ன செய்ய வேண்டும்?)</h3>
+              <p class="breakdown-subtext">Step-by-step practical home recovery guide and when to consult a doctor:</p>
+            </div>
+            <div id="whatNextList" class="breakdown-points-list">
+              <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Direct Action Shortcuts -->
+            <div class="breakdown-action-bar">
+              <a href="telemedicine.html" class="btn-action-tele">💬 Talk to Doctor Now (Telemedicine)</a>
+              <a href="appointments.html" class="btn-action-apt">📅 Book In-Person Appointment</a>
+            </div>
+          </div>
+
           <div class="meta-boxes">
             <div class="meta-box">
               <span class="meta-label">Severity</span>
@@ -205,7 +235,7 @@
     </div>
   </main>
 
-  <script src="check-symptoms.js"></script>
+  <script src="check-symptoms.js?v=20261004_1"></script>
     <script src="js/firebase-config.js"></script>
     <script type="module" src="js/firebase-client.js"></script>
     <script src="js/cloud-auth.js"></script>
