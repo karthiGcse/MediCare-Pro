@@ -75,18 +75,31 @@
     }
 
     async function renderPatientData(uid) {
-        const appointments = await getDocsByField("appointments", "patientId", uid);
+        let appointments = await getDocsByField("appointments", "patientId", uid);
+        
+        // Also check local storage appointments for seamless instant booking reflection
+        try {
+            const localApts = JSON.parse(localStorage.getItem('medicare_local_appointments') || '[]');
+            if (localApts && localApts.length) {
+                appointments = [...localApts, ...appointments];
+            }
+        } catch (_) {}
+
         renderAppointments(appointments, "patient");
 
         const prescriptions = await getDocsByField("prescriptions", "patientId", uid);
-        renderStatusSection("My Prescriptions", prescriptions, prescription =>
-            `${escapeHtml(prescription.medicineName || "Prescription")} — ${escapeHtml(prescription.status || "active")}`
-        );
+        if (prescriptions.length) {
+            renderStatusSection("My Prescriptions", prescriptions, prescription =>
+                `${escapeHtml(prescription.medicineName || "Prescription")} — ${escapeHtml(prescription.status || "active")}`
+            );
+        }
 
         const orders = await getDocsByField("orders", "patientId", uid);
-        renderStatusSection("Medicine Orders", orders, order =>
-            `Order ${escapeHtml(order.orderNumber || order.id)} — ${escapeHtml(order.status || "pending")}`
-        );
+        if (orders.length) {
+            renderStatusSection("Medicine Orders", orders, order =>
+                `Order ${escapeHtml(order.orderNumber || order.id)} — ${escapeHtml(order.status || "pending")}`
+            );
+        }
     }
 
     async function renderDoctorData(uid) {
@@ -114,52 +127,43 @@
     }
 
     async function getDocsByField(collectionName, field, value) {
-        const snapshot = await cloud.getDocs(
-            cloud.query(
-                cloud.collection(cloud.db, collectionName),
-                cloud.where(field, "==", value),
-                cloud.limit(50)
-            )
-        );
-
-        return snapshot.docs.map(document => ({ id: document.id, ...document.data() }));
+        try {
+            const snapshot = await cloud.getDocs(
+                cloud.query(
+                    cloud.collection(cloud.db, collectionName),
+                    cloud.where(field, "==", value),
+                    cloud.limit(50)
+                )
+            );
+            return snapshot.docs.map(document => ({ id: document.id, ...document.data() }));
+        } catch (_) {
+            return [];
+        }
     }
 
     function renderAppointments(records, role, type = "appointments") {
-        const card = document.querySelector(".appointment-card");
+        const card = document.getElementById("mainAppointmentCard") || document.querySelector(".appointment-card");
         if (!card) return;
 
-        if (!records.length) {
-            card.innerHTML = `
-                <div class="appointment-details">
-                    <h3>${type === "orders" ? "No live orders yet" : "No upcoming appointments"}</h3>
-                    <p>${role === "patient" ? "Your confirmed appointments will appear here." : "Live records from your cloud account will appear here."}</p>
-                </div>
-            `;
-            return;
+        // If patient has custom booked records, update the active card details dynamically
+        if (records && records.length) {
+            const first = records[0];
+            const docNameEl = document.getElementById("dashDocName");
+            const docSpecEl = document.getElementById("dashDocSpecialty");
+            
+            if (docNameEl) {
+                docNameEl.textContent = first.doctorName || first.displayName?.text || "Consultant Doctor";
+            }
+            if (docSpecEl) {
+                docSpecEl.textContent = first.hospital || first.formattedAddress || "Verified Hospital & Clinic";
+            }
         }
-
-        const first = records[0];
-        const title = type === "orders"
-            ? `Order ${escapeHtml(first.orderNumber || first.id)}`
-            : role === "doctor"
-                ? "Patient consultation"
-                : "Upcoming appointment";
-        const date = formatTimestamp(first.appointmentDate || first.createdAt);
-        const status = first.status || "pending";
-
-        card.innerHTML = `
-            <div class="appointment-details">
-                <h3>${title}</h3>
-                <p>${date || "Date not provided"}</p>
-                <span>${escapeHtml(status)}</span>
-            </div>
-            <button type="button" class="cloud-action-button">View Details</button>
-        `;
     }
 
     function renderStatusSection(title, records, formatter) {
-        const sections = Array.from(document.querySelectorAll(".dashboard-section"));
+        // If there are no live records, do NOT inject empty state boxes into the UI
+        if (!records || !records.length) return;
+
         const appointmentSection = document.getElementById("appointments");
         if (!appointmentSection || !appointmentSection.parentElement) return;
 
@@ -177,12 +181,6 @@
 
         section.querySelector("h2").textContent = title;
         const list = section.querySelector(".cloud-record-list");
-
-        if (!records.length) {
-            list.innerHTML = `<div class="cloud-empty-state">No live records available.</div>`;
-            return;
-        }
-
         list.innerHTML = records.slice(0, 6).map(formatter).map(text =>
             `<div class="cloud-record-row"><span>${text}</span></div>`
         ).join("");
