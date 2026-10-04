@@ -187,13 +187,17 @@
     }
 
     function showProfile(profile, user) {
-        const details = [
-            ["Name", profile.name || user.displayName || "—"],
-            ["Email", profile.email || user.email || "—"],
-            ["Role", profile.role || "—"],
-            ["Account", profile.accountStatus || "active"]
-        ];
-        alert(details.map(([label, value]) => `${label}: ${value}`).join("\n"));
+        if (typeof window.openProfileModal === "function") {
+            window.openProfileModal(profile, user);
+        } else {
+            const details = [
+                ["Name", profile.name || user.displayName || "—"],
+                ["Email", profile.email || user.email || "—"],
+                ["Role", profile.role || "—"],
+                ["Account", profile.accountStatus || "active"]
+            ];
+            alert(details.map(([label, value]) => `${label}: ${value}`).join("\n"));
+        }
     }
 
     function formatTimestamp(value) {

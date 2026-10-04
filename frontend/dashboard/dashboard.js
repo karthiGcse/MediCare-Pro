@@ -682,3 +682,281 @@ function handleHashNavigation() {
 }
 handleHashNavigation();
 window.addEventListener('hashchange', handleHashNavigation);
+
+// --- Toast Notification Helper ---
+function showToastMessage(msg) {
+    let container = document.getElementById("medToastContainer");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "medToastContainer";
+        document.body.appendChild(container);
+    }
+    const toast = document.createElement("div");
+    toast.className = "med-toast";
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// ==========================================
+// PATIENT PROFILE MODAL FUNCTIONALITY
+// ==========================================
+const DEFAULT_PATIENT_PROFILE = {
+    name: "Karthi G",
+    email: "karthiofficialcse@gmail.com",
+    role: "patient",
+    phone: "+91 98421 56789",
+    blood: "O +ve",
+    dob: "15 Jun 2002 (24 Yrs)",
+    city: "Erode, Tamil Nadu",
+    abha: "91-8201-4491-0192@abdm",
+    insurance: "Chief Minister Comprehensive Health Insurance Scheme (CMCHIS - TN)",
+    emergency: "S. Gunasekaran (Father) - +91 94432 11223"
+};
+
+function getStoredProfile() {
+    try {
+        const stored = localStorage.getItem("medicare_patient_profile");
+        if (stored) {
+            return { ...DEFAULT_PATIENT_PROFILE, ...JSON.parse(stored) };
+        }
+    } catch (e) {
+        console.warn("Could not read stored profile:", e);
+    }
+    return { ...DEFAULT_PATIENT_PROFILE };
+}
+
+function saveStoredProfile(data) {
+    try {
+        localStorage.setItem("medicare_patient_profile", JSON.stringify(data));
+    } catch (e) {
+        console.warn("Could not save profile:", e);
+    }
+}
+
+window.openProfileModal = function (cloudProfile, cloudUser) {
+    const modal = document.getElementById("myProfileModal");
+    if (!modal) return;
+
+    let profile = getStoredProfile();
+
+    if (cloudProfile || cloudUser) {
+        if (cloudProfile && cloudProfile.name) profile.name = cloudProfile.name;
+        else if (cloudUser && cloudUser.displayName) profile.name = cloudUser.displayName;
+
+        if (cloudProfile && cloudProfile.email) profile.email = cloudProfile.email;
+        else if (cloudUser && cloudUser.email) profile.email = cloudUser.email;
+
+        if (cloudProfile && cloudProfile.role) profile.role = cloudProfile.role;
+        if (cloudProfile && cloudProfile.phone) profile.phone = cloudProfile.phone;
+        if (cloudProfile && cloudProfile.bloodGroup) profile.blood = cloudProfile.bloodGroup;
+        if (cloudProfile && cloudProfile.city) profile.city = cloudProfile.city;
+        if (cloudProfile && cloudProfile.abhaId) profile.abha = cloudProfile.abhaId;
+        if (cloudProfile && cloudProfile.insurance) profile.insurance = cloudProfile.insurance;
+        if (cloudProfile && cloudProfile.emergencyContact) profile.emergency = cloudProfile.emergencyContact;
+    }
+
+    // Avatar initials
+    const initials = (profile.name || "KG")
+        .split(" ")
+        .map(word => word[0])
+        .filter(Boolean)
+        .slice(0, 2)
+        .join("")
+        .toUpperCase() || "KG";
+
+    const avatarCircle = document.getElementById("profAvatarCircle");
+    if (avatarCircle) avatarCircle.textContent = initials;
+
+    const nameDisplay = document.getElementById("profNameDisplay");
+    if (nameDisplay) nameDisplay.textContent = profile.name;
+
+    const emailDisplay = document.getElementById("profEmailDisplay");
+    if (emailDisplay) emailDisplay.textContent = profile.email;
+
+    const rolePill = document.getElementById("profRolePill");
+    if (rolePill) {
+        const role = (profile.role || "patient").toLowerCase();
+        if (role === "doctor") rolePill.textContent = "👨‍⚕️ Verified Doctor";
+        else if (role === "pharmacist") rolePill.textContent = "💊 Verified Pharmacist";
+        else if (role === "admin") rolePill.textContent = "⚡ Administrator";
+        else rolePill.textContent = "🟢 Verified Patient";
+    }
+
+    // Inputs
+    const phoneInput = document.getElementById("profInputPhone");
+    if (phoneInput) phoneInput.value = profile.phone || "";
+
+    const bloodInput = document.getElementById("profInputBlood");
+    if (bloodInput) bloodInput.value = profile.blood || "";
+
+    const dobInput = document.getElementById("profInputDob");
+    if (dobInput) dobInput.value = profile.dob || "";
+
+    const cityInput = document.getElementById("profInputCity");
+    if (cityInput) cityInput.value = profile.city || "";
+
+    const abhaInput = document.getElementById("profInputAbha");
+    if (abhaInput) abhaInput.value = profile.abha || "";
+
+    const insInput = document.getElementById("profInputInsurance");
+    if (insInput) insInput.value = profile.insurance || "";
+
+    const emergInput = document.getElementById("profInputEmergency");
+    if (emergInput) emergInput.value = profile.emergency || "";
+
+    // Reset edit state
+    window.cancelEditProfile();
+
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+};
+
+window.closeProfileModal = function () {
+    const modal = document.getElementById("myProfileModal");
+    if (modal) {
+        modal.style.display = "none";
+    }
+    document.body.style.overflow = "";
+};
+
+window.toggleEditProfile = function () {
+    const editFields = [
+        "profInputPhone",
+        "profInputBlood",
+        "profInputDob",
+        "profInputCity",
+        "profInputInsurance",
+        "profInputEmergency"
+    ];
+
+    editFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = false;
+            el.style.borderColor = "#10b981";
+            el.style.backgroundColor = "#ffffff";
+        }
+    });
+
+    const saveBar = document.getElementById("profSaveBar");
+    if (saveBar) saveBar.style.display = "flex";
+
+    const editBtn = document.getElementById("profEditBtn");
+    if (editBtn) editBtn.style.display = "none";
+
+    const phoneInput = document.getElementById("profInputPhone");
+    if (phoneInput) phoneInput.focus();
+};
+
+window.cancelEditProfile = function () {
+    const editFields = [
+        "profInputPhone",
+        "profInputBlood",
+        "profInputDob",
+        "profInputCity",
+        "profInputInsurance",
+        "profInputEmergency"
+    ];
+
+    const profile = getStoredProfile();
+
+    if (document.getElementById("profInputPhone")) document.getElementById("profInputPhone").value = profile.phone;
+    if (document.getElementById("profInputBlood")) document.getElementById("profInputBlood").value = profile.blood;
+    if (document.getElementById("profInputDob")) document.getElementById("profInputDob").value = profile.dob;
+    if (document.getElementById("profInputCity")) document.getElementById("profInputCity").value = profile.city;
+    if (document.getElementById("profInputInsurance")) document.getElementById("profInputInsurance").value = profile.insurance;
+    if (document.getElementById("profInputEmergency")) document.getElementById("profInputEmergency").value = profile.emergency;
+
+    editFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = true;
+            el.style.borderColor = "#e2e8f0";
+            el.style.backgroundColor = "";
+        }
+    });
+
+    const saveBar = document.getElementById("profSaveBar");
+    if (saveBar) saveBar.style.display = "none";
+
+    const editBtn = document.getElementById("profEditBtn");
+    if (editBtn) editBtn.style.display = "inline-block";
+};
+
+window.saveProfileDetails = function (event) {
+    if (event) event.preventDefault();
+
+    const profile = getStoredProfile();
+
+    const phone = document.getElementById("profInputPhone")?.value?.trim();
+    const blood = document.getElementById("profInputBlood")?.value?.trim();
+    const dob = document.getElementById("profInputDob")?.value?.trim();
+    const city = document.getElementById("profInputCity")?.value?.trim();
+    const insurance = document.getElementById("profInputInsurance")?.value?.trim();
+    const emergency = document.getElementById("profInputEmergency")?.value?.trim();
+
+    if (phone) profile.phone = phone;
+    if (blood) profile.blood = blood;
+    if (dob) profile.dob = dob;
+    if (city) profile.city = city;
+    if (insurance) profile.insurance = insurance;
+    if (emergency) profile.emergency = emergency;
+
+    saveStoredProfile(profile);
+
+    // If city changed, update navbar location button if present
+    const locBtnText = document.getElementById("locCurrentCity");
+    if (locBtnText && city) {
+        locBtnText.textContent = city.split(",")[0].trim();
+    }
+
+    window.cancelEditProfile();
+    showToastMessage("✅ Profile details updated successfully!");
+};
+
+window.handleProfileSignOut = function () {
+    if (confirm("Are you sure you want to sign out of MediCare Pro?")) {
+        try {
+            if (window.MediCareAuth && typeof window.MediCareAuth.signOut === "function") {
+                window.MediCareAuth.signOut().then(() => {
+                    window.location.href = "../index.html";
+                }).catch(() => {
+                    window.location.href = "../index.html";
+                });
+                return;
+            }
+        } catch (_) {}
+        window.location.href = "../index.html";
+    }
+};
+
+// Wire profile buttons on DOM ready
+document.addEventListener("DOMContentLoaded", function () {
+    const profileBtns = document.querySelectorAll(".profile-button");
+    profileBtns.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.openProfileModal();
+        });
+    });
+
+    const profileModalEl = document.getElementById("myProfileModal");
+    if (profileModalEl) {
+        profileModalEl.addEventListener("click", function (e) {
+            if (e.target === profileModalEl) {
+                window.closeProfileModal();
+            }
+        });
+    }
+});
+
+// Close modal on Escape
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+        window.closeProfileModal();
+    }
+});
