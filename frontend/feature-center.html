@@ -10,4 +10,13 @@
 <div id="featureRoot"></div>
 </div>
 <script src="js/firebase-config.js"></script><script type="module" src="js/firebase-client.js"></script><script src="js/cloud-auth.js"></script><script src="portal.js"></script><script src="feature-center.js"></script>
+
+<script>
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+            e.target.src = 'https://placehold.co/400x300/f8fafc/94a3b8?text=Image+Unavailable';
+            e.target.style.objectFit = 'contain';
+        }
+    }, true);
+</script>
 </body></html>

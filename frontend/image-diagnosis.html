@@ -269,6 +269,15 @@
       background: var(--red-light); border: 1px solid #fecaca;
       border-radius: var(--radius-sm); font-size: 12px; color: var(--red); line-height: 1.7;
     }
+    
+    /* ===== INFO BOXES ===== */
+    .info-box {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px;
+      border-left: 4px solid var(--green);
+    }
+    .info-box-title { font-weight: 700; font-size: 15px; color: var(--gray-900); margin-bottom: 6px; }
+    .info-box-content { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
 
     /* ===== HISTORY ===== */
     .history-item {
@@ -569,15 +578,15 @@
         if (!diagnosisText) {
           diagnosisText = 
             "**Preliminary Clinical Visual Assessment:**\n\n" +
-            "• **Observation:** Visual record received and processed through clinical image inspection.\n" +
-            "• **Key Indications:** Documented area displays anatomical/dermatological features consistent with common clinical presentations. No acute trauma anomalies flagged in standard scan parameters.\n" +
-            "• **Recommended Action:** Monitor for any localized swelling, redness, or discomfort. Maintain clean, dry conditions.\n" +
-            "• **Consultation:** We recommend sharing this image with a certified dermatologist or general physician through our Live Appointments portal for definitive medical advice.\n\n" +
+            "• **What is the problem?**: Visual record received and processed through clinical image inspection.\n" +
+            "• **Reason/Cause**: Documented area displays features consistent with common clinical presentations. No acute anomalies flagged in standard parameters.\n" +
+            "• **Treatment / Next Steps**: Monitor for any localized swelling or discomfort. <span style='color:red; font-weight:bold;'>Maintain clean, dry conditions.</span>\n" +
+            "• **Recommended Doctor**: We recommend sharing this image with a certified Dermatologist or General Physician through our Live Appointments portal.\n\n" +
             "*Disclaimer: This observation is generated for preliminary informational guidance only and does not substitute for a formal clinical diagnosis.*";
         }
 
         loadingBox.classList.remove('active');
-        resultContent.innerHTML = diagnosisText.replace(/\n/g, '<br>');
+        resultContent.innerHTML = formatDiagnosis(diagnosisText);
         resultBox.classList.add('visible');
         resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         showStatus('✅ Clinical Visual Analysis Complete!', 'success');
@@ -587,13 +596,63 @@
         loadingBox.classList.remove('active');
         const fallbackText = 
           "**Clinical Image Summary:**\n\n" +
-          "• **Status:** Image uploaded and recorded.\n" +
-          "• **Next Steps:** Please connect with a verified doctor via our Appointments portal for an evaluation.\n\n" +
+          "• **What is the problem?**: Image uploaded and recorded, but AI analysis is offline.\n" +
+          "• **Reason/Cause**: Server connection issue.\n" +
+          "• **Treatment / Next Steps**: <span style='color:red; font-weight:bold;'>Please connect with a verified doctor via our Appointments portal for a real evaluation.</span>\n" +
+          "• **Recommended Doctor**: General Physician.\n\n" +
           "*Disclaimer: Informational guidance only.*";
-        resultContent.innerHTML = fallbackText.replace(/\n/g, '<br>');
+        resultContent.innerHTML = formatDiagnosis(fallbackText);
         resultBox.classList.add('visible');
         showStatus('✅ Analysis recorded!', 'success');
       }
+    }
+
+    /* ---- FORMATTING ---- */
+    function formatDiagnosis(text) {
+      const lines = text.split('\n');
+      let html = '';
+      let disclaimer = '';
+      let boxes = [];
+      let currentBox = null;
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) continue;
+
+        if (line.includes('*Disclaimer:') || line.includes('Disclaimer:')) {
+          disclaimer = line;
+          continue;
+        }
+
+        const match = line.match(/^[•\-\*]*\s*\*\*(.*?)\*\*\s*[:-]?\s*(.*)/);
+        if (match) {
+          if (currentBox) boxes.push(currentBox);
+          currentBox = { title: match[1], content: match[2] };
+        } else if (currentBox) {
+          currentBox.content += ' ' + line;
+        } else {
+          if (line.includes('**')) line = line.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+          html += `<div style="margin-bottom:16px;">${line}</div>`;
+        }
+      }
+      if (currentBox) boxes.push(currentBox);
+
+      boxes.forEach(box => {
+        let content = box.content.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        html += `
+          <div class="info-box">
+            <div class="info-box-title">${box.title}</div>
+            <div class="info-box-content">${content}</div>
+          </div>
+        `;
+      });
+
+      if (disclaimer) {
+        let dText = disclaimer.replace(/\*/g, '');
+        html += `<div style="margin-top:20px; font-size:13px; color:var(--gray-500); font-style:italic;">${dText}</div>`;
+      }
+
+      return html;
     }
 
     /* ---- HISTORY ---- */
@@ -624,7 +683,7 @@
       historyList.querySelectorAll('.history-item').forEach(item => {
         item.addEventListener('click', () => {
           const h = history[parseInt(item.dataset.idx)];
-          resultContent.innerHTML = h.diagnosis.replace(/\n/g, '<br>');
+          resultContent.innerHTML = formatDiagnosis(h.diagnosis);
           resultBox.classList.add('visible');
           resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
@@ -648,5 +707,14 @@
   })();
   </script>
 
+
+<script>
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+            e.target.src = 'https://placehold.co/400x300/f8fafc/94a3b8?text=Image+Unavailable';
+            e.target.style.objectFit = 'contain';
+        }
+    }, true);
+</script>
 </body>
 </html>

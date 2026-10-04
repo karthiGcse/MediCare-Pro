@@ -8,4 +8,13 @@
 </div>
 <script src="js/firebase-config.js"></script><script type="module" src="js/firebase-client.js"></script><script src="js/cloud-auth.js"></script><script src="portal.js"></script>
 <script>document.addEventListener('medicare:portal-ready',({detail})=>{const {cloud}=detail;document.querySelectorAll('[data-type]').forEach(button=>button.addEventListener('click',()=>{const box=document.getElementById('placesResults');if(!navigator.geolocation){box.innerHTML='<div class="portal-status portal-danger">Location is not supported by this browser.</div>';return;}box.innerHTML='<div class="portal-empty">Requesting your location...</div>';navigator.geolocation.getCurrentPosition(async pos=>{try{const token=await cloud.auth.currentUser.getIdToken();const params=new URLSearchParams({lat:String(pos.coords.latitude),lng:String(pos.coords.longitude),type:button.dataset.type});const r=await fetch('/api/places/nearby?'+params,{headers:{Authorization:'Bearer '+token}});const data=await r.json();if(!r.ok)throw new Error(data.message||'Nearby search failed');box.innerHTML=data.results?.length?data.results.map(p=>`<div class="portal-record"><strong>${portalEscape(p.displayName?.text||'Healthcare place')}</strong><div>${portalEscape(p.formattedAddress||'')}</div>${p.googleMapsUri?`<a href="${p.googleMapsUri}" target="_blank" rel="noopener">Open in Google Maps</a>`:''}</div>`).join(''):'<div class="portal-empty">No live places were returned for this area.</div>';}catch(err){console.error(err);box.innerHTML=`<div class="portal-status portal-danger">${portalEscape(err.message)}</div>`;}},()=>{box.innerHTML='<div class="portal-status portal-danger">Location permission was not granted.</div>';},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});}));});</script>
+
+<script>
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+            e.target.src = 'https://placehold.co/400x300/f8fafc/94a3b8?text=Image+Unavailable';
+            e.target.style.objectFit = 'contain';
+        }
+    }, true);
+</script>
 </body></html>

@@ -397,8 +397,10 @@
             padding: 18px;
             box-shadow: var(--shadow-xs);
             transition: all .2s;
+            overflow: hidden;
         }
         .food-card:hover { border-color: var(--primary-border); box-shadow: var(--shadow-sm); }
+        .food-img { width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 14px; background: var(--gray-100); }
         .food-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
         .food-name { font-size: 15px; font-weight: 700; color: var(--gray-900); }
         .food-cal { font-size: 14px; font-weight: 800; color: var(--primary); white-space: nowrap; }
@@ -946,25 +948,25 @@
 
         // Indian Food Database
         const indianFoods = [
-            { name: 'Idli (Steamed Rice & Urad Cake)', cat: 'grains', serving: '2 pieces (100g)', cal: 130, p: 4.0, c: 26.0, f: 0.6 },
-            { name: 'Plain Dosa (Crispy Crepe)', cat: 'grains', serving: '1 medium (80g)', cal: 168, p: 4.2, c: 29.0, f: 3.8 },
-            { name: 'Ragi Dosai (Finger Millet Crepe)', cat: 'grains', serving: '1 piece (80g)', cal: 135, p: 3.5, c: 25.0, f: 2.2 },
-            { name: 'Kambu (Pearl Millet) Koozh', cat: 'grains', serving: '1 tall glass (250ml)', cal: 120, p: 3.8, c: 22.0, f: 1.8 },
-            { name: 'Brown Rice (Cooked)', cat: 'grains', serving: '1 cup (150g)', cal: 165, p: 3.5, c: 35.0, f: 1.4 },
-            { name: 'Whole Wheat Chapati / Phulka', cat: 'grains', serving: '1 medium (35g)', cal: 104, p: 3.2, c: 21.0, f: 0.8 },
-            { name: 'Sambar (Mixed Vegetable Dal)', cat: 'dal', serving: '1 medium bowl (150ml)', cal: 110, p: 4.5, c: 16.0, f: 3.0 },
-            { name: 'Yellow Moong Dal Tadka', cat: 'dal', serving: '1 bowl (150g)', cal: 148, p: 7.5, c: 20.0, f: 4.2 },
-            { name: 'Chana Masala (Chickpeas)', cat: 'dal', serving: '1 bowl (150g)', cal: 190, p: 9.0, c: 28.0, f: 5.0 },
-            { name: 'Sundal (Boiled Chana with Mustard)', cat: 'dal', serving: '1 small cup (100g)', cal: 140, p: 6.5, c: 22.0, f: 3.0 },
-            { name: 'Boiled Egg (Whole)', cat: 'dairy', serving: '1 large egg (50g)', cal: 74, p: 6.3, c: 0.4, f: 5.0 },
-            { name: 'Egg White (Boiled)', cat: 'dairy', serving: '1 egg white (33g)', cal: 17, p: 3.6, c: 0.2, f: 0.1 },
-            { name: 'Fresh Paneer (Cottage Cheese)', cat: 'dairy', serving: '100g cube', cal: 265, p: 18.3, c: 3.2, f: 20.5 },
-            { name: 'Curd / Plain Yogurt', cat: 'dairy', serving: '1 small bowl (100g)', cal: 60, p: 3.5, c: 4.5, f: 3.0 },
-            { name: 'Tender Coconut Water', cat: 'veg', serving: '1 full coconut (240ml)', cal: 45, p: 1.0, c: 9.0, f: 0.2 },
-            { name: 'Keerai Poriyal (Spinach Sauté)', cat: 'veg', serving: '1 cup (120g)', cal: 75, p: 3.0, c: 6.0, f: 4.5 },
-            { name: 'Sprouted Moong (Raw Salad)', cat: 'dal', serving: '100g', cal: 105, p: 7.2, c: 18.0, f: 0.8 },
-            { name: 'Chicken Breast (Cooked, Boneless)', cat: 'nonveg', serving: '100g', cal: 165, p: 31.0, c: 0.0, f: 3.6 },
-            { name: 'South Indian Fish Curry', cat: 'nonveg', serving: '1 serving with gravy', cal: 180, p: 19.0, c: 4.0, f: 9.5 }
+            { name: 'Idli (Steamed Rice Cake)', cat: 'grains', serving: '2 pieces (100g)', cal: 130, p: 4.0, c: 26.0, f: 0.6, img: 'https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Plain Dosa (Crispy Crepe)', cat: 'grains', serving: '1 medium (80g)', cal: 168, p: 4.2, c: 29.0, f: 3.8, img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Ragi Dosai (Millet Crepe)', cat: 'grains', serving: '1 piece (80g)', cal: 135, p: 3.5, c: 25.0, f: 2.2, img: 'https://images.unsplash.com/photo-1627308595229-7830f5c90683?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Kambu Koozh', cat: 'grains', serving: '1 glass (250ml)', cal: 120, p: 3.8, c: 22.0, f: 1.8, img: 'https://images.unsplash.com/photo-1542691457-cbe4df041ef2?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Brown Rice (Cooked)', cat: 'grains', serving: '1 cup (150g)', cal: 165, p: 3.5, c: 35.0, f: 1.4, img: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Whole Wheat Chapati', cat: 'grains', serving: '1 medium (35g)', cal: 104, p: 3.2, c: 21.0, f: 0.8, img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Sambar (Veg Dal)', cat: 'dal', serving: '1 bowl (150ml)', cal: 110, p: 4.5, c: 16.0, f: 3.0, img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Moong Dal Tadka', cat: 'dal', serving: '1 bowl (150g)', cal: 148, p: 7.5, c: 20.0, f: 4.2, img: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Chana Masala', cat: 'dal', serving: '1 bowl (150g)', cal: 190, p: 9.0, c: 28.0, f: 5.0, img: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Sundal (Boiled Chana)', cat: 'dal', serving: '1 cup (100g)', cal: 140, p: 6.5, c: 22.0, f: 3.0, img: 'https://images.unsplash.com/photo-1605333396914-256163b848c4?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Boiled Egg (Whole)', cat: 'dairy', serving: '1 large egg (50g)', cal: 74, p: 6.3, c: 0.4, f: 5.0, img: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Egg White (Boiled)', cat: 'dairy', serving: '1 egg white (33g)', cal: 17, p: 3.6, c: 0.2, f: 0.1, img: 'https://images.unsplash.com/photo-1569246294372-ed319c674f14?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Fresh Paneer', cat: 'dairy', serving: '100g cube', cal: 265, p: 18.3, c: 3.2, f: 20.5, img: 'https://images.unsplash.com/photo-1631452180519-c014fe946cea?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Curd / Plain Yogurt', cat: 'dairy', serving: '1 bowl (100g)', cal: 60, p: 3.5, c: 4.5, f: 3.0, img: 'https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Tender Coconut Water', cat: 'veg', serving: '1 coconut (240ml)', cal: 45, p: 1.0, c: 9.0, f: 0.2, img: 'https://images.unsplash.com/photo-1588722253457-4148b8981e4b?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Keerai Poriyal (Spinach)', cat: 'veg', serving: '1 cup (120g)', cal: 75, p: 3.0, c: 6.0, f: 4.5, img: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Sprouted Moong Salad', cat: 'dal', serving: '100g', cal: 105, p: 7.2, c: 18.0, f: 0.8, img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80' },
+            { name: 'Chicken Breast (Grilled)', cat: 'nonveg', serving: '100g', cal: 165, p: 31.0, c: 0.0, f: 3.6, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=400&q=80' },
+            { name: 'South Indian Fish Curry', cat: 'nonveg', serving: '1 serving', cal: 180, p: 19.0, c: 4.0, f: 9.5, img: 'https://images.unsplash.com/photo-1589302168068-964664d93cb0?auto=format&fit=crop&w=400&q=80' }
         ];
 
         let activeFoodCat = 'all';
@@ -997,6 +999,7 @@
 
             grid.innerHTML = filtered.map(f => `
                 <div class="food-card">
+                    <img src="${f.img}" class="food-img" alt="${f.name}">
                     <div class="food-header">
                         <span class="food-name">${f.name}</span>
                         <span class="food-cal">${f.cal} kcal</span>
@@ -1016,5 +1019,14 @@
             renderFoods();
         });
     </script>
+
+<script>
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+            e.target.src = 'https://placehold.co/400x300/f8fafc/94a3b8?text=Image+Unavailable';
+            e.target.style.objectFit = 'contain';
+        }
+    }, true);
+</script>
 </body>
 </html>
